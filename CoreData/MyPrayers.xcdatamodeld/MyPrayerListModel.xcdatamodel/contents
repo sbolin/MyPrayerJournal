@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19461" systemVersion="21A558" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="PrayerRequest" representedClassName="PrayerRequest" syncable="YES" codeGenerationType="class">
+        <attribute name="answered" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="dateRequested" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="lesson" optional="YES" attributeType="String"/>
+        <attribute name="prayer" optional="YES" attributeType="String"/>
+        <attribute name="topic" optional="YES" attributeType="String"/>
+        <relationship name="prayerTags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="PrayerTag" inverseName="prayerRequest" inverseEntity="PrayerTag"/>
+        <relationship name="prayerVerses" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="PrayerVerse" inverseName="prayerRequest" inverseEntity="PrayerVerse"/>
+    </entity>
+    <entity name="PrayerTag" representedClassName="PrayerTag" syncable="YES" codeGenerationType="class">
+        <attribute name="tagColor" optional="YES" attributeType="Integer 16" valueTransformerName="SerializableColorTransformer" defaultValueString="0" usesScalarValueType="YES" customClassName="SerializableColor"/>
+        <attribute name="tagName" optional="YES" attributeType="String"/>
+        <relationship name="prayerRequest" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PrayerRequest" inverseName="prayerTags" inverseEntity="PrayerRequest"/>
+    </entity>
+    <entity name="PrayerVerse" representedClassName="PrayerVerse" syncable="YES" codeGenerationType="class">
+        <attribute name="book" attributeType="String"/>
+        <attribute name="bookID" optional="YES" attributeType="String"/>
+        <attribute name="chapter" attributeType="String"/>
+        <attribute name="endVerse" optional="YES" attributeType="String"/>
+        <attribute name="startVerse" attributeType="String"/>
+        <attribute name="verseText" attributeType="String"/>
+        <relationship name="prayerRequest" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PrayerRequest" inverseName="prayerVerses" inverseEntity="PrayerRequest"/>
+    </entity>
+    <elements>
+        <element name="PrayerRequest" positionX="-259.1909179687501" positionY="-81.91531372070312" width="128" height="134"/>
+        <element name="PrayerTag" positionX="-87.16473388671875" positionY="-36.69412231445312" width="128" height="88"/>
+        <element name="PrayerVerse" positionX="-434.83447265625" positionY="-96.6083984375" width="128" height="148"/>
+    </elements>
+</model>
