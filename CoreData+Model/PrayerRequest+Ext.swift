@@ -9,6 +9,41 @@ import CoreData
 
 extension PrayerRequest {
 
+    static var preview: PrayerRequest {
+        let requests = PrayerRequest.makePreview()
+        return requests[0]
+    }
+
+    @discardableResult
+    static func makePreview() -> [PrayerRequest] {
+        var requests = [PrayerRequest]()
+        var tags = [PrayerTag]()
+        var verses = [PrayerVerse]()
+        let viewContext = CoreDataController.preview.container.viewContext
+
+        let newRequest = PrayerRequest(context: viewContext)
+        let newTag = PrayerTag(context: viewContext)
+        let newVerse = PrayerVerse(context: viewContext)
+        let date = Date()
+        newRequest.request = "Prayer Request"
+        newRequest.topic = "Prayer Topic"
+        newRequest.dateRequested = date
+        newRequest.lesson = "Lesson learned"
+        newRequest.answered = Bool.random()
+        newTag.tagName = "Tag"
+        newTag.prayerRequest = newRequest
+        newVerse.book = "John"
+        newVerse.chapter = "3"
+        newVerse.startVerse = "16"
+        newVerse.verseText = "For God so loved the world that he gave his only Son, that whoever believes in him should not perish but have eternal life."
+        newVerse.prayerRequest = newRequest
+        requests.append(newRequest)
+        tags.append(newTag)
+        verses.append(newVerse)
+
+        return requests
+    }
+
 // set section date types
     var groupByMonth: String {
         get {
@@ -34,22 +69,32 @@ extension PrayerRequest {
 
     // convert request to unwrapped string
     @objc var requestString: String {
-        prayer ?? "No Request"
+        return request ?? "No Request"
     }
 
     // covert Bool to text representation
     @objc var answeredString: String {
-        answered ? "Answered Prayers" : "Unanswered Prayers"
+        return answered ? "Answered Prayers" : "Unanswered Prayers"
     }
 
     // date in string format
     @objc var dateRequestedString: String {
-        dateFormatter.string(from: dateRequested ?? Date())
+        return dateFormatter.string(from: dateRequested ?? Date())
     }
 
-    // date in string format
+    // unwrap topic
     @objc var topicString: String {
-        topic ?? "No Topic"
+        return topic ?? "No Topic"
+    }
+
+    // unwrap staus
+    @objc var statusString: String {
+        switch statusID {
+        case 0: return "Focused"
+        case 1: return "Unanswered Prayers"
+        case 2: return "Answered Prayers"
+        default: return "Unanswered Prayers"
+        }
     }
 
     // set date format for sections...
@@ -78,11 +123,11 @@ extension PrayerRequest {
     }
 
     // PrayerRequest NSFetchRequest
-    static var fetchAllRequestsByDate: NSFetchRequest<PrayerRequest> {
-        let request: NSFetchRequest<PrayerRequest> = PrayerRequest.fetchRequest()
-        request.sortDescriptors = [NSSortDescriptor(keyPath: \PrayerRequest.dateRequested, ascending: true)]
-        return request
-    }
+//    static var fetchAllRequestsByDate: NSFetchRequest<PrayerRequest> {
+//        let request: NSFetchRequest<PrayerRequest> = PrayerRequest.fetchRequest()
+//        request.sortDescriptors = [NSSortDescriptor(keyPath: \PrayerRequest.dateRequested, ascending: true)]
+//        return request
+//    }
 
 /*
     static var fetchAllRequests: NSFetchRequest<PrayerRequest> {

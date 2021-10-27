@@ -15,7 +15,9 @@ struct HeaderView: View {
         ListRow(backgroundColor: color) {
             Text(title)
                 .font(.title2)
-                .foregroundColor(.white)
+                .foregroundColor(.gray) // change to .white
+                .frame(maxWidth: .infinity, alignment: .leading)
+
         }
     }
 }

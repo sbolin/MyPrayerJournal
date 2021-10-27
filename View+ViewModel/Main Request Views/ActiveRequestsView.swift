@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ActiveRequestsView: View {
     @Environment(\.managedObjectContext) private var viewContext
-    @FetchRequest(fetchRequest: PrayerRequest.fetchAllRequestsByDate)
+    @FetchRequest(fetchRequest: PrayerRequest.fetchRequest())
     private var prayers: FetchedResults<PrayerRequest>
     
     var body: some View {
@@ -37,7 +37,7 @@ struct ActiveRequestsView: View {
     }
 
     private func onMove(from source: IndexSet, to destination: Int) {
- //       prayers.move(fromOffsets: source, toOffset: destination)
+ //       requests.move(fromOffsets: source, toOffset: destination)
     }
 
 }

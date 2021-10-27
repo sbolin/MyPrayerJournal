@@ -28,7 +28,7 @@ final class AddPrayerViewModel: ObservableObject {
 
     func savePrayer() {
         let newPrayer = PrayerRequest(context: moc)
-        newPrayer.prayer = prayerRequest
+        newPrayer.request = prayerRequest
         newPrayer.topic = prayerTopic
         newPrayer.lesson = prayerLesson
         newPrayer.dateRequested = prayerDate

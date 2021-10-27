@@ -9,12 +9,6 @@ import SwiftUI
 
 struct RequestCellView: View {
     @Environment(\.managedObjectContext) private var viewContext
-
-//       @ObservedObject var prayerRequest: PrayerRequest
-//    var prayerRequest: PrayerRequest
-
-//    @FetchRequest(fetchRequest: PrayerRequest.fetchRequest())
-//    var prayers: FetchedResults<PrayerRequest>
     @State var prayerRequest: PrayerRequest
 //
     var isCompleted: Binding<Bool> {
@@ -54,7 +48,7 @@ struct RequestCellView: View {
 
 struct RequestView_Previews: PreviewProvider {
     static var previews: some View {
-        RequestCellView(prayerRequest: PrayerRequest(context: CoreDataController.preview.container.viewContext))
+        RequestCellView(prayerRequest: .preview)
             .environment(\.managedObjectContext, CoreDataController.preview.container.viewContext)
     }
 }

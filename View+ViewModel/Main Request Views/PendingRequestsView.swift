@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PendingRequestsView: View {
     @Environment(\.managedObjectContext) private var viewContext
-    @FetchRequest(fetchRequest: PrayerRequest.fetchAllRequestsByDate)
+    @FetchRequest(fetchRequest: PrayerRequest.fetchRequest())
     private var prayers: FetchedResults<PrayerRequest>
 
     var body: some View {
@@ -37,7 +37,7 @@ struct PendingRequestsView: View {
     }
 
     private func moveItems(from source: IndexSet, to destination: Int) {
-        //       prayers.move(fromOffsets: source, toOffset: destination)
+        //       requests.move(fromOffsets: source, toOffset: destination)
     }
 
 }

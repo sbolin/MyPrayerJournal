@@ -5,59 +5,44 @@
 //  Created by Scott Bolin on 6-Sep-21.
 //
 
-import CoreData
 
-struct CoreDataController {
+import CoreData
+import SwiftUI
+
+class CoreDataController {
     // Singleton for whole app to use
     static let shared = CoreDataController()
 
-    // Storage for Core Data
-    let container: NSPersistentContainer
-
-    // Convenience
-    var viewContext: NSManagedObjectContext {
-        return container.viewContext
-    }
-
-    static var preview: CoreDataController = {
-        let result = CoreDataController(inMemory: true)
-        let viewContext = result.container.viewContext
-
-        let calendar = Calendar.current
-        let newItem = PrayerRequest(context: viewContext)
-        let newTag = PrayerTag(context: viewContext)
-        let newVerse = PrayerVerse(context: viewContext)
-        let date = Date()
-        newItem.prayer = "Prayer Request"
-        newItem.topic = "Prayer Topic"
-        newItem.dateRequested = date
-        newItem.lesson = "Lesson learned"
-        newItem.answered = Bool.random()
-        newTag.tagName = "Tag"
-        newTag.prayerRequest = newItem
-        newVerse.book = "John"
-        newVerse.chapter = "3"
-        newVerse.startVerse = "16"
-        newVerse.verseText = "For God so loved the world that he gave his only Son, that whoever believes in him should not perish but have eternal life."
-        newVerse.prayerRequest = newItem
-        shared.save()
-
-        return result
+    static let preview: CoreDataController = {
+        let controller = CoreDataController(inMemory: true)
+        PrayerRequest.makePreview()
+        return controller
     }()
 
-    // Initializer to load Core Data,optionally able to use in-memory for testing
-    init(inMemory: Bool = false) {
-        container = NSPersistentContainer(name: "MyPrayers")
-        if inMemory {
-            container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
+    private let inMemory: Bool
+    private init(inMemory: Bool = false) {
+        self.inMemory = inMemory
+    }
+
+    lazy var container: NSPersistentContainer = {
+        let container = NSPersistentContainer(name: "MyPrayers")
+
+        guard let description = container.persistentStoreDescriptions.first else {
+            fatalError("Failed to retrieve a persistent store description")
         }
-        container.loadPersistentStores { description, error in
-            if let error = error {
-                fatalError("Unable to initialize Core Data Stores. Good Bye. \(error.localizedDescription)")
+
+        if inMemory {
+            description.url = URL(fileURLWithPath: "/dev/null")
+        }
+
+        container.loadPersistentStores { storeDescription, error in
+            if let error = error as NSError? {
+                fatalError("Unresolved error \(error), \(error.userInfo)")
             }
         }
-//        container.viewContext.automaticallyMergesChangesFromParent = true
-    }
+
+        return container
+    }()
 
     // utility functions
     func save() {
@@ -82,11 +67,17 @@ struct CoreDataController {
         save()
     }
 
+    func deleteItem(for indexSet: IndexSet, section: SectionedFetchResults<String, PrayerRequest>.Element, viewContext: NSManagedObjectContext) {
+        indexSet.map { section[$0] }.forEach(viewContext.delete)
+        save()
+    }
+
 }
+
 
 extension CoreDataController {
 
-// fetch all Tags in PrayerRequest
+    // fetch all Tags in PrayerRequest
     func fetchTags(for prayerRequest: PrayerRequest) -> [PrayerTag]? {
         let request: NSFetchRequest<PrayerTag> = PrayerTag.fetchRequest()
         let predicate = NSPredicate(format: "%K == %@", #keyPath(PrayerTag.prayerRequest.objectID), prayerRequest.objectID)
@@ -100,7 +91,7 @@ extension CoreDataController {
         }
     }
 
-// fetch all Verses in PrayerRequest
+    // fetch all Verses in PrayerRequest
     func fetchVerses(for prayerRequest: PrayerRequest) -> [PrayerVerse]? {
         let request: NSFetchRequest<PrayerVerse> = PrayerVerse.fetchRequest()
         let predicate = NSPredicate(format: "%K == %@", #keyPath(PrayerVerse.prayerRequest.objectID), prayerRequest.objectID)
@@ -114,7 +105,7 @@ extension CoreDataController {
         }
     }
 
-// PrayerRequest by ID
+    // PrayerRequest by ID
     func getPrayerById(id: NSManagedObjectID) -> PrayerRequest? {
         do {
             return try CoreDataController.shared.container.viewContext.existingObject(with: id) as? PrayerRequest
@@ -123,7 +114,7 @@ extension CoreDataController {
         }
     }
 
-// Tag by ID
+    // Tag by ID
     func getTagById(id: NSManagedObjectID) -> PrayerTag? {
         do {
             return try CoreDataController.shared.container.viewContext.existingObject(with: id) as? PrayerTag
@@ -132,7 +123,7 @@ extension CoreDataController {
         }
     }
 
-// Verse by ID
+    // Verse by ID
     func getVerseById(id: NSManagedObjectID) -> PrayerVerse? {
         do {
             return try CoreDataController.shared.container.viewContext.existingObject(with: id) as? PrayerVerse
@@ -140,7 +131,5 @@ extension CoreDataController {
             return nil
         }
     }
-
-
 }
 

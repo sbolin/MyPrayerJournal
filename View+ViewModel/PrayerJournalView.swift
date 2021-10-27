@@ -9,64 +9,83 @@ import SwiftUI
 import CoreData
 
 struct PrayerJournalView: View {
-    @Environment(\.managedObjectContext) private var viewContext
-    @FetchRequest(fetchRequest: PrayerRequest.fetchAllRequestsByDate)
-    private var prayers: FetchedResults<PrayerRequest>
-    @FocusState var focusField: Bool?
-    @State private var isAddPrayerShowing: Bool = false
-    @State private var editMode: EditMode = .inactive
-    @State private var focusPrayer: PrayerRequest?
 
-    //    @SectionedFetchRequest(fetchRequest: PrayerRequest.requestByStatus, sectionIdentifier: \PrayerRequest.answeredString)
-    //    var requests: SectionedFetchRequest<String, PrayerRequest>
+    var coreDataController: CoreDataController = .shared
+
+    @Environment(\.managedObjectContext) private var viewContext
+
+    @SectionedFetchRequest<String, PrayerRequest>(
+        sectionIdentifier: \PrayerRequest.statusString,
+        sortDescriptors: [SortDescriptor(\PrayerRequest.statusID, order: .forward)],
+        animation: .default)
+    var requests: SectionedFetchResults<String, PrayerRequest>
+
+    @FocusState var focusField: Bool
+    @State private var editMode: EditMode = .inactive
+    @State private var isAddPrayerShowing: Bool = false
+
+    @State var selection: [PrayerRequest] = []
+    @State var selectedSort = RequestSort.default
+
+    @State private var searchText = ""
+    var query: Binding<String> {
+        Binding {
+            searchText
+        } set: { newValue in
+            searchText = newValue
+            requests.nsPredicate = newValue.isEmpty ? nil : NSPredicate(format: "place CONTAINS %@", newValue)
+        }
+    }
 
     var body: some View {
         NavigationView {
             ZStack(alignment: .bottom) {
-                VStack {
-                    FocusPrayerView(prayerRequest: focusPrayer)
-                        .padding()
-                    List {
-                        ActiveRequestsView()
-                        PendingRequestsView()
-    //                    ForEach(prayers) { prayer in
-    //                        NavigationLink(destination: RequestDetailView(viewModel: RequestDetailViewModel(prayerRequest: prayer))) {
-    //                            RequestCellView(prayerRequest: prayer)
-    //                        }
-    //                    }
-    //                    .onDelete(perform: deleteItems)
-                    }
-                    .listStyle(.insetGrouped)
-                    .navigationTitle("Prayer Journal")
-                    .navigationBarTitleDisplayMode(.inline)
-                    .toolbar {
-                        ToolbarItemGroup(placement: .keyboard) {
-                            HStack {
-                                Spacer()
-                                Button {
-                                    focusField = nil
-                                } label: {
-                                    Image(systemName: "keyboard.chevron.compact.down")
+                List {
+                    ForEach(requests) { section in
+                        Section(header: Text(section.id)) {
+                            ForEach(section, id: \.self) { request in
+                                NavigationLink(destination: RequestDetailView(viewModel: RequestDetailViewModel(prayerRequest: request))) {
+                                    RequestCellView(prayerRequest: request)
+                                } // RequestDetailViewModel
+                            } // ForEach
+                            .onDelete { indexSet in
+                                withAnimation {
+                                    coreDataController.deleteItem(for: indexSet, section: section, viewContext: viewContext)
                                 }
                             }
-                        }
-                    }
-                    .toolbar {
-                        ToolbarItemGroup(placement: .navigationBarTrailing) {
-                            EditButton()
-                                .buttonStyle(.bordered)
-    //                        Button {
-    //                            isAddPrayerShowing = true
-    //                        } label: {
-    //                            Label("Add Request", systemImage: "plus.circle.fill")
-    //                        }
-    //                        .disabled(editMode.isEditing)
-                        }
-                    }
-                    .sheet(isPresented: $isAddPrayerShowing) {
-                        AddPrayerView(viewModel: AddPrayerViewModel(isAddPrayerShowing: $isAddPrayerShowing))
-                    } // Sheet
-                }
+                        } // Section
+                    } // ForEach
+                } // List
+                .listStyle(.insetGrouped)
+                .navigationTitle("Prayer Journal")
+//              .navigationBarTitleDisplayMode(.inline)
+                .environment(\.editMode, $editMode)
+                .searchable(text: query)
+                .toolbar {
+                    ToolbarItemGroup(placement: .keyboard) {
+                        HStack {
+                            Spacer()
+                            Button {
+                                focusField = false //focusField = nil
+                            } label: {
+                                Image(systemName: "keyboard.chevron.compact.down")
+                            } // Button/label
+                        } // HStack
+                    } // ToolbarItemGroup
+//                    ToolbarItemGroup(placement: .navigationBarTrailing) {
+//                        EditButton()
+//                            .buttonStyle(.bordered)
+//                        Button {
+//                            isAddPrayerShowing = true
+//                        } label: {
+//                            Label("Add Request", systemImage: "plus.circle.fill")
+//                        }
+//                        .disabled(editMode.isEditing)
+//                    } // ToolbarItemGroup
+                } // toolbar
+                .sheet(isPresented: $isAddPrayerShowing) {
+                    AddPrayerView(viewModel: AddPrayerViewModel(isAddPrayerShowing: $isAddPrayerShowing))
+                } // Sheet
                 Button {
                     isAddPrayerShowing = true
                 } label: {
@@ -76,35 +95,35 @@ struct PrayerJournalView: View {
                         .padding()
                         .background(Color.green)
                         .clipShape(Circle())
-                }
-            } // VStack
+                } //Button/label
+            } // ZStack
         } // Navigation
         .navigationViewStyle(.stack) //
-    }
+    } // view
 
-    //    private func addItem() {
-    //        withAnimation {
-    //            let newRequest = PrayerRequest(context: viewContext)
-    //            newRequest.prayer = ""
-    //
-    //        }
-    //    }
+//    private func addItem() {
+//        withAnimation {
+//            let newRequest = PrayerRequest(context: viewContext)
+//            newRequest.request = ""
+//        }
+//    }
 
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            offsets.map { prayers[$0] }.forEach(viewContext.delete)
-
-            do {
-                try viewContext.save()
-            } catch {
-                print("Could not delete item", error.localizedDescription)
-            }
-        }
-    }
+//    private func deleteItems(offsets: IndexSet) {
+//        withAnimation {
+//            offsets.map { requests[$0] }.forEach(viewContext.delete)
+//
+//            do {
+//                try viewContext.save()
+//            } catch {
+//                print("Could not delete item", error.localizedDescription)
+//            }
+//        }
+//    }
 }
 
 struct SimpleView_Previews: PreviewProvider {
     static var previews: some View {
-        PrayerJournalView().environment(\.managedObjectContext, CoreDataController.preview.container.viewContext)
+        PrayerJournalView()
+            .environment(\.managedObjectContext, CoreDataController.preview.container.viewContext)
     }
 }

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct RequestDetailView: View {
 
-    @Environment(\.managedObjectContext) var moc
+    @Environment(\.managedObjectContext) var viewContext
     @ObservedObject var viewModel: RequestDetailViewModel
     var tags: [PrayerTag] = []
     var verses: [PrayerVerse] = []

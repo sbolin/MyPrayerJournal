@@ -7,10 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1532031B2729374900C10FBC /* OldPrayerJournalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1532031A2729374900C10FBC /* OldPrayerJournalView.swift */; };
+		1532031F2729C27900C10FBC /* SortSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1532031E2729C27900C10FBC /* SortSelectionView.swift */; };
 		154CD64A270B648D00B64F92 /* PrayerJournalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154CD649270B648D00B64F92 /* PrayerJournalView.swift */; };
 		155A144F270C6CF1000B569B /* RequestCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155A144E270C6CF1000B569B /* RequestCellView.swift */; };
 		155A1451270CBBE5000B569B /* FocusPrayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155A1450270CBBE5000B569B /* FocusPrayerView.swift */; };
 		155A1453270F139F000B569B /* RequestDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155A1452270F139F000B569B /* RequestDetailView.swift */; };
+		156FC60F272892B800E1A673 /* RequestSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 156FC60E272892B700E1A673 /* RequestSort.swift */; };
 		15735A54270FEF7700DFA3E6 /* AddPrayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15735A53270FEF7700DFA3E6 /* AddPrayerViewModel.swift */; };
 		15735A582710041F00DFA3E6 /* RequestDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15735A572710041F00DFA3E6 /* RequestDetailViewModel.swift */; };
 		15809B1E26E627380022F2B4 /* MyPrayerJournalApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15809AF826E627330022F2B4 /* MyPrayerJournalApp.swift */; };
@@ -32,10 +35,13 @@
 
 /* Begin PBXFileReference section */
 		152280AE2727BE0600141D81 /* ToDo.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = ToDo.md; sourceTree = "<group>"; };
-		154CD649270B648D00B64F92 /* PrayerJournalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayerJournalView.swift; sourceTree = "<group>"; };
+		1532031A2729374900C10FBC /* OldPrayerJournalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OldPrayerJournalView.swift; sourceTree = "<group>"; };
+		1532031E2729C27900C10FBC /* SortSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortSelectionView.swift; sourceTree = "<group>"; };
+		154CD649270B648D00B64F92 /* PrayerJournalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayerJournalView.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		155A144E270C6CF1000B569B /* RequestCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestCellView.swift; sourceTree = "<group>"; };
 		155A1450270CBBE5000B569B /* FocusPrayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusPrayerView.swift; sourceTree = "<group>"; };
 		155A1452270F139F000B569B /* RequestDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestDetailView.swift; sourceTree = "<group>"; };
+		156FC60E272892B700E1A673 /* RequestSort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestSort.swift; sourceTree = "<group>"; };
 		15735A53270FEF7700DFA3E6 /* AddPrayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPrayerViewModel.swift; sourceTree = "<group>"; };
 		15735A572710041F00DFA3E6 /* RequestDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestDetailViewModel.swift; sourceTree = "<group>"; };
 		15809AF826E627330022F2B4 /* MyPrayerJournalApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPrayerJournalApp.swift; sourceTree = "<group>"; };
@@ -101,7 +107,7 @@
 				152280AE2727BE0600141D81 /* ToDo.md */,
 				15809AF826E627330022F2B4 /* MyPrayerJournalApp.swift */,
 				15809B3326E628180022F2B4 /* View+ViewModel */,
-				15809B3226E6280E0022F2B4 /* CoreData */,
+				15809B3226E6280E0022F2B4 /* CoreData+Model */,
 				15809AFA26E627370022F2B4 /* Assets.xcassets */,
 				15809B0D26E627370022F2B4 /* Tests iOS */,
 				15809B0026E627370022F2B4 /* Products */,
@@ -125,29 +131,32 @@
 			path = "Tests iOS";
 			sourceTree = "<group>";
 		};
-		15809B3226E6280E0022F2B4 /* CoreData */ = {
+		15809B3226E6280E0022F2B4 /* CoreData+Model */ = {
 			isa = PBXGroup;
 			children = (
 				15809B3726E62C790022F2B4 /* MyPrayers.xcdatamodeld */,
 				15809B3C26E630D60022F2B4 /* CoreDataController.swift */,
+				156FC60E272892B700E1A673 /* RequestSort.swift */,
 				15D2F94C26F48CFE003FD90F /* PrayerRequest+Ext.swift */,
 				15D2F94F26F48DBA003FD90F /* Tag+Ext.swift */,
 				15D2F95226F48DFE003FD90F /* Verse+Ext.swift */,
 			);
-			path = CoreData;
+			path = "CoreData+Model";
 			sourceTree = "<group>";
 		};
 		15809B3326E628180022F2B4 /* View+ViewModel */ = {
 			isa = PBXGroup;
 			children = (
 				154CD649270B648D00B64F92 /* PrayerJournalView.swift */,
+				15809AF926E627330022F2B4 /* SectionView.swift */,
+				1532031E2729C27900C10FBC /* SortSelectionView.swift */,
+				1532031A2729374900C10FBC /* OldPrayerJournalView.swift */,
 				15F2FBE52720218600CDA942 /* Main Request Views */,
 				15AE8438271446A10022DEDB /* RequestCellView */,
 				15735A562710040900DFA3E6 /* RequestDetailView */,
 				15735A55270FFAB600DFA3E6 /* AddPrayerView */,
 				152D7B1A271035890043F125 /* FocusPrayerView */,
 				15F2FBDA271FED1000CDA942 /* Generic Views */,
-				15809AF926E627330022F2B4 /* SectionView.swift */,
 			);
 			path = "View+ViewModel";
 			sourceTree = "<group>";
@@ -258,6 +267,7 @@
 				158F263F26EF6A58001FF4EA /* AddPrayerView.swift in Sources */,
 				15809B3926E62C7A0022F2B4 /* MyPrayers.xcdatamodeld in Sources */,
 				15D2F95326F48DFE003FD90F /* Verse+Ext.swift in Sources */,
+				156FC60F272892B800E1A673 /* RequestSort.swift in Sources */,
 				15F2FBE0271FF02400CDA942 /* ListRow.swift in Sources */,
 				155A1451270CBBE5000B569B /* FocusPrayerView.swift in Sources */,
 				15809B2026E627380022F2B4 /* SectionView.swift in Sources */,
@@ -267,6 +277,8 @@
 				15D2F94D26F48CFE003FD90F /* PrayerRequest+Ext.swift in Sources */,
 				15809B3D26E630D60022F2B4 /* CoreDataController.swift in Sources */,
 				15AE843A271446C90022DEDB /* RequestCellViewModel.swift in Sources */,
+				1532031F2729C27900C10FBC /* SortSelectionView.swift in Sources */,
+				1532031B2729374900C10FBC /* OldPrayerJournalView.swift in Sources */,
 				15F2FBDC271FED3200CDA942 /* HeaderView.swift in Sources */,
 				15F2FBDE271FED8D00CDA942 /* FooterView.swift in Sources */,
 			);
