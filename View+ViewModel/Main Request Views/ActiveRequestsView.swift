@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ActiveRequestsView: View {
+    var coreDataController: CoreDataController = .shared
+
     @Environment(\.managedObjectContext) private var viewContext
     @FetchRequest(fetchRequest: PrayerRequest.fetchRequest())
     private var prayers: FetchedResults<PrayerRequest>
@@ -44,6 +46,7 @@ struct ActiveRequestsView: View {
 
 struct RequestsView_Previews: PreviewProvider {
     static var previews: some View {
-        ActiveRequestsView().environment(\.managedObjectContext, CoreDataController.preview.container.viewContext)
+        ActiveRequestsView()
+            .environment(\.managedObjectContext, CoreDataController.preview.container.viewContext)
     }
 }

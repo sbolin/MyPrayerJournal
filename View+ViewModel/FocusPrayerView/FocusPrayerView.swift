@@ -48,6 +48,6 @@ struct FocusPrayerView: View {
 struct FocusRequestView_Previews: PreviewProvider {
     static var previews: some View {
         FocusPrayerView(prayerRequest: PrayerRequest(context: CoreDataController.preview.container.viewContext))
-            .environment(\.managedObjectContext, CoreDataController.preview.container.viewContext)
+//            .environment(\.managedObjectContext, CoreDataController.preview.container.viewContext)
     }
 }

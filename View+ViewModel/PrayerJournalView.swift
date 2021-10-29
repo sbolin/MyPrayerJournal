@@ -33,7 +33,8 @@ struct PrayerJournalView: View {
             searchText
         } set: { newValue in
             searchText = newValue
-            requests.nsPredicate = newValue.isEmpty ? nil : NSPredicate(format: "place CONTAINS %@", newValue)
+            // TODO: check request CONTAINS... is correct
+            requests.nsPredicate = newValue.isEmpty ? nil : NSPredicate(format: "request CONTAINS %@", newValue)
         }
     }
 
@@ -51,27 +52,33 @@ struct PrayerJournalView: View {
                             .onDelete { indexSet in
                                 withAnimation {
                                     coreDataController.deleteItem(for: indexSet, section: section, viewContext: viewContext)
-                                }
-                            }
+                                } // withAnimation
+                            } // onDelete
                         } // Section
                     } // ForEach
                 } // List
-                .listStyle(.insetGrouped)
-                .navigationTitle("Prayer Journal")
-//              .navigationBarTitleDisplayMode(.inline)
-                .environment(\.editMode, $editMode)
+
+//                .environment(\.editMode, $editMode)
                 .searchable(text: query)
                 .toolbar {
-                    ToolbarItemGroup(placement: .keyboard) {
-                        HStack {
-                            Spacer()
-                            Button {
-                                focusField = false //focusField = nil
-                            } label: {
-                                Image(systemName: "keyboard.chevron.compact.down")
-                            } // Button/label
-                        } // HStack
-                    } // ToolbarItemGroup
+//                    ToolbarItemGroup(placement: .keyboard) {
+//                        HStack {
+//                            Spacer()
+//                            Button {
+//                                focusField = false //focusField = nil
+//                            } label: {
+//                                Image(systemName: "keyboard.chevron.compact.down")
+//                            } // Button/label
+//                        } // HStack
+//                    } // ToolbarItemGroup
+                    ToolbarItemGroup(placement: .navigationBarLeading) {
+                        SortSelectionView(selectedSortItem: $selectedSort, sorts: RequestSort.sorts)
+                            .onChange(of: selectedSort) { _ in
+                                let request = requests
+                                request.sectionIdentifier = selectedSort.section
+                                request.sortDescriptors = selectedSort.descriptors
+                            }
+                    }
 //                    ToolbarItemGroup(placement: .navigationBarTrailing) {
 //                        EditButton()
 //                            .buttonStyle(.bordered)
@@ -97,8 +104,11 @@ struct PrayerJournalView: View {
                         .clipShape(Circle())
                 } //Button/label
             } // ZStack
+            .listStyle(.insetGrouped)
+            .navigationTitle("Prayer Journal")
+//          .navigationBarTitleDisplayMode(.inline)
         } // Navigation
-        .navigationViewStyle(.stack) //
+        .navigationViewStyle(.stack) // force single column style
     } // view
 
 //    private func addItem() {

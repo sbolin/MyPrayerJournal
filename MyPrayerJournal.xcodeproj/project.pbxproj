@@ -108,6 +108,7 @@
 				15809AF826E627330022F2B4 /* MyPrayerJournalApp.swift */,
 				15809B3326E628180022F2B4 /* View+ViewModel */,
 				15809B3226E6280E0022F2B4 /* CoreData+Model */,
+				15AB27CB272C12A1007F4D07 /* Void */,
 				15809AFA26E627370022F2B4 /* Assets.xcassets */,
 				15809B0D26E627370022F2B4 /* Tests iOS */,
 				15809B0026E627370022F2B4 /* Products */,
@@ -148,9 +149,7 @@
 			isa = PBXGroup;
 			children = (
 				154CD649270B648D00B64F92 /* PrayerJournalView.swift */,
-				15809AF926E627330022F2B4 /* SectionView.swift */,
 				1532031E2729C27900C10FBC /* SortSelectionView.swift */,
-				1532031A2729374900C10FBC /* OldPrayerJournalView.swift */,
 				15F2FBE52720218600CDA942 /* Main Request Views */,
 				15AE8438271446A10022DEDB /* RequestCellView */,
 				15735A562710040900DFA3E6 /* RequestDetailView */,
@@ -159,6 +158,15 @@
 				15F2FBDA271FED1000CDA942 /* Generic Views */,
 			);
 			path = "View+ViewModel";
+			sourceTree = "<group>";
+		};
+		15AB27CB272C12A1007F4D07 /* Void */ = {
+			isa = PBXGroup;
+			children = (
+				1532031A2729374900C10FBC /* OldPrayerJournalView.swift */,
+				15809AF926E627330022F2B4 /* SectionView.swift */,
+			);
+			path = Void;
 			sourceTree = "<group>";
 		};
 		15AE8438271446A10022DEDB /* RequestCellView */ = {

@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct RequestCellView: View {
+    var coreDataController: CoreDataController = .shared
+
     @Environment(\.managedObjectContext) private var viewContext
     @State var prayerRequest: PrayerRequest
 //
