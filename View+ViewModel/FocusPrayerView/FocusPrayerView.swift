@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/*
 struct FocusPrayerView: View {
     @Environment(\.managedObjectContext) private var viewContext
 
@@ -51,3 +52,4 @@ struct FocusRequestView_Previews: PreviewProvider {
 //            .environment(\.managedObjectContext, CoreDataController.preview.container.viewContext)
     }
 }
+*/

@@ -9,10 +9,7 @@ import SwiftUI
 
 struct RequestDetailView: View {
 
-    @Environment(\.managedObjectContext) var viewContext
-    @ObservedObject var viewModel: RequestDetailViewModel
-    var tags: [PrayerTag] = []
-    var verses: [PrayerVerse] = []
+    var prayerRequest: PrayerRequest
     
     var body: some View {
         HStack {
@@ -22,30 +19,30 @@ struct RequestDetailView: View {
                 .foregroundColor(.green)
             VStack(alignment: .leading, spacing: 12) {
                 HStack {
-                    Text(viewModel.prayerRequest.requestString)
+                    Text(prayerRequest.requestString)
                     Spacer()
-                    Text(viewModel.prayerRequest.dateRequestedString)
+                    Text(prayerRequest.dateRequestedString)
                 }
                 HStack {
-                    Text(viewModel.prayerRequest.answeredString)
+                    Text(prayerRequest.answeredString)
                     Spacer()
-                    Text(viewModel.prayerRequest.topicString)
+                    Text(prayerRequest.topicString)
                 }
-                Text(viewModel.allTagsForRequest.first?.tagName ?? "No tag")
-                Text(viewModel.allVersesForRequest.first?.verseNameString ?? "No verse")
+                Text(prayerRequest.prayerTag.first?.tagName ?? "")
+                Text("\(Int(prayerRequest.prayerTag.first?.tagColor ?? 0))")
             }
         }
-        .onAppear {
-            viewModel.selectedRequest = nil
+//        .onAppear {
+//            viewModel.selectedRequest = nil
 //            viewModel.fetchAllTags()
 //            viewModel.fetchAllVerses()
-        }
+//        }
     }
 }
 
 struct RequestDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        RequestDetailView(viewModel: RequestDetailViewModel(prayerRequest: PrayerRequest(context: CoreDataController.preview.container.viewContext)))
+        RequestDetailView(prayerRequest: .preview)
             .environment(\.managedObjectContext, CoreDataController.preview.container.viewContext)
     }
 }

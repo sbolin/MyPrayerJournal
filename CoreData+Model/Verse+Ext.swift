@@ -42,17 +42,17 @@ extension PrayerVerse {
     }
 
     // create full verse name
-    var verseNameString: String {
+    @objc var verseNameString: String {
         let bookIDText = bookID != nil ? "\(bookIDString) " : ""
         let endVerseText = endVerse != nil ? "-\(endVerseNumber)" : ""
         return "\(bookIDText)\(bookString) \(chapterNumber):\(startVerseNumber)\(endVerseText)"
     }
 
-    static var fetchAllVersesByRequest: NSFetchRequest<PrayerVerse> {
-        let request: NSFetchRequest<PrayerVerse> = PrayerVerse.fetchRequest()
-        request.sortDescriptors = [NSSortDescriptor(keyPath: \PrayerVerse.prayerRequest, ascending: true)]
-        return request
-    }
+//    static var fetchAllVersesByRequest: NSFetchRequest<PrayerVerse> {
+//        let request: NSFetchRequest<PrayerVerse> = PrayerVerse.fetchRequest()
+//        request.sortDescriptors = [NSSortDescriptor(keyPath: \PrayerVerse.prayerRequest, ascending: true)]
+//        return request
+//    }
 }
 
 /*

@@ -5,6 +5,7 @@
 //  Created by Scott Bolin on 27-Oct-21.
 //
 
+/*
 import SwiftUI
 import CoreData
 
@@ -35,11 +36,11 @@ struct OldPrayerJournalView: View {
         NavigationView {
             ZStack(alignment: .bottom) {
                 VStack {
-                    FocusPrayerView(prayerRequest: focusPrayer)
-                        .padding()
+//                    FocusPrayerView(prayerRequest: focusPrayer)
+//                        .padding()
                     List {
-                        ActiveRequestsView()
-                        PendingRequestsView()
+//                        ActiveRequestsView()
+//                        PendingRequestsView()
                     } // List
                     .listStyle(.insetGrouped)
                     .navigationTitle("Prayer Journal")
@@ -69,7 +70,7 @@ struct OldPrayerJournalView: View {
                         }
                     }
                     .sheet(isPresented: $isAddPrayerShowing) {
-                        AddPrayerView(viewModel: AddPrayerViewModel(isAddPrayerShowing: $isAddPrayerShowing))
+                        AddRequestView(viewModel: AddPrayerViewModel(isAddPrayerShowing: $isAddPrayerShowing))
                     } // Sheet
                 } // VStack
                 Button {
@@ -114,3 +115,4 @@ struct OldPrayerJournalView_Previews: PreviewProvider {
             .environment(\.managedObjectContext, CoreDataController.preview.container.viewContext)
     }
 }
+*/

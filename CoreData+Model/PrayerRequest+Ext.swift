@@ -30,6 +30,8 @@ extension PrayerRequest {
         newRequest.dateRequested = date
         newRequest.lesson = "Lesson learned"
         newRequest.answered = Bool.random()
+        newRequest.focused = false
+        newRequest.statusID = 1
         newTag.tagName = "Tag"
         newTag.prayerRequest = newRequest
         newVerse.book = "John"

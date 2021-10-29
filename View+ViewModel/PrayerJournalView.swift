@@ -9,10 +9,10 @@ import SwiftUI
 import CoreData
 
 struct PrayerJournalView: View {
-
+    @Environment(\.managedObjectContext) private var viewContext
     var coreDataController: CoreDataController = .shared
 
-    @Environment(\.managedObjectContext) private var viewContext
+// TODO: Preference to store last view state?
 
     @SectionedFetchRequest<String, PrayerRequest>(
         sectionIdentifier: \PrayerRequest.statusString,
@@ -33,7 +33,6 @@ struct PrayerJournalView: View {
             searchText
         } set: { newValue in
             searchText = newValue
-            // TODO: check request CONTAINS... is correct
             requests.nsPredicate = newValue.isEmpty ? nil : NSPredicate(format: "request CONTAINS %@", newValue)
         }
     }
@@ -45,7 +44,7 @@ struct PrayerJournalView: View {
                     ForEach(requests) { section in
                         Section(header: Text(section.id)) {
                             ForEach(section, id: \.self) { request in
-                                NavigationLink(destination: RequestDetailView(viewModel: RequestDetailViewModel(prayerRequest: request))) {
+                                NavigationLink(destination: RequestDetailView(prayerRequest: request)) {
                                     RequestCellView(prayerRequest: request)
                                 } // RequestDetailViewModel
                             } // ForEach
@@ -91,7 +90,7 @@ struct PrayerJournalView: View {
 //                    } // ToolbarItemGroup
                 } // toolbar
                 .sheet(isPresented: $isAddPrayerShowing) {
-                    AddPrayerView(viewModel: AddPrayerViewModel(isAddPrayerShowing: $isAddPrayerShowing))
+                    AddRequestView(viewModel: AddPrayerViewModel(isAddPrayerShowing: $isAddPrayerShowing))
                 } // Sheet
                 Button {
                     isAddPrayerShowing = true
