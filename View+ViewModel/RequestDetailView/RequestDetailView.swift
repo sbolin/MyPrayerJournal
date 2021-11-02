@@ -8,18 +8,19 @@
 import SwiftUI
 
 struct RequestDetailView: View {
+    @Environment(\.managedObjectContext) private var viewContext
 
-    var prayerRequest: PrayerRequest
-    
+    @ObservedObject var prayerRequest: PrayerRequest
+
     var body: some View {
-        HStack {
+        HStack(spacing: 12) {
             Image(systemName: "checkmark.circle")
                 .resizable()
-                .frame(width: 20, height: 20)
+                .frame(width: 28, height: 28)
                 .foregroundColor(.green)
-            VStack(alignment: .leading, spacing: 12) {
+            VStack(alignment: .leading) {
                 HStack {
-                    Text(prayerRequest.requestString)
+                    Text(prayerRequest.request ?? "Blank")
                     Spacer()
                     Text(prayerRequest.dateRequestedString)
                 }
@@ -28,8 +29,17 @@ struct RequestDetailView: View {
                     Spacer()
                     Text(prayerRequest.topicString)
                 }
-                Text(prayerRequest.prayerTag.first?.tagName ?? "")
-                Text("\(Int(prayerRequest.prayerTag.first?.tagColor ?? 0))")
+                HStack {
+//                    prayerRequest.prayerTag.forEach { tag in
+                    let tag = prayerRequest.prayerTag.first
+                        let color = PrayerTag.colorDict[tag?.tagColor ?? 0]
+                        SimpleTagView(text: tag?.tagName ?? "", fontSize: 12, tagTextColor: Color(.systemGray6), tagBGColor: color ?? .blue)
+//                    }
+                }
+                HStack {
+                    Text(prayerRequest.prayerVerse.first?.verseNameString ?? "No Verse")
+                    Text(prayerRequest.prayerVerse.first?.verseTextString ?? "")
+                }
             }
         }
 //        .onAppear {
@@ -42,7 +52,30 @@ struct RequestDetailView: View {
 
 struct RequestDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        RequestDetailView(prayerRequest: .preview)
-            .environment(\.managedObjectContext, CoreDataController.preview.container.viewContext)
+        RequestDetailView(prayerRequest: getRequest())
+    }
+    static func getRequest() -> PrayerRequest {
+        let context = CoreDataController.shared.container.viewContext
+        let request = PrayerRequest(context: context)
+        let prayerTag = PrayerTag(context: context)
+        let prayerVerse = PrayerVerse(context: context)
+
+        request.request = "A request"
+        request.answered = false
+        request.dateRequested = Date()
+        request.focused = false
+        request.lesson = "A lesson"
+        request.statusID = 1
+        request.topic = "A topic"
+        prayerTag.tagName = "A Tag"
+        prayerTag.tagColor = 1
+        prayerVerse.book = "John"
+        prayerVerse.chapter = "3"
+        prayerVerse.startVerse = "16"
+        prayerVerse.verseText = "For God so loved the world..."
+        prayerTag.prayerRequest = request
+        prayerVerse.prayerRequest = request
+        return request
     }
 }
+

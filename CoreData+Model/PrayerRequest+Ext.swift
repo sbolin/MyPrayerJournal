@@ -14,7 +14,6 @@ extension PrayerRequest {
         return requests[0]
     }
 
-    @discardableResult
     static func makePreview() -> [PrayerRequest] {
         var requests = [PrayerRequest]()
         var tags = [PrayerTag]()

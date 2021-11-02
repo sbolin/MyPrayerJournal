@@ -12,73 +12,107 @@ struct AddRequestView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.presentationMode) var presentation
 
-//    @ObservedObject var viewModel: AddPrayerViewModel
-//    let placeholderString: String? = "Prayer?"
-//    @State var prayerRequest: PrayerRequest
-    @State var tags: String? = ""
+    @State private var id = UUID()
+    @State private var request: String = "" //
+    @State private var answered: Bool = false
+    @State private var dateRequested: Date = Date() //
+    @State private var focused: Bool = false //
+    @State private var lesson: String = "" //
+    @State private var statusID: Int16 = 1
+    @State private var topic: String = "" //
+    @State private var tagName: String = ""
+    @State private var verseName: String = ""
+    @State private var prayerTags: Set<PrayerTag> = Set<PrayerTag>()
+    @State private var prayerVerses: Set<PrayerVerse> = Set<PrayerVerse>()
 
-    var friendId: NSManagedObjectID?
+    @State private var requestError = false
+
+    var requestId: NSManagedObjectID?
     let viewModel = AddRequestViewModel()
 
     var body: some View {
         NavigationView {
-            VStack {
-                HStack {
-                    Button {
-                        presentation.wrappedValue.dismiss()
-                    } label: {
-                        Text("Cancel")
-                    }
-                    .buttonStyle(.bordered)
-
-                    Spacer()
-
-                    Button {
-                        viewModel.savePrayer()
-                        presentation.wrappedValue.dismiss()
-                    } label: {
-                        Text("Done")
-                            .fontWeight(.medium)
-                    }
-                    .buttonStyle(.borderedProminent)
-                    .disabled(viewModel.isValidForm())
-                }
-                .padding()
-
                 Form {
                     Section(header: Text("Prayer Request")) {
+                        // use ZStack to mimic TextField title (TextEditor does not have this)
                         ZStack(alignment: .topLeading) {
-                            if viewModel.prayerRequest.isEmpty {
-                                Text("Prayer?")
+                            if request.isEmpty {
+                                Text("Request?")
                                     .foregroundColor(Color(UIColor.placeholderText))
                                     .font(.body)
                                     .padding(.horizontal, 5)
                                     .padding(.vertical, 8)
                             }
-                            TextEditor(text: $viewModel.prayerRequest)
+                            TextEditor(text: $request)
                                 .font(.body)
                                 .multilineTextAlignment(.leading)
                                 .allowsTightening(false)
                                 .textInputAutocapitalization(.sentences)
+                                .frame(minHeight: 100)
                         }
-
-                        TextField("Prayer Topic, if any", text: $viewModel.prayerTopic)
-                        TextField("Prayer Lesson, if any", text: $viewModel.prayerLesson)
-    //                    TextField("Prayer Tags, if any", text: $tags)
-                        DatePicker("Start Date", selection: $viewModel.prayerDate, displayedComponents: .date)
+                        TextField("Prayer Topic", text: $topic, prompt: Text("Prayer Topic"))
+                        TextField("Prayer Lesson", text: $lesson, prompt: Text("Prayer Lesson"))
+                        TextField("Prayer Verse, if any", text: $verseName, prompt: Text("Prayer Verse, if any"))
+                        DatePicker("Requested on", selection: $dateRequested, displayedComponents: .date)
                     }
-                    .font(.body)
-                    .textFieldStyle(.automatic)
+                    Section("Status") {
+                        Toggle("Focus", isOn: $focused)
+                            .tint(.mint)
+                        Toggle("Answered", isOn: $answered)
+                            .tint(.mint)
+                    }
+                    Section("Tags") {
+                        TextField("Prayer Tags, if any", text: $tagName, prompt: Text("Prayer Tags, if any"))
+
+                    }
                 }
-            }
+                .toolbar {
+                    ToolbarItemGroup(placement: .bottomBar) {
+                        Button {
+                            presentation.wrappedValue.dismiss()
+                        } label: {
+                            Text("Cancel")
+                        }
+                        .buttonStyle(.bordered)
+                        .accentColor(.red)
+
+                        Spacer()
+
+                        Button {
+                            if request.isEmpty {
+                                requestError = request.isEmpty
+                            } else {
+                                let values = PrayerRequestValues(
+                                    request: request,
+                                    answered: answered,
+                                    dateRequested: dateRequested,
+                                    focused: focused,
+                                    lesson: lesson,
+                                    statusID: statusID,
+                                    topic: topic,
+                                    prayerTags: prayerTags,
+                                    prayerVerses: prayerVerses)
+                                viewModel.savePrayer(requestID: requestId, with: values, in: viewContext)
+                                presentation.wrappedValue.dismiss()
+                            }
+                        } label: {
+                            Text("Save")
+                                .fontWeight(.medium)
+                        }
+                        .buttonStyle(.borderedProminent)
+                        .accentColor(.green)
+                        .disabled(request.isEmpty)
+                    }
+                }
+            .navigationTitle("\(requestId == nil ? "Add Request" : "Edit Request")")
         }
     }
 }
 
 struct RequestForm_Previews: PreviewProvider {
     static var previews: some View {
-        AddPrayerView(viewModel: AddPrayerViewModel(isAddPrayerShowing: .constant(false)), tags: "Tag")
-            .environment(\.managedObjectContext, CoreDataController.preview.container.viewContext)
+        AddRequestView()
+        //            .environment(\.managedObjectContext, CoreDataController.preview.container.viewContext)
     }
 }
 

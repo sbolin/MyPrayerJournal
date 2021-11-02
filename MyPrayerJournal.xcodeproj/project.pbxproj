@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		150E8967272F0A64000CBF23 /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 150E8966272F0A64000CBF23 /* TagView.swift */; };
+		150E8969272FFA48000CBF23 /* AddTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 150E8968272FFA48000CBF23 /* AddTagView.swift */; };
+		150E896B272FFBDD000CBF23 /* TagViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 150E896A272FFBDD000CBF23 /* TagViewModel.swift */; };
+		150E896D27305D2A000CBF23 /* SimpleTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 150E896C27305D2A000CBF23 /* SimpleTagView.swift */; };
+		150E896F2730626E000CBF23 /* AddTagsListview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 150E896E2730626E000CBF23 /* AddTagsListview.swift */; };
 		1532031B2729374900C10FBC /* OldPrayerJournalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1532031A2729374900C10FBC /* OldPrayerJournalView.swift */; };
 		1532031F2729C27900C10FBC /* SortSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1532031E2729C27900C10FBC /* SortSelectionView.swift */; };
 		154CD64A270B648D00B64F92 /* PrayerJournalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154CD649270B648D00B64F92 /* PrayerJournalView.swift */; };
@@ -37,6 +42,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		150E8966272F0A64000CBF23 /* TagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
+		150E8968272FFA48000CBF23 /* AddTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTagView.swift; sourceTree = "<group>"; };
+		150E896A272FFBDD000CBF23 /* TagViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagViewModel.swift; sourceTree = "<group>"; };
+		150E896C27305D2A000CBF23 /* SimpleTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTagView.swift; sourceTree = "<group>"; };
+		150E896E2730626E000CBF23 /* AddTagsListview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTagsListview.swift; sourceTree = "<group>"; };
 		152280AE2727BE0600141D81 /* ToDo.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = ToDo.md; sourceTree = "<group>"; };
 		1532031A2729374900C10FBC /* OldPrayerJournalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OldPrayerJournalView.swift; sourceTree = "<group>"; };
 		1532031E2729C27900C10FBC /* SortSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortSelectionView.swift; sourceTree = "<group>"; };
@@ -81,6 +91,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		150E8963272EFDD6000CBF23 /* TagView */ = {
+			isa = PBXGroup;
+			children = (
+				150E896C27305D2A000CBF23 /* SimpleTagView.swift */,
+				150E896E2730626E000CBF23 /* AddTagsListview.swift */,
+				150E8968272FFA48000CBF23 /* AddTagView.swift */,
+				150E8966272F0A64000CBF23 /* TagView.swift */,
+				150E896A272FFBDD000CBF23 /* TagViewModel.swift */,
+			);
+			path = TagView;
+			sourceTree = "<group>";
+		};
 		152D7B1A271035890043F125 /* FocusPrayerView */ = {
 			isa = PBXGroup;
 			children = (
@@ -164,6 +186,7 @@
 				15735A562710040900DFA3E6 /* RequestDetailView */,
 				15735A55270FFAB600DFA3E6 /* AddPrayerView */,
 				152D7B1A271035890043F125 /* FocusPrayerView */,
+				150E8963272EFDD6000CBF23 /* TagView */,
 				15F2FBDA271FED1000CDA942 /* Generic Views */,
 			);
 			path = "View+ViewModel";
@@ -281,12 +304,17 @@
 				15B02337272C86CD0093172F /* VerseValues.swift in Sources */,
 				15735A582710041F00DFA3E6 /* RequestDetailViewModel.swift in Sources */,
 				155A1453270F139F000B569B /* RequestDetailView.swift in Sources */,
+				150E8967272F0A64000CBF23 /* TagView.swift in Sources */,
+				150E8969272FFA48000CBF23 /* AddTagView.swift in Sources */,
 				15D2F95026F48DBA003FD90F /* Tag+Ext.swift in Sources */,
 				15F2FBE427201A1F00CDA942 /* PendingRequestsView.swift in Sources */,
+				150E896F2730626E000CBF23 /* AddTagsListview.swift in Sources */,
 				154CD64A270B648D00B64F92 /* PrayerJournalView.swift in Sources */,
+				150E896D27305D2A000CBF23 /* SimpleTagView.swift in Sources */,
 				158F263F26EF6A58001FF4EA /* AddRequestView.swift in Sources */,
 				15809B3926E62C7A0022F2B4 /* MyPrayers.xcdatamodeld in Sources */,
 				15D2F95326F48DFE003FD90F /* Verse+Ext.swift in Sources */,
+				150E896B272FFBDD000CBF23 /* TagViewModel.swift in Sources */,
 				156FC60F272892B800E1A673 /* RequestSort.swift in Sources */,
 				15F2FBE0271FF02400CDA942 /* ListRow.swift in Sources */,
 				155A1451270CBBE5000B569B /* FocusPrayerView.swift in Sources */,

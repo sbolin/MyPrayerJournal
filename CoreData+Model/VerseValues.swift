@@ -8,6 +8,7 @@
 import Foundation
 
 struct VerseValues: Hashable {
+    let id = UUID()
     let book: String?
     let bookID: String?
     let chapter: String?

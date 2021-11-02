@@ -5,19 +5,12 @@
 //  Created by Scott Bolin on 30-Oct-21.
 //
 
-import Foundation
+import SwiftUI
 
-
-struct TagValues: Hashable {
-    let tagColor: Int16
-    let tagName: String?
-    let prayerRequest: PrayerRequestValues?
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(tagName)
-        hasher.combine(tagColor)
-    }
-
-    static func == (lhs: TagValues, rhs: TagValues) -> Bool {
-        lhs.tagName == rhs.tagName
-    }
+struct TagValues: Hashable, Identifiable {
+    var id = UUID()
+    var tagColor: Int16
+    var tagName: String
+    var tagSize: CGFloat = 0
+//    let prayerRequest: PrayerRequestValues
 }

@@ -14,7 +14,7 @@ struct AddRequestViewModel {
         return prayerRequest.request.isEmpty
     }
 
-    func fetchRequest(for objectID: NSManagedObjectID, context: NSManagedObjectContext) -> PrayerRequest? {
+    private func fetchRequest(for objectID: NSManagedObjectID, context: NSManagedObjectContext) -> PrayerRequest? {
         guard let request = context.object(with: objectID) as? PrayerRequest else { return nil }
         return request
     }
@@ -45,11 +45,3 @@ struct AddRequestViewModel {
         CoreDataController.shared.save()
     }
 }
-
-/*
- let id = UUID()
- let answered: Bool
- let statusID: Int16
- let prayerTags: Set<TagValues>?
- let prayerVerses: Set<VerseValues>?
- */

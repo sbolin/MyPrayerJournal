@@ -32,7 +32,7 @@ extension PrayerVerse {
         return Int(startVerse) ?? 0
     }
 
-    var verseTextString: String {
+    @objc var verseTextString: String {
         return verseText ?? ""
     }
 
@@ -45,6 +45,9 @@ extension PrayerVerse {
     @objc var verseNameString: String {
         let bookIDText = bookID != nil ? "\(bookIDString) " : ""
         let endVerseText = endVerse != nil ? "-\(endVerseNumber)" : ""
+        if bookString.isEmpty {
+            return ""
+        }
         return "\(bookIDText)\(bookString) \(chapterNumber):\(startVerseNumber)\(endVerseText)"
     }
 
