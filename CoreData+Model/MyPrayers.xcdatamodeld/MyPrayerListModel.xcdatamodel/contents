@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19557.2" systemVersion="21C5021h" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19557.2" systemVersion="21C5031d" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="PrayerRequest" representedClassName="PrayerRequest" syncable="YES" codeGenerationType="class">
         <attribute name="answered" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="dateRequested" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="focused" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
-        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="lesson" optional="YES" attributeType="String"/>
         <attribute name="request" attributeType="String"/>
+        <attribute name="requestTag" optional="YES" attributeType="String"/>
         <attribute name="statusID" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="topic" optional="YES" attributeType="String"/>
-        <relationship name="prayerTags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="PrayerTag" inverseName="prayerRequest" inverseEntity="PrayerTag"/>
-        <relationship name="prayerVerses" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="PrayerVerse" inverseName="prayerRequest" inverseEntity="PrayerVerse"/>
+        <attribute name="verseText" optional="YES" attributeType="String"/>
+        <relationship name="prayerTags" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="PrayerTag" inverseName="prayerRequest" inverseEntity="PrayerTag"/>
+        <relationship name="prayerVerses" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="PrayerVerse" inverseName="prayerRequest" inverseEntity="PrayerVerse"/>
     </entity>
     <entity name="PrayerTag" representedClassName="PrayerTag" syncable="YES" codeGenerationType="class">
         <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
@@ -29,7 +30,7 @@
         <relationship name="prayerRequest" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PrayerRequest" inverseName="prayerVerses" inverseEntity="PrayerRequest"/>
     </entity>
     <elements>
-        <element name="PrayerRequest" positionX="-259.1909179687501" positionY="-81.91531372070312" width="128" height="179"/>
+        <element name="PrayerRequest" positionX="-259.1909179687501" positionY="-81.91531372070312" width="128" height="194"/>
         <element name="PrayerTag" positionX="-87.16473388671875" positionY="-36.69412231445312" width="128" height="89"/>
         <element name="PrayerVerse" positionX="-434.83447265625" positionY="-96.6083984375" width="128" height="149"/>
     </elements>

@@ -14,7 +14,8 @@ struct MyPrayerJournalApp: App {
     
     var body: some Scene {
         WindowGroup {
-            PrayerJournalView()
+//            PrayerJournalView()
+            ContentView()
                 .environment(\.managedObjectContext, CoreDataController.shared.container.viewContext)
                 .onAppear {
                     UserDefaults.standard.setValue(false, forKey: "_UIConstraintBasedLayoutLogUnsatisfiable")

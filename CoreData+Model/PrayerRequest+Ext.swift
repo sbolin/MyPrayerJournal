@@ -9,42 +9,6 @@ import CoreData
 
 extension PrayerRequest {
 
-    static var preview: PrayerRequest {
-        let requests = PrayerRequest.makePreview()
-        return requests[0]
-    }
-
-    static func makePreview() -> [PrayerRequest] {
-        var requests = [PrayerRequest]()
-        var tags = [PrayerTag]()
-        var verses = [PrayerVerse]()
-        let viewContext = CoreDataController.preview.container.viewContext
-
-        let newRequest = PrayerRequest(context: viewContext)
-        let newTag = PrayerTag(context: viewContext)
-        let newVerse = PrayerVerse(context: viewContext)
-        let date = Date()
-        newRequest.request = "Prayer Request"
-        newRequest.topic = "Prayer Topic"
-        newRequest.dateRequested = date
-        newRequest.lesson = "Lesson learned"
-        newRequest.answered = Bool.random()
-        newRequest.focused = false
-        newRequest.statusID = 1
-        newTag.tagName = "Tag"
-        newTag.prayerRequest = newRequest
-        newVerse.book = "John"
-        newVerse.chapter = "3"
-        newVerse.startVerse = "16"
-        newVerse.verseText = "For God so loved the world that he gave his only Son, that whoever believes in him should not perish but have eternal life."
-        newVerse.prayerRequest = newRequest
-        requests.append(newRequest)
-        tags.append(newTag)
-        verses.append(newVerse)
-
-        return requests
-    }
-
 // set section date types
     var groupByMonth: String {
         get {
@@ -96,6 +60,14 @@ extension PrayerRequest {
         case 2: return "Answered Prayers"
         default: return "Unanswered Prayers"
         }
+    }
+
+    @objc var verseTextString: String {
+        return verseText ?? ""
+    }
+
+    @objc var requestTagString: String {
+        return requestTag ?? ""
     }
 
     // set date format for sections...

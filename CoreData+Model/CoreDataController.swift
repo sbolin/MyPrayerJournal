@@ -13,11 +13,11 @@ class CoreDataController {
     // Singleton for whole app to use
     static let shared = CoreDataController()
 
-    static let preview: CoreDataController = {
-        let controller = CoreDataController(inMemory: true)
-        PrayerRequest.makePreview()
-        return controller
-    }()
+//    static let preview: CoreDataController = {
+//        let controller = CoreDataController(inMemory: true)
+//        PrayerRequest.makePreview()
+//        return controller
+//    }()
 
     private let inMemory: Bool
     private init(inMemory: Bool = false) {
@@ -46,6 +46,7 @@ class CoreDataController {
 
     // utility functions
     func save() {
+        print(#function)
         let context = container.viewContext
         if context.hasChanges {
             do {
@@ -57,9 +58,16 @@ class CoreDataController {
         }
     }
 
-    func updatePrayerCompletion(request: PrayerRequest, isCompleted: Bool) {
-        request.answered = isCompleted
-        save()
+    func updatePrayerCompletion(request: PrayerRequest, isCompleted: Bool, context: NSManagedObjectContext) {
+        print(#function)
+        request.answered = !isCompleted
+//        request.answered.toggle()
+        do {
+            try context.save()
+        } catch {
+            // throw error
+            print("Could not save, \(error.localizedDescription)")
+        }
     }
 
     func deleteRequest(request: PrayerRequest) {

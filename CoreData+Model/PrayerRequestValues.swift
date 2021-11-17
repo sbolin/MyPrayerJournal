@@ -8,14 +8,15 @@
 import Foundation
 
 struct PrayerRequestValues {
-    let id = UUID()
     let request: String
     let answered: Bool
     let dateRequested: Date
     let focused: Bool
-    let lesson: String?
+    let lesson: String
     let statusID: Int16
-    let topic: String?
-    let prayerTags: Set<PrayerTag>?
-    let prayerVerses: Set<PrayerVerse>?
+    let topic: String
+    let verseText: String
+    let requestTag: String
+    let prayerTags: Set<PrayerTag>
+    let prayerVerses: Set<PrayerVerse>
 }

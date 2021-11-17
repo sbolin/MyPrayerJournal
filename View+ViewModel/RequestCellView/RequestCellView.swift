@@ -9,51 +9,69 @@ import SwiftUI
 
 struct RequestCellView: View {
     @Environment(\.managedObjectContext) private var viewContext
-    @ObservedObject var prayerRequest: PrayerRequest
-    var coreDataController: CoreDataController = .shared
-//
-    var isCompleted: Binding<Bool> {
-        Binding(
-            get: {
-                prayerRequest.answered
-            },
-            set: { isCompleted, transaction in
-                withTransaction(transaction) {
-                    coreDataController.updatePrayerCompletion(request: prayerRequest, isCompleted: isCompleted)
-                }
-            })
+    @ObservedObject var prayerRequest: PrayerRequest // @StateObject
+
+    var backgroundColor: Color {
+        switch prayerRequest.statusID {
+        case 0: return .red.opacity(0.1)
+        case 1: return .blue.opacity(0.1)
+        case 2: return .green.opacity(0.1)
+        default: return .clear
+        }
     }
     
     var body: some View {
-        HStack {
-            Toggle("", isOn: isCompleted) // prayerRequest.answered
-                .toggleStyle(CheckboxToggleStyle())
-
-            VStack(alignment: .leading, spacing: 8) {
-                HStack {
-                    Text(prayerRequest.requestString).font(.title)
-                    Spacer()
-                    Text(prayerRequest.dateRequestedString)
+        HStack(alignment: .center, spacing: 8) {
+            Image(systemName: prayerRequest.answered ? "checkmark.circle.fill": "checkmark.circle")
+                .resizable()
+                .frame(width: 32, height: 32)
+                .foregroundColor(.green)
+                .onTapGesture {
+                    withAnimation {
+                        updateRequest()
+                    }
                 }
-                    Text(prayerRequest.topicString)
+            VStack(alignment: .leading, spacing: 6) {
+                Text(prayerRequest.requestString).font(.headline)
+                Text("Date: \(prayerRequest.dateRequestedString)")
+                Text("Topic: \(prayerRequest.topicString)")
+                Text("Verse: \(prayerRequest.verseText ?? "")")
+                //                    Text(prayerRequest.prayerVerse.first?.verseNameString ?? "No Verse")
+                //                    Text(prayerRequest.prayerVerse.first?.verseTextString ?? "No Verse")
 
-                HStack {
-                    let tag = prayerRequest.prayerTag.first
-                    let color = PrayerTag.colorDict[tag?.tagColor ?? 0]
-                    SimpleTagView(text: tag?.tagName ?? "", fontSize: 12, tagTextColor: Color(.systemGray6), tagBGColor: color ?? .blue)
-                }
-
-                HStack {
-                    Text(prayerRequest.prayerVerse.first?.verseNameString ?? "No Verse")
-                    Spacer()
-                    Text(prayerRequest.prayerVerse.first?.verseTextString ?? "No Verse")
+                let tag = prayerRequest.prayerTag.first
+                let color = PrayerTag.colorDict[tag?.tagColor ?? 1]
+                if let text = tag?.tagName {
+                    SimpleTagView(text: text, fontSize: 12, tagTextColor: Color(.white), tagBGColor: color ?? .blue)
+                } else {
+                    EmptyView()
                 }
             }
+            .font(.caption)
+//            .padding(.trailing)
+            Spacer()
         }
         .padding()
-        .background(PrayerTag.colorDict[Int16((Int.random(in: 0...18)))].opacity(0.10))
-        .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
-//        .cornerRadius(30)
+        .background(backgroundColor)
+        .clipShape(RoundedRectangle(cornerRadius: 12, style: .circular))
+    }
+
+    private func updateRequest() {
+        withAnimation {
+            let oldValue = prayerRequest.answered
+            prayerRequest.answered = !oldValue
+            if !oldValue {
+                prayerRequest.focused = false
+                prayerRequest.statusID = 2
+            } else {
+                prayerRequest.statusID = 1
+            }
+            do {
+                try viewContext.save()
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
     }
 }
 
@@ -74,12 +92,13 @@ struct RequestView_Previews: PreviewProvider {
         request.lesson = "A lesson"
         request.statusID = 1
         request.topic = "A topic"
+        request.verseText = "For God so loved the world that he gave his only Son, that whoever believes in him should not perish but have eternal life."
         prayerTag.tagName = "A Tag"
         prayerTag.tagColor = 1
         prayerVerse.book = "John"
         prayerVerse.chapter = "3"
         prayerVerse.startVerse = "16"
-        prayerVerse.verseText = "For God so loved the world..."
+        prayerVerse.verseText = "For God so loved the world that he gave his only Son, that whoever believes in him should not perish but have eternal life."
         prayerTag.prayerRequest = request
         prayerVerse.prayerRequest = request
         return request
@@ -88,10 +107,10 @@ struct RequestView_Previews: PreviewProvider {
 
 struct CheckboxToggleStyle: ToggleStyle {
     func makeBody(configuration: Configuration) -> some View {
-        Image(systemName: configuration.isOn ? "checkmark.circle" : "circle")
+        Image(systemName: configuration.isOn ? "checkmark.circle.fill" : "circle")
             .resizable()
             .frame(width: 32, height: 32)
-            .foregroundColor(configuration.isOn ? .green : .black)
-            .onTapGesture { configuration.isOn.toggle() }
+            .foregroundColor(configuration.isOn ? .green : .gray)
+//            .onTapGesture { configuration.isOn.toggle() }
     }
 }

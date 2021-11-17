@@ -10,38 +10,43 @@ import SwiftUI
 
 struct AddRequestViewModel {
 
-    func isValidForm(prayerRequest: PrayerRequestValues) -> Bool {
-        return prayerRequest.request.isEmpty
-    }
-
-    private func fetchRequest(for objectID: NSManagedObjectID, context: NSManagedObjectContext) -> PrayerRequest? {
+    func fetchPrayer(for objectID: NSManagedObjectID, context: NSManagedObjectContext) -> PrayerRequest? {
         guard let request = context.object(with: objectID) as? PrayerRequest else { return nil }
         return request
     }
 
     func savePrayer(requestID: NSManagedObjectID?, with requestValues: PrayerRequestValues, in context: NSManagedObjectContext) {
         let request: PrayerRequest
-        if let objectID = requestID, let fetchedRequest = fetchRequest(for: objectID, context: context) {
+        if let objectID = requestID, let fetchedRequest = fetchPrayer(for: objectID, context: context) {
             request = fetchedRequest
         } else {
             request = PrayerRequest(context: context)
         }
         request.request = requestValues.request
-        request.topic = requestValues.topic
-        request.lesson = requestValues.lesson
+        request.answered = requestValues.answered
         request.dateRequested = requestValues.dateRequested
         request.focused = requestValues.focused
+        request.lesson = requestValues.lesson
+        request.statusID = requestValues.statusID
+        request.topic = requestValues.topic
+        request.verseText = requestValues.verseText
+        request.requestTag = requestValues.requestTag
 
-        if let tags = requestValues.prayerTags {
-            tags.forEach { tag in
-                request.prayerTag.insert(tag)
-            }
+        let tags = requestValues.prayerTags
+        tags.forEach { tag in
+            request.prayerTag.insert(tag)
         }
-        if let verses = requestValues.prayerVerses {
-            verses.forEach { verse in
-                request.prayerVerse.insert(verse)
-            }
+
+        let verses = requestValues.prayerVerses
+        verses.forEach { verse in
+            request.prayerVerse.insert(verse)
         }
-        CoreDataController.shared.save()
+
+        do {
+            try context.save()
+        } catch {
+            print("Save error: \(error)")
+        }
     }
 }
+
