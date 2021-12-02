@@ -128,7 +128,6 @@ struct AddRequestView: View {
             verseText = prayer.verseText ?? ""
             prayerTags = prayer.prayerTag
             prayerVerses = prayer.prayerVerse
-
         }
     }
 }

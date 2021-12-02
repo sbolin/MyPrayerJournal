@@ -7,6 +7,9 @@
 
 import SwiftUI
 
+// not used...
+
+/*
 struct AddTagsListview: View {
 
     @ObservedObject var tagViewModel: TagViewModel
@@ -25,9 +28,9 @@ struct AddTagsListview: View {
 
 
             // textfield
-            TextField("apple", text: $text)
+            TextField("tag", text: $text)
                 .font(.body)
-                .padding(.vertical, 6)
+                .padding(.vertical, 8)
                 .padding(.horizontal)
                 .background(RoundedRectangle(cornerRadius: 8)
                                 .strokeBorder(Color.secondary, lineWidth: 1)
@@ -71,3 +74,4 @@ struct AddTagsListview_Previews: PreviewProvider {
         AddTagsListview(tagViewModel: TagViewModel())
     }
 }
+*/

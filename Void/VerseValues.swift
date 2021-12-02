@@ -7,6 +7,9 @@
 
 import Foundation
 
+// not used, using Core Data for verses...
+
+/*
 struct VerseValues: Hashable {
     let id = UUID()
     let book: String?
@@ -26,3 +29,4 @@ struct VerseValues: Hashable {
         lhs.book == rhs.book
     }
 }
+*/

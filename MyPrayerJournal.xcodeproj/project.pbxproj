@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		150A1B482744397300F549E9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 150A1B472744397300F549E9 /* ContentView.swift */; };
-		150A1B4A27443D7800F549E9 /* TaskListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 150A1B4927443D7800F549E9 /* TaskListView.swift */; };
+		150A1B482744397300F549E9 /* PrayerJournalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 150A1B472744397300F549E9 /* PrayerJournalView.swift */; };
+		150A1B4A27443D7800F549E9 /* RequestListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 150A1B4927443D7800F549E9 /* RequestListCell.swift */; };
 		150E8967272F0A64000CBF23 /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 150E8966272F0A64000CBF23 /* TagView.swift */; };
 		150E8969272FFA48000CBF23 /* AddTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 150E8968272FFA48000CBF23 /* AddTagView.swift */; };
 		150E896B272FFBDD000CBF23 /* TagViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 150E896A272FFBDD000CBF23 /* TagViewModel.swift */; };
@@ -16,8 +16,14 @@
 		150E896F2730626E000CBF23 /* AddTagsListview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 150E896E2730626E000CBF23 /* AddTagsListview.swift */; };
 		1532031B2729374900C10FBC /* OldPrayerJournalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1532031A2729374900C10FBC /* OldPrayerJournalView.swift */; };
 		1532031F2729C27900C10FBC /* SortSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1532031E2729C27900C10FBC /* SortSelectionView.swift */; };
-		154CD64A270B648D00B64F92 /* PrayerJournalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154CD649270B648D00B64F92 /* PrayerJournalView.swift */; };
+		154CD64A270B648D00B64F92 /* PrayerJournalView-void.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154CD649270B648D00B64F92 /* PrayerJournalView-void.swift */; };
 		155A144F270C6CF1000B569B /* RequestCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155A144E270C6CF1000B569B /* RequestCellView.swift */; };
+		155F9DCA275781A4006CF59F /* PrayerTag+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155F9DC8275781A4006CF59F /* PrayerTag+CoreDataClass.swift */; };
+		155F9DCB275781A4006CF59F /* PrayerTag+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155F9DC9275781A4006CF59F /* PrayerTag+CoreDataProperties.swift */; };
+		155F9DCD27578517006CF59F /* TagColorSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155F9DCC27578517006CF59F /* TagColorSelectorView.swift */; };
+		155F9DD027579139006CF59F /* PrayerVerse+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155F9DCE27579139006CF59F /* PrayerVerse+CoreDataClass.swift */; };
+		155F9DD127579139006CF59F /* PrayerVerse+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155F9DCF27579139006CF59F /* PrayerVerse+CoreDataProperties.swift */; };
+		156ED3FA274E7291001C4EC3 /* ColorValueTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 156ED3F9274E7291001C4EC3 /* ColorValueTransformer.swift */; };
 		156FC60F272892B800E1A673 /* RequestSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 156FC60E272892B700E1A673 /* RequestSort.swift */; };
 		15735A54270FEF7700DFA3E6 /* AddRequestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15735A53270FEF7700DFA3E6 /* AddRequestViewModel.swift */; };
 		15809B1E26E627380022F2B4 /* MyPrayerJournalApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15809AF826E627330022F2B4 /* MyPrayerJournalApp.swift */; };
@@ -30,6 +36,7 @@
 		15B02333272C77E60093172F /* PrayerRequestValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15B02332272C77E60093172F /* PrayerRequestValues.swift */; };
 		15B02335272C85B40093172F /* TagValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15B02334272C85B40093172F /* TagValues.swift */; };
 		15B02337272C86CD0093172F /* VerseValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15B02336272C86CD0093172F /* VerseValues.swift */; };
+		15CE424C2759431A00244093 /* TagListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15CE424B2759431A00244093 /* TagListView.swift */; };
 		15D2F94D26F48CFE003FD90F /* PrayerRequest+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D2F94C26F48CFE003FD90F /* PrayerRequest+Ext.swift */; };
 		15D2F95026F48DBA003FD90F /* Tag+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D2F94F26F48DBA003FD90F /* Tag+Ext.swift */; };
 		15D2F95326F48DFE003FD90F /* Verse+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D2F95226F48DFE003FD90F /* Verse+Ext.swift */; };
@@ -39,8 +46,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		150A1B472744397300F549E9 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		150A1B4927443D7800F549E9 /* TaskListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListView.swift; sourceTree = "<group>"; };
+		150A1B472744397300F549E9 /* PrayerJournalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayerJournalView.swift; sourceTree = "<group>"; };
+		150A1B4927443D7800F549E9 /* RequestListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestListCell.swift; sourceTree = "<group>"; };
 		150E8966272F0A64000CBF23 /* TagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
 		150E8968272FFA48000CBF23 /* AddTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTagView.swift; sourceTree = "<group>"; };
 		150E896A272FFBDD000CBF23 /* TagViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagViewModel.swift; sourceTree = "<group>"; };
@@ -49,8 +56,14 @@
 		152280AE2727BE0600141D81 /* ToDo.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = ToDo.md; sourceTree = "<group>"; };
 		1532031A2729374900C10FBC /* OldPrayerJournalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OldPrayerJournalView.swift; sourceTree = "<group>"; };
 		1532031E2729C27900C10FBC /* SortSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortSelectionView.swift; sourceTree = "<group>"; };
-		154CD649270B648D00B64F92 /* PrayerJournalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayerJournalView.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		154CD649270B648D00B64F92 /* PrayerJournalView-void.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PrayerJournalView-void.swift"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		155A144E270C6CF1000B569B /* RequestCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestCellView.swift; sourceTree = "<group>"; };
+		155F9DC8275781A4006CF59F /* PrayerTag+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PrayerTag+CoreDataClass.swift"; sourceTree = "<group>"; };
+		155F9DC9275781A4006CF59F /* PrayerTag+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PrayerTag+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		155F9DCC27578517006CF59F /* TagColorSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagColorSelectorView.swift; sourceTree = "<group>"; };
+		155F9DCE27579139006CF59F /* PrayerVerse+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PrayerVerse+CoreDataClass.swift"; sourceTree = "<group>"; };
+		155F9DCF27579139006CF59F /* PrayerVerse+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PrayerVerse+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		156ED3F9274E7291001C4EC3 /* ColorValueTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorValueTransformer.swift; sourceTree = "<group>"; };
 		156FC60E272892B700E1A673 /* RequestSort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestSort.swift; sourceTree = "<group>"; };
 		15735A53270FEF7700DFA3E6 /* AddRequestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRequestViewModel.swift; sourceTree = "<group>"; };
 		15809AF826E627330022F2B4 /* MyPrayerJournalApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPrayerJournalApp.swift; sourceTree = "<group>"; };
@@ -66,6 +79,7 @@
 		15B02332272C77E60093172F /* PrayerRequestValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayerRequestValues.swift; sourceTree = "<group>"; };
 		15B02334272C85B40093172F /* TagValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagValues.swift; sourceTree = "<group>"; };
 		15B02336272C86CD0093172F /* VerseValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerseValues.swift; sourceTree = "<group>"; };
+		15CE424B2759431A00244093 /* TagListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagListView.swift; sourceTree = "<group>"; };
 		15D2F94C26F48CFE003FD90F /* PrayerRequest+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PrayerRequest+Ext.swift"; sourceTree = "<group>"; };
 		15D2F94F26F48DBA003FD90F /* Tag+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Tag+Ext.swift"; sourceTree = "<group>"; };
 		15D2F95226F48DFE003FD90F /* Verse+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Verse+Ext.swift"; sourceTree = "<group>"; };
@@ -88,11 +102,10 @@
 		150E8963272EFDD6000CBF23 /* TagView */ = {
 			isa = PBXGroup;
 			children = (
-				150E896C27305D2A000CBF23 /* SimpleTagView.swift */,
-				150E896E2730626E000CBF23 /* AddTagsListview.swift */,
 				150E8968272FFA48000CBF23 /* AddTagView.swift */,
+				15CE424B2759431A00244093 /* TagListView.swift */,
 				150E8966272F0A64000CBF23 /* TagView.swift */,
-				150E896A272FFBDD000CBF23 /* TagViewModel.swift */,
+				155F9DCC27578517006CF59F /* TagColorSelectorView.swift */,
 			);
 			path = TagView;
 			sourceTree = "<group>";
@@ -142,13 +155,14 @@
 			children = (
 				15809B3726E62C790022F2B4 /* MyPrayers.xcdatamodeld */,
 				15809B3C26E630D60022F2B4 /* CoreDataController.swift */,
-				156FC60E272892B700E1A673 /* RequestSort.swift */,
-				15D2F94C26F48CFE003FD90F /* PrayerRequest+Ext.swift */,
 				15B02332272C77E60093172F /* PrayerRequestValues.swift */,
-				15D2F94F26F48DBA003FD90F /* Tag+Ext.swift */,
-				15B02334272C85B40093172F /* TagValues.swift */,
-				15D2F95226F48DFE003FD90F /* Verse+Ext.swift */,
-				15B02336272C86CD0093172F /* VerseValues.swift */,
+				15D2F94C26F48CFE003FD90F /* PrayerRequest+Ext.swift */,
+				155F9DC8275781A4006CF59F /* PrayerTag+CoreDataClass.swift */,
+				155F9DC9275781A4006CF59F /* PrayerTag+CoreDataProperties.swift */,
+				155F9DCE27579139006CF59F /* PrayerVerse+CoreDataClass.swift */,
+				155F9DCF27579139006CF59F /* PrayerVerse+CoreDataProperties.swift */,
+				156ED3F9274E7291001C4EC3 /* ColorValueTransformer.swift */,
+				156FC60E272892B700E1A673 /* RequestSort.swift */,
 			);
 			path = "CoreData+Model";
 			sourceTree = "<group>";
@@ -156,12 +170,10 @@
 		15809B3326E628180022F2B4 /* View+ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				154CD649270B648D00B64F92 /* PrayerJournalView.swift */,
+				150A1B472744397300F549E9 /* PrayerJournalView.swift */,
 				1532031E2729C27900C10FBC /* SortSelectionView.swift */,
-				150A1B472744397300F549E9 /* ContentView.swift */,
-				150A1B4927443D7800F549E9 /* TaskListView.swift */,
-				15AE8438271446A10022DEDB /* RequestCellView */,
 				15735A55270FFAB600DFA3E6 /* AddPrayerView */,
+				15AE8438271446A10022DEDB /* RequestCellView */,
 				150E8963272EFDD6000CBF23 /* TagView */,
 				15F2FBDA271FED1000CDA942 /* Generic Views */,
 			);
@@ -171,8 +183,18 @@
 		15AB27CB272C12A1007F4D07 /* Void */ = {
 			isa = PBXGroup;
 			children = (
+				150E896E2730626E000CBF23 /* AddTagsListview.swift */,
 				1532031A2729374900C10FBC /* OldPrayerJournalView.swift */,
+				154CD649270B648D00B64F92 /* PrayerJournalView-void.swift */,
+				155A144E270C6CF1000B569B /* RequestCellView.swift */,
+				15AE8439271446C90022DEDB /* RequestCellViewModel.swift */,
 				15809AF926E627330022F2B4 /* SectionView.swift */,
+				150E896C27305D2A000CBF23 /* SimpleTagView.swift */,
+				15D2F94F26F48DBA003FD90F /* Tag+Ext.swift */,
+				15B02334272C85B40093172F /* TagValues.swift */,
+				150E896A272FFBDD000CBF23 /* TagViewModel.swift */,
+				15D2F95226F48DFE003FD90F /* Verse+Ext.swift */,
+				15B02336272C86CD0093172F /* VerseValues.swift */,
 			);
 			path = Void;
 			sourceTree = "<group>";
@@ -180,8 +202,7 @@
 		15AE8438271446A10022DEDB /* RequestCellView */ = {
 			isa = PBXGroup;
 			children = (
-				155A144E270C6CF1000B569B /* RequestCellView.swift */,
-				15AE8439271446C90022DEDB /* RequestCellViewModel.swift */,
+				150A1B4927443D7800F549E9 /* RequestListCell.swift */,
 			);
 			path = RequestCellView;
 			sourceTree = "<group>";
@@ -266,30 +287,37 @@
 			buildActionMask = 2147483647;
 			files = (
 				15B02333272C77E60093172F /* PrayerRequestValues.swift in Sources */,
+				155F9DCB275781A4006CF59F /* PrayerTag+CoreDataProperties.swift in Sources */,
 				155A144F270C6CF1000B569B /* RequestCellView.swift in Sources */,
+				155F9DD027579139006CF59F /* PrayerVerse+CoreDataClass.swift in Sources */,
 				15B02335272C85B40093172F /* TagValues.swift in Sources */,
 				15B02337272C86CD0093172F /* VerseValues.swift in Sources */,
 				150E8967272F0A64000CBF23 /* TagView.swift in Sources */,
 				150E8969272FFA48000CBF23 /* AddTagView.swift in Sources */,
 				15D2F95026F48DBA003FD90F /* Tag+Ext.swift in Sources */,
-				150A1B4A27443D7800F549E9 /* TaskListView.swift in Sources */,
+				150A1B4A27443D7800F549E9 /* RequestListCell.swift in Sources */,
+				15CE424C2759431A00244093 /* TagListView.swift in Sources */,
 				150E896F2730626E000CBF23 /* AddTagsListview.swift in Sources */,
-				154CD64A270B648D00B64F92 /* PrayerJournalView.swift in Sources */,
+				154CD64A270B648D00B64F92 /* PrayerJournalView-void.swift in Sources */,
 				150E896D27305D2A000CBF23 /* SimpleTagView.swift in Sources */,
+				155F9DCD27578517006CF59F /* TagColorSelectorView.swift in Sources */,
+				155F9DCA275781A4006CF59F /* PrayerTag+CoreDataClass.swift in Sources */,
 				158F263F26EF6A58001FF4EA /* AddRequestView.swift in Sources */,
 				15809B3926E62C7A0022F2B4 /* MyPrayers.xcdatamodeld in Sources */,
 				15D2F95326F48DFE003FD90F /* Verse+Ext.swift in Sources */,
 				150E896B272FFBDD000CBF23 /* TagViewModel.swift in Sources */,
-				150A1B482744397300F549E9 /* ContentView.swift in Sources */,
+				150A1B482744397300F549E9 /* PrayerJournalView.swift in Sources */,
 				156FC60F272892B800E1A673 /* RequestSort.swift in Sources */,
 				15F2FBE0271FF02400CDA942 /* ListRow.swift in Sources */,
 				15809B2026E627380022F2B4 /* SectionView.swift in Sources */,
 				15735A54270FEF7700DFA3E6 /* AddRequestViewModel.swift in Sources */,
 				15809B1E26E627380022F2B4 /* MyPrayerJournalApp.swift in Sources */,
 				15D2F94D26F48CFE003FD90F /* PrayerRequest+Ext.swift in Sources */,
+				155F9DD127579139006CF59F /* PrayerVerse+CoreDataProperties.swift in Sources */,
 				15809B3D26E630D60022F2B4 /* CoreDataController.swift in Sources */,
 				15AE843A271446C90022DEDB /* RequestCellViewModel.swift in Sources */,
 				1532031F2729C27900C10FBC /* SortSelectionView.swift in Sources */,
+				156ED3FA274E7291001C4EC3 /* ColorValueTransformer.swift in Sources */,
 				1532031B2729374900C10FBC /* OldPrayerJournalView.swift in Sources */,
 				15F2FBDC271FED3200CDA942 /* HeaderView.swift in Sources */,
 				15F2FBDE271FED8D00CDA942 /* FooterView.swift in Sources */,

@@ -7,6 +7,9 @@
 
 import SwiftUI
 
+// not used, using Core Data for tags...
+
+/*
 struct TagValues: Hashable, Identifiable {
     var id = UUID()
     var tagColor: Int16
@@ -14,3 +17,4 @@ struct TagValues: Hashable, Identifiable {
     var tagSize: CGFloat = 0
 //    let prayerRequest: PrayerRequestValues
 }
+*/

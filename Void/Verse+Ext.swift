@@ -7,6 +7,9 @@
 
 import CoreData
 
+// not used, put in PrayerVerse+CoreDataProperties
+
+/*
 extension PrayerVerse {
 
     var bookIDString: String {
@@ -50,23 +53,5 @@ extension PrayerVerse {
         }
         return "\(bookIDText)\(bookString) \(chapterNumber):\(startVerseNumber)\(endVerseText)"
     }
-
-//    static var fetchAllVersesByRequest: NSFetchRequest<PrayerVerse> {
-//        let request: NSFetchRequest<PrayerVerse> = PrayerVerse.fetchRequest()
-//        request.sortDescriptors = [NSSortDescriptor(keyPath: \PrayerVerse.prayerRequest, ascending: true)]
-//        return request
-//    }
 }
-
-/*
- @NSManaged public var book: String?
- @NSManaged public var chapter: Int16
- @NSManaged public var endVerse: Int16
- @NSManaged public var startVerse: Int16
- @NSManaged public var verseText: String?
- @NSManaged public var request: PrayerRequest?
- */
-
-
-// relationship
-// request -> PrayerRequest
+*/

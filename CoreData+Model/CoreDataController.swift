@@ -22,6 +22,8 @@ class CoreDataController {
     private let inMemory: Bool
     private init(inMemory: Bool = false) {
         self.inMemory = inMemory
+
+        ValueTransformer.setValueTransformer(ColorValueTransformer(), forName: NSValueTransformerName("ColorValueTransformer"))
     }
 
     lazy var container: NSPersistentContainer = {

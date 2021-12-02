@@ -7,6 +7,10 @@
 
 import SwiftUI
 
+// not used, switch to Core Data
+
+/*
+
 struct SimpleTagView: View {
     var text: String
     var fontSize: CGFloat
@@ -40,3 +44,4 @@ struct SimpleTagView_Previews: PreviewProvider {
         SimpleTagView(text: "Swift", fontSize: 16, tagTextColor: Color.white, tagBGColor: Color.blue)
     }
 }
+*/

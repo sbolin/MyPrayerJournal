@@ -7,6 +7,8 @@
 
 import Foundation
 
+// convenience, used for data tranlation...
+
 struct PrayerRequestValues {
     let request: String
     let answered: Bool

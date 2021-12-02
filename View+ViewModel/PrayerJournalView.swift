@@ -1,24 +1,33 @@
 //
-//  PrayerJournalView.swift
-//  MyPrayerJournal
+//  ContentView.swift
+//  MyPrayerJournal (iOS)
 //
-//  Created by Scott Bolin on 4-Oct-21.
+//  Created by Scott Bolin on 17-Nov-21.
 //
 
 import SwiftUI
-// import CoreData
 
 struct PrayerJournalView: View {
     @Environment(\.managedObjectContext) private var viewContext
-    var coreDataController: CoreDataController = .shared
+    let coreDataManager: CoreDataController = .shared
 
-    @SectionedFetchRequest(
-        sectionIdentifier: \PrayerRequest.statusString,
-        sortDescriptors: [SortDescriptor(\PrayerRequest.statusID, order: .forward)],
+    @FetchRequest<PrayerRequest>(
+        sortDescriptors: [SortDescriptor(\PrayerRequest.statusID, order: .forward), SortDescriptor(\PrayerRequest.dateRequested, order: .forward)],
         animation: .default)
-    private var requests: SectionedFetchResults<String, PrayerRequest>
+    private var requests: FetchedResults<PrayerRequest>
 
-//    @FocusState var focusField: Bool
+    private var activeRequests: [PrayerRequest] {
+        requests.filter { $0.answered == false && $0.focused == false }
+    }
+
+    private var answeredRequests: [PrayerRequest] {
+        requests.filter { $0.answered == true }
+    }
+
+    private var focusRequests: [PrayerRequest] {
+        requests.filter { $0.focused == true }
+    }
+
     @State private var isAddPrayerShowing: Bool = false
     @State var selectedSort = RequestSort.default
     @State private var searchText = ""
@@ -27,11 +36,9 @@ struct PrayerJournalView: View {
         Binding {
             searchText
         } set: { newValue in
-            let compoundPredicate = NSPredicate(format: "%K CONTAINS[cd] %@ OR %K CONTAINS[cd] %@ OR %K CONTAINS[cd] %@",
-                                                #keyPath(PrayerRequest.request), newValue,
-                                                #keyPath(PrayerRequest.topic), newValue,
-                                                #keyPath(PrayerRequest.prayerTags.tagName), newValue)
-
+            let compoundPredicate = NSPredicate(format: "%K CONTAINS[cd] %@ OR %K CONTAINS[cd] %@ OR %K CONTAINS[cd] %@", #keyPath(PrayerRequest.request), newValue,
+                                       #keyPath(PrayerRequest.topic), newValue,
+                                       #keyPath(PrayerRequest.prayerTags.tagName), newValue)
             searchText = newValue
             requests.nsPredicate = newValue.isEmpty ? nil : compoundPredicate
         }
@@ -39,51 +46,125 @@ struct PrayerJournalView: View {
 
     var body: some View {
         NavigationView {
-            List {
-                ForEach(requests) { section in
-                    Section(header: Text(section.id)) {
-                        ForEach(section) { request in
+            VStack {
+                List {
+                    // Focus requests
+                    Section {
+                        ForEach(focusRequests) { request in
                             NavigationLink {
                                 AddRequestView(requestId: request.objectID)
                             } label: {
-                                RequestCellView(prayerRequest: request)
+                                RequestListCell(request: request)
                             } // NavigationLink
                         } // ForEach
-                        .onDelete { indexSet in
-                            withAnimation {
-                                coreDataController.deleteItem(for: indexSet, section: section, viewContext: viewContext)
-                            } // withAnimation
-                        } // onDelete
-                    } // Section
-                } // ForEach
-            } // List
-            .listStyle(.plain)
-//          .environment(\.editMode, $editMode)
-            .searchable(text: query)
-            .toolbar {
-                ToolbarItemGroup(placement: .navigationBarTrailing) {
-                    Button {
-                        isAddPrayerShowing = true
-                    } label: {
-                        Label("Add Request", systemImage: "plus.circle.fill")
+                        .onDelete(perform: deleteRequest)
+                    } header: {
+                        Label("Focus", systemImage: "target")
+                            .foregroundColor(.pink)
+                    } footer: {
+                        HStack {
+                            Spacer()
+                            Text("\(focusRequests.count) Focus Requests")
+                                .font(.footnote)
+                                .foregroundColor(.secondary)
+                        }
                     }
-                } // ToolbarItemGroup
+                    .accentColor(.pink)
+                    // Active requests
+                    Section {
+                        ForEach(activeRequests) { request in
+                            NavigationLink {
+                                AddRequestView(requestId: request.objectID)
+                            } label: {
+                                RequestListCell(request: request)
+                            } // NavigationLink
+                        } // ForEach
+                        .onDelete(perform: deleteRequest)
+                    } header: {
+                        Label("Requests", systemImage: "checkmark.circle")
+                            .foregroundColor(.blue)
+                    } footer: {
+                        HStack {
+                            Spacer()
+                            Text("\(activeRequests.count) requests remain")
+                                .font(.footnote)
+                                .foregroundColor(.secondary)
+                        }
+                    }
+                    .accentColor(.blue)
+                    // Answered requests
+                    Section {
+                        ForEach(answeredRequests) { request in
+                            NavigationLink {
+                                AddRequestView(requestId: request.objectID)
+                            } label: {
+                                RequestListCell(request: request)
+                            } // NavigationLink
+                        } // ForEach
+                        .onDelete(perform: deleteRequest)
+                    } header: {
+                        Label("Answered", systemImage: "checkmark.circle.fill")
+                            .foregroundColor(.green)
+                    } footer: {
+                        HStack {
+                            Spacer()
+                            Text("\(answeredRequests.count) anwsered requests")
+                                .font(.footnote)
+                                .foregroundColor(.secondary)
+                        }
+                    }
+                    .accentColor(.green)
+                } // List
+                .searchable(text: query)
+///                .listStyle(.grouped)
+
+                .listSectionSeparator(.hidden)
+                .listSectionSeparatorTint(.white.opacity(0))
+                .listRowSeparator(.hidden)
+                .listRowSeparatorTint(.white.opacity(0))
+
+            } // VStack
+//            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
                 ToolbarItemGroup(placement: .navigationBarLeading) {
                     SortSelectionView(selectedSortItem: $selectedSort, sorts: RequestSort.sorts)
                         .onChange(of: selectedSort) { _ in
                             let request = requests
-                            request.sectionIdentifier = selectedSort.section
+//                            request.sectionIdentifier = selectedSort.section
                             request.sortDescriptors = selectedSort.descriptors
                         } // onChange
                 } // ToolbarItemGroup
+
+                ToolbarItemGroup(placement: .principal) {
+                    HStack {
+                        Image(systemName: "sun.max.fill")
+                            .foregroundColor(.yellow)
+                        Text("Prayer Request").font(.title2).bold()
+                            .foregroundColor(.indigo)
+                    }
+                } // ToolbarItemGroup
+// kind of a hacky way to get a NavigationLink in the toolbar
+                ToolbarItemGroup(placement: .navigationBarTrailing) {
+                    HStack {
+                        Text("")
+                        NavigationLink(destination: AddRequestView()) {
+                            Image(systemName: "plus.circle.fill")
+                        }
+                    }
+                } // ToolbarItemGroup
             } // toolbar
-            .sheet(isPresented: $isAddPrayerShowing) {
-                AddRequestView()
-            } // Sheet
-            .navigationTitle("Prayer Journal")
-        } // Navigation
-    } // view
-}
+        } // NavigationView
+    } // View
+
+    private func deleteRequest(at offsets: IndexSet) {
+        withAnimation {
+            offsets.forEach { offset in
+                let request = requests[offset]
+                coreDataManager.deleteRequest(request: request)
+            }
+        }
+    } // deleteRequest
+} // ContentView
 
 struct PrayerJournalView_Previews: PreviewProvider {
     static var previews: some View {

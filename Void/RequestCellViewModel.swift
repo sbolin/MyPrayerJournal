@@ -7,6 +7,10 @@
 
 import SwiftUI
 
+// not used
+
+/*
+
 final class RequestCellViewModel: ObservableObject {
 
     @Published var allTagsForRequest: [PrayerTag] = []
@@ -30,3 +34,4 @@ final class RequestCellViewModel: ObservableObject {
         allVersesForRequest = CoreDataController.shared.fetchVerses(for: prayerRequest) ?? []
     }
 }
+*/

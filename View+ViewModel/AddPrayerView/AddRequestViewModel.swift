@@ -34,12 +34,12 @@ struct AddRequestViewModel {
 
         let tags = requestValues.prayerTags
         tags.forEach { tag in
-            request.prayerTag.insert(tag)
+            request.addToPrayerTags(tag)
         }
 
         let verses = requestValues.prayerVerses
         verses.forEach { verse in
-            request.prayerVerse.insert(verse)
+            request.addToPrayerVerses(verse)
         }
 
         do {

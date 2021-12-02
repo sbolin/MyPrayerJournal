@@ -1,5 +1,5 @@
 //
-//  TaskListView.swift
+//  RequestListCell.swift
 //  MyPrayerJournal (iOS)
 //
 //  Created by Scott Bolin on 17-Nov-21.
@@ -7,9 +7,10 @@
 
 import SwiftUI
 
-struct TaskListView: View {
+struct RequestListCell: View {
     @Environment(\.managedObjectContext) private var viewContext
     @ObservedObject var request: PrayerRequest
+    let iconSize: Double = 28
 
     var backgroundColor: Color {
         switch request.statusID {
@@ -28,12 +29,10 @@ struct TaskListView: View {
                 Text("Date: \(request.dateRequestedString)")
                 Text("Topic: \(request.topicString)")
                 Text("Verse: \(request.verseText ?? "")")
-//                    Text(request.prayerVerse.first?.verseNameString ?? "No Verse")
-//                    Text(request.prayerVerse.first?.verseTextString ?? "No Verse")
-                let tag = request.prayerTag.first
-                let color = PrayerTag.colorDict[tag?.tagColor ?? 1]
-                if let text = tag?.tagName {
-                    SimpleTagView(text: text, fontSize: 12, tagTextColor: Color(.white), tagBGColor: color ?? .blue)
+//              Text(request.prayerVerse.first?.verseNameString ?? "No Verse")
+//              Text(request.prayerVerse.first?.verseTextString ?? "No Verse")
+                if let tag = request.prayerTag.first {
+                    TagView(tag: tag, fontSize: 16)
                 } else {
                     EmptyView()
                 }
@@ -42,6 +41,8 @@ struct TaskListView: View {
             Spacer()
 
             Image(systemName: request.answered ? "checkmark.circle.fill": "checkmark.circle")
+                .resizable()
+                .frame(width: iconSize, height: iconSize)
                 .foregroundColor(.green)
                 .onTapGesture {
                     withAnimation {
@@ -49,6 +50,8 @@ struct TaskListView: View {
                     }
                 }
             Image(systemName: request.focused ? "target": "scope")
+                .resizable()
+                .frame(width: iconSize, height: iconSize)
                 .foregroundColor(.red)
                 .onTapGesture {
                     withAnimation {
@@ -58,7 +61,7 @@ struct TaskListView: View {
         }
         .padding()
         .background(backgroundColor)
-        .clipShape(RoundedRectangle(cornerRadius: 12, style: .circular))
+        .clipShape(RoundedRectangle(cornerRadius: 8, style: .circular))
     }
 
     /// Helper function to unwrap optional binding
@@ -104,13 +107,36 @@ struct TaskListView: View {
     }
 }
 
-//struct TodoListView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        let context = CoreDataManager.preview.container.viewContext
-//        TodoListView(task: Task(context: context))
-//            .environment(\.managedObjectContext, context)
-//    }
-//}
+struct RequestListCell_Previews: PreviewProvider {
+    static var previews: some View {
+        RequestListCell(request: getRequest())
+    }
+
+    static func getRequest() -> PrayerRequest {
+        let context = CoreDataController.shared.container.viewContext
+        let request = PrayerRequest(context: context)
+        let prayerTag = PrayerTag(context: context)
+        let prayerVerse = PrayerVerse(context: context)
+
+        request.request = "A request"
+        request.answered = true
+        request.dateRequested = Date()
+        request.focused = false
+        request.lesson = "A lesson"
+        request.statusID = 1
+        request.topic = "A topic"
+        request.verseText = "For God so loved the world that he gave his only Son, that whoever believes in him should not perish but have eternal life."
+        prayerTag.tagName = "A Tag"
+  //      prayerTag.tagColor = 1
+        prayerVerse.book = "John"
+        prayerVerse.chapter = "3"
+        prayerVerse.startVerse = "16"
+        prayerVerse.verseText = "For God so loved the world that he gave his only Son, that whoever believes in him should not perish but have eternal life."
+        prayerTag.prayerRequest = request
+        prayerVerse.prayerRequest = request
+        return request
+    }
+}
 
 func ??<T>(lhs: Binding<Optional<T>>, rhs: T) -> Binding<T> {
     Binding(

@@ -83,71 +83,29 @@ extension PrayerRequest {
         set { dateRequested = newValue }
     }
 
-
 // handle tags
-    var prayerTag: Set<PrayerTag> {
+    public var prayerTag: Set<PrayerTag> {
         get { prayerTags as? Set<PrayerTag> ?? [] }
         set { prayerTags = newValue as NSSet }
     }
 // handle verses
-    var prayerVerse: Set<PrayerVerse> {
+    public var prayerVerse: Set<PrayerVerse> {
         get { prayerVerses as? Set<PrayerVerse> ?? [] }
         set { prayerVerses = newValue as NSSet }
     }
 
-    // PrayerRequest NSFetchRequest
-//    static var fetchAllRequestsByDate: NSFetchRequest<PrayerRequest> {
-//        let request: NSFetchRequest<PrayerRequest> = PrayerRequest.fetchRequest()
-//        request.sortDescriptors = [NSSortDescriptor(keyPath: \PrayerRequest.dateRequested, ascending: true)]
-//        return request
+
+//    public var tagArray: [PrayerTag] {
+//        let set = prayerTags as? Set<PrayerTag> ?? []
+//        return set.sorted {
+//            $0.tagNameString < $1.tagNameString
+//        }
 //    }
-
-/*
-    static var fetchAllRequests: NSFetchRequest<PrayerRequest> {
-        let request: NSFetchRequest<PrayerRequest> = PrayerRequest.fetchRequest()
-        return request
-    }
-
-
-
-    static var fetchAnswered: NSFetchRequest<PrayerRequest> {
-        let request: NSFetchRequest<PrayerRequest> = PrayerRequest.fetchRequest()
-        let predicate = NSPredicate(format: "%K == %@", #keyPath(PrayerRequest.answered), NSNumber(value: true))
-        request.predicate = predicate
-        request.sortDescriptors = [NSSortDescriptor(keyPath: \PrayerRequest.dateRequested, ascending: true)]
-        return request
-    }
-
-    static var fetchUnAnswered: NSFetchRequest<PrayerRequest> {
-        let request: NSFetchRequest<PrayerRequest> = PrayerRequest.fetchRequest()
-        let predicate = NSPredicate(format: "%K == %@", #keyPath(PrayerRequest.answered), NSNumber(value: false))
-        request.predicate = predicate
-        request.sortDescriptors = [NSSortDescriptor(keyPath: \PrayerRequest.dateRequested, ascending: true)]
-        return request
-    }
-
-    static var fetchAnwserSortedRequests: NSFetchRequest<PrayerRequest> {
-        let request: NSFetchRequest<PrayerRequest> = PrayerRequest.fetchRequest()
-        request.sortDescriptors = [
-            NSSortDescriptor(keyPath: \PrayerRequest.answered, ascending: true), NSSortDescriptor(keyPath: \PrayerRequest.dateRequested, ascending: false)
-            ]
-        return request
-    }
-*/
-//// object id to use in lookup
-//    public var id: NSManagedObjectID {
-//        return self.objectID
+//
+//    public var verseArray: [PrayerVerse] {
+//        let set = prayerVerses as? Set<PrayerVerse> ?? []
+//        return set.sorted {
+//            $0.verseNameString < $1.verseNameString
+//        }
 //    }
 }
-
-/*
-@NSManaged public var answered: Bool
-@NSManaged public var dateRequested: Date?
-@NSManaged public var prayer: String?
-@NSManaged public var topic: String?
-@NSManaged public var tags: NSSet?
-@NSManaged public var verses: NSSet?
-*/
-
-// relationships
-// tags -> Tag, verses -> Verse

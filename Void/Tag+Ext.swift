@@ -7,32 +7,21 @@
 
 import CoreData
 import SwiftUI
-
+/*
 extension PrayerTag {
 
-    //    enum NamedColor: Int {
-    //        case black
-    //        case blue
-    //        case brown
-    //        case clear
-    //        case cyan
-    //        case gray
-    //        case green
-    //        case indigo
-    //        case mint
-    //        case orange
-    //        case pink
-    //        case purple
-    //        case red
-    //        case teal
-    //        case white
-    //        case yellow
-    //    }
+    var colorValue: UIColor {
+        return color as? UIColor ?? .white
+    }
 
-    //    var namedColor: NamedColor {
-    //        get {  return NamedColor(rawValue: Int(tagColor)) ?? .blue }
-    //        set { tagColor = Int16(newValue.rawValue) }
-    //    }
+    static func tagNamed(_ name: String, in context: NSManagedObjectContext) -> PrayerTag? {
+        let fetch = PrayerTag.fetchRequest()
+        fetch.predicate = NSPredicate(format: "name LIKE[cd] %@", name)
+        let results = (try? context.fetch(fetch)) ?? []
+        return results.first
+    }
+
+
 
     static var colorDict: [Int16:Color] {
         [0 : .black,
@@ -73,3 +62,4 @@ extension PrayerTag {
 
 // relationship
 // request -> PrayerRequest
+*/

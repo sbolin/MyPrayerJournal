@@ -7,6 +7,10 @@
 
 import SwiftUI
 
+// not used
+
+/*
+
 struct RequestCellView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @ObservedObject var prayerRequest: PrayerRequest // @StateObject
@@ -94,7 +98,7 @@ struct RequestView_Previews: PreviewProvider {
         request.topic = "A topic"
         request.verseText = "For God so loved the world that he gave his only Son, that whoever believes in him should not perish but have eternal life."
         prayerTag.tagName = "A Tag"
-        prayerTag.tagColor = 1
+//        prayerTag.tagColor = 1
         prayerVerse.book = "John"
         prayerVerse.chapter = "3"
         prayerVerse.startVerse = "16"
@@ -114,3 +118,4 @@ struct CheckboxToggleStyle: ToggleStyle {
 //            .onTapGesture { configuration.isOn.toggle() }
     }
 }
+*/

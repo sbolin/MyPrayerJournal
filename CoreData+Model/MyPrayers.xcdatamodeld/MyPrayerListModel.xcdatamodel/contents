@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19557.2" systemVersion="21C5031d" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19571" systemVersion="21C5039b" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="PrayerRequest" representedClassName="PrayerRequest" syncable="YES" codeGenerationType="class">
         <attribute name="answered" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="dateRequested" attributeType="Date" usesScalarValueType="NO"/>
@@ -13,13 +13,13 @@
         <relationship name="prayerTags" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="PrayerTag" inverseName="prayerRequest" inverseEntity="PrayerTag"/>
         <relationship name="prayerVerses" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="PrayerVerse" inverseName="prayerRequest" inverseEntity="PrayerVerse"/>
     </entity>
-    <entity name="PrayerTag" representedClassName="PrayerTag" syncable="YES" codeGenerationType="class">
+    <entity name="PrayerTag" representedClassName="PrayerTag" syncable="YES">
+        <attribute name="color" attributeType="Transformable" valueTransformerName="ColorValueTransformer" customClassName="UIColor"/>
         <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="tagColor" optional="YES" attributeType="Integer 16" valueTransformerName="SerializableColorTransformer" defaultValueString="0" usesScalarValueType="YES" customClassName="SerializableColor"/>
         <attribute name="tagName" optional="YES" attributeType="String"/>
         <relationship name="prayerRequest" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PrayerRequest" inverseName="prayerTags" inverseEntity="PrayerRequest"/>
     </entity>
-    <entity name="PrayerVerse" representedClassName="PrayerVerse" syncable="YES" codeGenerationType="class">
+    <entity name="PrayerVerse" representedClassName="PrayerVerse" syncable="YES">
         <attribute name="book" attributeType="String"/>
         <attribute name="bookID" optional="YES" attributeType="String"/>
         <attribute name="chapter" attributeType="String"/>
