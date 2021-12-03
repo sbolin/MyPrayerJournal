@@ -8,25 +8,19 @@
 import SwiftUI
 
 struct TagListView: View {
-    var request: PrayerRequest
-    var allTags: Set<PrayerTag>
+    var tags: Set<PrayerTag>
     var groupedTags = [[PrayerTag]]()
     let screenWidth = UIScreen.main.bounds.width
     var maxLimit: Int = 10
 
     // need to change this to Tag object...
-    init(request: PrayerRequest) {
-        self.request = request
-        self.allTags = request.prayerTag
-        self.groupedTags = createGroupedItems(request)
+    init(tags: Set<PrayerTag>) {
+        self.tags = tags
+        self.groupedTags = createGroupedItems(tags)
     }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
-            Text("Add Tags...")
-                .font(.callout)
-                .foregroundColor(.secondary)
-
             // Scrollview of all tags
             ScrollView(.vertical, showsIndicators: false) {
                 VStack(alignment: .leading, spacing: 10) {
@@ -38,7 +32,7 @@ struct TagListView: View {
                         } // HStack
                     } // ForEach
                 } // VStack
-                .frame(width: screenWidth - 40, alignment: .leading)
+                .frame(width: screenWidth - 90, alignment: .leading)
                 .padding(.vertical)
                 //                .padding(.bottom, 20)
             } // ScrollView
@@ -47,7 +41,7 @@ struct TagListView: View {
             // Animation
             .animation(.easeInOut, value: groupedTags)
             .overlay(
-                Text("\(allTags.count)/\(maxLimit)")
+                Text("\(tags.count)/\(maxLimit)")
                     .font(.system(size: 13, weight: .semibold))
                     .foregroundColor(.secondary)
                     .padding(12),
@@ -56,8 +50,7 @@ struct TagListView: View {
         } // VStack
     }
 
-    private func createGroupedItems(_ request: PrayerRequest) -> [[PrayerTag]] {
-// need to get tags from
+    private func createGroupedItems(_ tags: Set<PrayerTag>) -> [[PrayerTag]] {
         var rows = [[PrayerTag]]()
         var currentRow = [PrayerTag]()
         // calculate text width...
@@ -68,8 +61,6 @@ struct TagListView: View {
 
         let font = UIFont.systemFont(ofSize: 16)
         let attributes = [NSAttributedString.Key.font: font]
-
-        let tags = request.prayerTag
 
         tags.forEach { tag in
             // must include capsule size and spacing into totalWidth
@@ -101,6 +92,6 @@ struct TagListView: View {
 
 struct TagListView_Previews: PreviewProvider {
     static var previews: some View {
-        TagListView(request: PrayerRequest())
+        TagListView(tags: Set<PrayerTag>())
     }
 }

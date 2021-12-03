@@ -12,13 +12,13 @@ struct TagColorSelectorView: View {
     let colors: [Color] = [.red, .orange, .yellow, .green, .cyan, .blue, .purple, .indigo]
 
     var body: some View {
-        HStack {
+        HStack(spacing: 4) {
             Text("Color")
                 .fixedSize()
                 .foregroundColor(.secondary)
             ForEach(colors, id: \.self) { color in
                 Image(systemName: selectedColor == color ? "record.circle.fill" : "circle.fill")
-                    .font(.title)
+                    .font(.title2)
                     .foregroundColor(color)
                     .clipShape(Circle())
                     .onTapGesture {
@@ -26,12 +26,11 @@ struct TagColorSelectorView: View {
                     }
             }
         }
-        .padding(.bottom)
     }
 }
 
 struct TagColorSelectorView_Previews: PreviewProvider {
     static var previews: some View {
-        TagColorSelectorView(selectedColor: .constant(.blue))
+        TagColorSelectorView(selectedColor: .constant(.cyan))
     }
 }

@@ -8,51 +8,63 @@
 import SwiftUI
 
 struct AddTagView: View {
+    @Environment(\.managedObjectContext) private var viewContext
 
-    var maxLimit: Int
-    var title: String = "Add Tags:"
-    var fontSize: CGFloat = 16
-    var tagTextColor: Color
-    @ObservedObject var tagViewModel: TagViewModel
+    @Binding var prayerTags: Set<PrayerTag>
+
+    @State var text: String = "" // Tag name text
+    @State var showAlert: Bool = false
+    @State var tagBGColor: Color = .cyan // Tag background color
+    let maxLimit = 10
 
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
-            Text(title)
+            Text("Add Tags...")
                 .font(.callout)
-                .foregroundColor(Color.secondary)
-            //ScrollView
-            ScrollView(.vertical, showsIndicators: false) {
-                VStack(alignment: .leading, spacing: 10) {
-                    ForEach(tagViewModel.getRows(), id: \.self) { rows in
-                        HStack(spacing: 6) {
-                            ForEach(rows) { row in
-                                TagView(tagViewModel: tagViewModel, tag: row, fontSize: fontSize, tagTextColor: tagTextColor)
-                            }
-                        }
-                    }
-                }
-                .frame(width: UIScreen.main.bounds.width - 80, alignment: .leading)
-                .padding(.vertical)
-                .padding(.bottom, 20)
+                .foregroundColor(.secondary)
+            // List of tags
+            TagListView(tags: prayerTags)
+                .frame(height: 150)
+                .fixedSize()
+
+            // textfield
+            TextField("Tag name", text: $text)
+                .textFieldStyle(.roundedBorder)
+                .font(.title2)
+                .padding(.vertical, 12)
+
+            // Get tag color...
+            TagColorSelectorView(selectedColor: $tagBGColor)
+                .padding(.bottom)
+
+            Button {
+                // Need to add tags to model
+                let newTag = PrayerTag(context: viewContext)
+                newTag.tagName = text
+                newTag.color = UIColor(tagBGColor)
+                prayerTags.insert(newTag)
+            } label: {
+                Text("Add Tag")
+                    .fontWeight(.semibold)
+                    .frame(width: 125, height: 32)
             }
-            .frame(maxWidth: .infinity)
-            .background(RoundedRectangle(cornerRadius: 8)
-                            .strokeBorder(Color.secondary.opacity(0.15), lineWidth: 1))
-            // Animation
-            .animation(.easeInOut, value: tagViewModel.tags)
-            .overlay(
-                Text("\(tagViewModel.getSize(tags: tagViewModel.tags))/\(maxLimit)")
-                    .font(.system(size: 13, weight: .semibold))
-                    .foregroundColor(Color.secondary)
-                    .padding(12),
-                alignment: .bottomTrailing
-            )
+            .buttonStyle(.bordered)
+            .tint(tagBGColor)
+            .disabled(text == "")
+            .frame(maxWidth: .infinity, alignment: .center)
+            Spacer()
         }
+        .padding(.horizontal)
     }
 }
 
+
 struct AddTagView_Previews: PreviewProvider {
     static var previews: some View {
-        AddTagView(maxLimit: 10, fontSize: 16, tagTextColor: Color.secondary, tagViewModel: TagViewModel())
+        Form {
+            Section(header: Text("Tags")) {
+                AddTagView(prayerTags: .constant(Set<PrayerTag>()))
+            }
+        }
     }
 }

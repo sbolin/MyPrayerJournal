@@ -29,13 +29,8 @@ struct RequestListCell: View {
                 Text("Date: \(request.dateRequestedString)")
                 Text("Topic: \(request.topicString)")
                 Text("Verse: \(request.verseText ?? "")")
-//              Text(request.prayerVerse.first?.verseNameString ?? "No Verse")
-//              Text(request.prayerVerse.first?.verseTextString ?? "No Verse")
-                if let tag = request.prayerTag.first {
-                    TagView(tag: tag, fontSize: 16)
-                } else {
-                    EmptyView()
-                }
+                Text(request.prayerVerse.first?.verseNameString ?? "No Verse")
+                TagListView(tags: request.prayerTag)
             }
             .font(.caption)
             Spacer()

@@ -52,7 +52,7 @@ struct AddRequestView: View {
                     if requestError {
                         Text("Request is required").foregroundColor(.red)
                     }
-                    TextField("Prayer Topic", text: $topic, prompt: Text("Prayer Topic"))
+//                    TextField("Prayer Topic", text: $topic, prompt: Text("Prayer Topic"))
                     TextField("Prayer Lesson", text: $lesson, prompt: Text("Prayer Lesson"))
                     TextField("Verse, if any", text: $verseText, prompt: Text("Prayer Verse, if any"))
                     DatePicker("Requested on", selection: $dateRequested, displayedComponents: .date)
@@ -65,7 +65,7 @@ struct AddRequestView: View {
                 .tint(.mint)
 
                 Section("Tags") {
-                    TextField("Prayer Tags, if any", text: $requestTag, prompt: Text("Prayer Tags, if any"))
+                    AddTagView(prayerTags: $prayerTags)
                 }
             } // Form
             Spacer()
@@ -77,7 +77,6 @@ struct AddRequestView: View {
                 }
                 .buttonStyle(.bordered)
                 .accentColor(.red)
-                //                        .disabled(request.isEmpty)
 
                 Spacer()
 
@@ -85,23 +84,7 @@ struct AddRequestView: View {
                     if request.isEmpty {
                         requestError = request.isEmpty
                     } else {
-                        statusID = 1
-                        if focused { statusID = 0 }
-                        if answered { statusID = 2 }
-                        let values = PrayerRequestValues(
-                            request: request,
-                            answered: answered,
-                            dateRequested: dateRequested,
-                            focused: focused,
-                            lesson: lesson,
-                            statusID: statusID,
-                            topic: topic,
-                            verseText: verseText,
-                            requestTag: requestTag,
-                            prayerTags: prayerTags,
-                            prayerVerses: prayerVerses)
-                        viewModel.savePrayer(requestID: requestId, with: values, in: viewContext)
-                        presentation.wrappedValue.dismiss()
+                        addRequest()
                     }
                 } label: {
                     Text("Save")
@@ -129,6 +112,26 @@ struct AddRequestView: View {
             prayerTags = prayer.prayerTag
             prayerVerses = prayer.prayerVerse
         }
+    }
+
+    func addRequest() {
+        statusID = 1
+        if focused { statusID = 0 }
+        if answered { statusID = 2 }
+        let values = PrayerRequestValues(
+            request: request,
+            answered: answered,
+            dateRequested: dateRequested,
+            focused: focused,
+            lesson: lesson,
+            statusID: statusID,
+            topic: topic,
+            verseText: verseText,
+            requestTag: requestTag,
+            prayerTags: prayerTags,
+            prayerVerses: prayerVerses)
+        viewModel.savePrayer(requestID: requestId, with: values, in: viewContext)
+        presentation.wrappedValue.dismiss()
     }
 }
 

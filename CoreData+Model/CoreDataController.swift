@@ -48,8 +48,18 @@ class CoreDataController {
 
     // utility functions
     func save() {
-        print(#function)
         let context = container.viewContext
+        if context.hasChanges {
+            do {
+                try context.save()
+            } catch {
+                // throw error
+                print("Could not save, \(error.localizedDescription)")
+            }
+        }
+    }
+
+    func saveContext(context: NSManagedObjectContext) {
         if context.hasChanges {
             do {
                 try context.save()
