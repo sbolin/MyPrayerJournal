@@ -37,8 +37,8 @@ struct PrayerJournalView: View {
             searchText
         } set: { newValue in
             let compoundPredicate = NSPredicate(format: "%K CONTAINS[cd] %@ OR %K CONTAINS[cd] %@ OR %K CONTAINS[cd] %@", #keyPath(PrayerRequest.request), newValue,
-                                       #keyPath(PrayerRequest.topic), newValue,
-                                       #keyPath(PrayerRequest.prayerTags.tagName), newValue)
+                                                #keyPath(PrayerRequest.topic), newValue,
+                                                #keyPath(PrayerRequest.prayerTags.tagName), newValue)
             searchText = newValue
             requests.nsPredicate = newValue.isEmpty ? nil : compoundPredicate
         }
@@ -46,113 +46,122 @@ struct PrayerJournalView: View {
 
     var body: some View {
         NavigationView {
-            VStack {
-                List {
-                    // Focus requests
-                    Section {
-                        ForEach(focusRequests) { request in
-                            NavigationLink {
-                                AddRequestView(requestId: request.objectID)
-                            } label: {
-                                RequestListCell(request: request)
-                            } // NavigationLink
-                        } // ForEach
-                        .onDelete(perform: deleteRequest)
-                    } header: {
-                        Label("Focus", systemImage: "target")
-                            .foregroundColor(.pink)
-                    } footer: {
-                        HStack {
-                            Spacer()
-                            Text("\(focusRequests.count) Focus Requests")
-                                .font(.footnote)
-                                .foregroundColor(.secondary)
+            ZStack(alignment: .bottom) {
+                VStack {
+                    List {
+                        // Focus requests
+                        Section {
+                            ForEach(focusRequests) { request in
+                                NavigationLink {
+                                    AddRequestView(requestId: request.objectID)
+                                } label: {
+                                    RequestListCell(request: request)
+                                } // NavigationLink
+                            } // ForEach
+                            .onDelete(perform: deleteRequest)
+                        } header: {
+                            Label("Focus", systemImage: "target")
+                                .foregroundColor(.pink)
+                        } footer: {
+                            HStack {
+                                Spacer()
+                                Text("\(focusRequests.count) Focus Requests")
+                                    .font(.footnote)
+                                    .foregroundColor(.secondary)
+                            }
                         }
-                    }
-                    .accentColor(.pink)
-                    // Active requests
-                    Section {
-                        ForEach(activeRequests) { request in
-                            NavigationLink {
-                                AddRequestView(requestId: request.objectID)
-                            } label: {
-                                RequestListCell(request: request)
-                            } // NavigationLink
-                        } // ForEach
-                        .onDelete(perform: deleteRequest)
-                    } header: {
-                        Label("Requests", systemImage: "checkmark.circle")
-                            .foregroundColor(.blue)
-                    } footer: {
-                        HStack {
-                            Spacer()
-                            Text("\(activeRequests.count) requests remain")
-                                .font(.footnote)
-                                .foregroundColor(.secondary)
+                        .listRowSeparator(.hidden)
+                        .accentColor(.pink)
+                        // Active requests
+                        Section {
+                            ForEach(activeRequests) { request in
+                                NavigationLink {
+                                    AddRequestView(requestId: request.objectID)
+                                } label: {
+                                    RequestListCell(request: request)
+                                } // NavigationLink
+                            } // ForEach
+                            .onDelete(perform: deleteRequest)
+                        } header: {
+                            Label("Requests", systemImage: "checkmark.circle")
+                                .foregroundColor(.blue)
+                        } footer: {
+                            HStack {
+                                Spacer()
+                                Text("\(activeRequests.count) requests remain")
+                                    .font(.footnote)
+                                    .foregroundColor(.secondary)
+                            }
                         }
-                    }
-                    .accentColor(.blue)
-                    // Answered requests
-                    Section {
-                        ForEach(answeredRequests) { request in
-                            NavigationLink {
-                                AddRequestView(requestId: request.objectID)
-                            } label: {
-                                RequestListCell(request: request)
-                            } // NavigationLink
-                        } // ForEach
-                        .onDelete(perform: deleteRequest)
-                    } header: {
-                        Label("Answered", systemImage: "checkmark.circle.fill")
-                            .foregroundColor(.green)
-                    } footer: {
-                        HStack {
-                            Spacer()
-                            Text("\(answeredRequests.count) anwsered requests")
-                                .font(.footnote)
-                                .foregroundColor(.secondary)
+                        .listRowSeparator(.hidden)
+                        .accentColor(.blue)
+                        // Answered requests
+                        Section {
+                            ForEach(answeredRequests) { request in
+                                NavigationLink {
+                                    AddRequestView(requestId: request.objectID)
+                                } label: {
+                                    RequestListCell(request: request)
+                                } // NavigationLink
+                            } // ForEach
+                            .onDelete(perform: deleteRequest)
+                        } header: {
+                            Label("Answered", systemImage: "checkmark.circle.fill")
+                                .foregroundColor(.green)
+                        } footer: {
+                            HStack {
+                                Spacer()
+                                Text("\(answeredRequests.count) anwsered requests")
+                                    .font(.footnote)
+                                    .foregroundColor(.secondary)
+                            }
                         }
-                    }
-                    .accentColor(.green)
-                } // List
-                .searchable(text: query)
-///                .listStyle(.grouped)
+                        .listRowSeparator(.hidden)
+                        .accentColor(.green)
+                    } // List
+                    .searchable(text: query)
+                    ///                .listStyle(.grouped)
+                    .listSectionSeparator(.hidden)
+                    .listSectionSeparatorTint(.white.opacity(0))
+                    .listRowSeparator(.hidden)
+                    .listRowSeparatorTint(.white.opacity(0))
 
-                .listSectionSeparator(.hidden)
-                .listSectionSeparatorTint(.white.opacity(0))
-                .listRowSeparator(.hidden)
-                .listRowSeparatorTint(.white.opacity(0))
+                } // VStack
+                .toolbar {
+                    ToolbarItemGroup(placement: .navigationBarLeading) {
+                        SortSelectionView(selectedSortItem: $selectedSort, sorts: RequestSort.sorts)
+                            .onChange(of: selectedSort) { _ in
+                                let request = requests
+                                request.sortDescriptors = selectedSort.descriptors
+                            } // onChange
+                    } // ToolbarItemGroup
 
-            } // VStack
-//            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItemGroup(placement: .navigationBarLeading) {
-                    SortSelectionView(selectedSortItem: $selectedSort, sorts: RequestSort.sorts)
-                        .onChange(of: selectedSort) { _ in
-                            let request = requests
-//                            request.sectionIdentifier = selectedSort.section
-                            request.sortDescriptors = selectedSort.descriptors
-                        } // onChange
-                } // ToolbarItemGroup
-
-                ToolbarItemGroup(placement: .principal) {
-                    HStack {
-                        Image(systemName: "sun.max.fill")
-                            .foregroundColor(.yellow)
-                        Text("Prayer Request").font(.title2).bold()
-                            .foregroundColor(.indigo)
-                    }
-                } // ToolbarItemGroup
-// kind of a hacky way to get a NavigationLink in the toolbar
-                ToolbarItemGroup(placement: .navigationBarTrailing) {
-                    HStack {
-                        Text("")
-                        NavigationLink(destination: AddRequestView()) {
-                            Image(systemName: "plus.circle.fill")
+                    ToolbarItemGroup(placement: .principal) {
+                        HStack {
+                            Image(systemName: "sun.max.fill")
+                                .foregroundColor(.yellow)
+                            Text("Prayer Request").font(.title2).bold()
+                                .foregroundColor(.indigo)
                         }
-                    }
-                } // ToolbarItemGroup
-            } // toolbar
+                    } // ToolbarItemGroup
+                      // kind of a hacky way to get a NavigationLink in the toolbar
+//                    ToolbarItemGroup(placement: .navigationBarTrailing) {
+//                        HStack {
+//                            Text("")
+//                            NavigationLink(destination: AddRequestView()) {
+//                                Image(systemName: "plus.circle.fill")
+//                            }
+//                        }
+//                    } // ToolbarItemGroup
+                } // toolbar
+                NavigationLink(destination: AddRequestView()) {
+                    Image(systemName: "plus.circle.fill")
+                        .resizable()
+                        .frame(width: 44, height: 44, alignment: .center)
+                        .foregroundColor(.green)
+                        .padding(.bottom)
+                }
+            } // ZStack
         } // NavigationView
     } // View
 

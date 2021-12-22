@@ -19,23 +19,29 @@ struct AddTagView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
-            Text("Add Tags...")
+            Text("Current Tags")
                 .font(.callout)
                 .foregroundColor(.secondary)
             // List of tags
-            TagListView(tags: prayerTags)
-                .frame(height: 150)
-                .fixedSize()
+            TagListView(tags: prayerTags, fontSize: 12)
+                .frame(height: 125)
+//                .fixedSize()
 
+            Text("Add Tags...")
+                .font(.callout)
+                .foregroundColor(.secondary)
+                .padding(.top)
             // textfield
             TextField("Tag name", text: $text)
                 .textFieldStyle(.roundedBorder)
-                .font(.title2)
-                .padding(.vertical, 12)
+//                .font(.title2)
+                .padding(.bottom)
+                .frame(width: 300)
 
             // Get tag color...
             TagColorSelectorView(selectedColor: $tagBGColor)
                 .padding(.bottom)
+                .frame(width: 300)
 
             Button {
                 // Need to add tags to model
@@ -46,7 +52,7 @@ struct AddTagView: View {
             } label: {
                 Text("Add Tag")
                     .fontWeight(.semibold)
-                    .frame(width: 125, height: 32)
+                    .frame(width: 80, height: 32)
             }
             .buttonStyle(.bordered)
             .tint(tagBGColor)

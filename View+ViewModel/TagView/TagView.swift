@@ -36,6 +36,6 @@ struct TagView: View {
 
 struct TagView_Previews: PreviewProvider {
     static var previews: some View {
-        TagView(tag: PrayerTag(), fontSize: 16)
+        TagView(tag: PrayerTag(), fontSize: 12)
     }
 }

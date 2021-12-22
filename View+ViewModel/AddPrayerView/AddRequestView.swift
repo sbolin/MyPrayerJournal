@@ -47,22 +47,43 @@ struct AddRequestView: View {
                             .multilineTextAlignment(.leading)
                             .allowsTightening(false)
                             .textInputAutocapitalization(.sentences)
-                            .frame(minHeight: 100)
+                            .frame(minHeight: 80)
                     }
                     if requestError {
                         Text("Request is required").foregroundColor(.red)
                     }
 //                    TextField("Prayer Topic", text: $topic, prompt: Text("Prayer Topic"))
-                    TextField("Prayer Lesson", text: $lesson, prompt: Text("Prayer Lesson"))
-                    TextField("Verse, if any", text: $verseText, prompt: Text("Prayer Verse, if any"))
+                    TextField("Prayer Lesson", text: $lesson, prompt: Text("Lesson"))
+                    TextField("Verse, if any", text: $verseText, prompt: Text("Verse, if any"))
                     DatePicker("Requested on", selection: $dateRequested, displayedComponents: .date)
                 }
-
+//                Image(systemName: request.focused ? "target": "scope")
                 Section("Status") {
-                    Toggle("Focus", isOn: $focused)
-                    Toggle("Answered", isOn: $answered)
+                    HStack {
+                        Text("Focused")
+                        Spacer()
+                        Toggle(isOn: $focused) {
+                            Image(systemName: focused ? "target": "scope")
+                                .font(.title2)
+                                .foregroundColor(.red)
+                        }
+                        .toggleStyle(.button)
+                        .tint(.clear)
+                    }
+                    HStack {
+                        Text("Answered")
+                        Spacer()
+                        Toggle(isOn: $answered) {
+                            Image(systemName: "checkmark.circle")
+                                .font(.title2)
+                                .foregroundColor(.green)
+                                .symbolVariant(answered ? .fill : .none)
+                        }
+                        .toggleStyle(.button)
+                        .tint(.clear)
+                    }
                 }
-                .tint(.mint)
+ //               .tint(.mint)
 
                 Section("Tags") {
                     AddTagView(prayerTags: $prayerTags)
@@ -138,7 +159,6 @@ struct AddRequestView: View {
 struct RequestForm_Previews: PreviewProvider {
     static var previews: some View {
         AddRequestView()
-        //            .environment(\.managedObjectContext, CoreDataController.preview.container.viewContext)
     }
 }
 

@@ -22,38 +22,42 @@ struct RequestListCell: View {
     }
 
     var body: some View {
-        HStack {
-            VStack(alignment: .leading, spacing: 6) {
-//            TextField("", text: $request.request ?? "")
-                Text(request.requestString).font(.headline)
-                Text("Date: \(request.dateRequestedString)")
-                Text("Topic: \(request.topicString)")
-                Text("Verse: \(request.verseText ?? "")")
-                Text(request.prayerVerse.first?.verseNameString ?? "No Verse")
-                TagListView(tags: request.prayerTag)
-            }
-            .font(.caption)
-            Spacer()
+        VStack(alignment: .leading) {
+            HStack {
+                VStack(alignment: .leading, spacing: 6) {
+                    Text(request.requestString).font(.headline)
+                    Text("Date: \(request.dateRequestedString)")
+                    Text("Topic: \(request.topicString)")
+                    Text("Verse: \(request.verseText ?? "")")
+//                    Text(request.prayerVerse.first?.verseNameString ?? "No Verse")
+                }
+                .font(.callout)
+                Spacer()
 
-            Image(systemName: request.answered ? "checkmark.circle.fill": "checkmark.circle")
-                .resizable()
-                .frame(width: iconSize, height: iconSize)
-                .foregroundColor(.green)
-                .onTapGesture {
-                    withAnimation {
-                        updateRequest()
+                Image(systemName: request.answered ? "checkmark.circle.fill": "checkmark.circle")
+                    .resizable()
+                    .frame(width: iconSize, height: iconSize)
+                    .foregroundColor(.green)
+                    .onTapGesture {
+                        withAnimation {
+                            updateRequest()
+                        }
                     }
-                }
-            Image(systemName: request.focused ? "target": "scope")
-                .resizable()
-                .frame(width: iconSize, height: iconSize)
-                .foregroundColor(.red)
-                .onTapGesture {
-                    withAnimation {
-                        updateFocus()
+                Image(systemName: request.focused ? "target": "scope")
+                    .resizable()
+                    .frame(width: iconSize, height: iconSize)
+                    .foregroundColor(.red)
+                    .onTapGesture {
+                        withAnimation {
+                            updateFocus()
+                        }
                     }
-                }
-        }
+            } // HStack
+            TagRowView(tags: request.prayerTag, fontSize: 12)
+//                .frame(maxWidth: .infinity, alignment: .leading)
+                .fixedSize()
+                .background(RoundedRectangle(cornerRadius: 6).strokeBorder(Color.secondary, lineWidth: 1))
+        } // VStack
         .padding()
         .background(backgroundColor)
         .clipShape(RoundedRectangle(cornerRadius: 8, style: .circular))
@@ -122,7 +126,7 @@ struct RequestListCell_Previews: PreviewProvider {
         request.topic = "A topic"
         request.verseText = "For God so loved the world that he gave his only Son, that whoever believes in him should not perish but have eternal life."
         prayerTag.tagName = "A Tag"
-  //      prayerTag.tagColor = 1
+        prayerTag.color = .systemIndigo
         prayerVerse.book = "John"
         prayerVerse.chapter = "3"
         prayerVerse.startVerse = "16"

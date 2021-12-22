@@ -1,13 +1,13 @@
 //
-//  TagListView.swift
+//  TagRowView.swift
 //  MyPrayerJournal (iOS)
 //
-//  Created by Scott Bolin on 3-Dec-21.
+//  Created by Scott Bolin on 4-Dec-21.
 //
 
 import SwiftUI
 
-struct TagListView: View {
+struct TagRowView: View {
     var tags: Set<PrayerTag>
     var groupedTags = [[PrayerTag]]()
     let screenWidth = UIScreen.main.bounds.width
@@ -22,34 +22,17 @@ struct TagListView: View {
     }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 6) {
-            // Scrollview of all tags
-            ScrollView(.vertical, showsIndicators: false) {
-                VStack(alignment: .leading, spacing: 10) {
-                    ForEach(groupedTags, id: \.self) { rows in
-                        HStack(spacing: 8) {
-                            ForEach(rows, id: \.self) { tag in
-                                TagView(tag: tag, fontSize: fontSize)
-                            } // ForEach
-                        } // HStack
-                    } // ForEach
-                } // VStack
-                .frame(width: screenWidth - 90, alignment: .leading)
-                .padding(.vertical)
-                //                .padding(.bottom, 20)
-            } // ScrollView
-            .frame(maxWidth: .infinity)
-            .background(RoundedRectangle(cornerRadius: 6).strokeBorder(Color.secondary, lineWidth: 1))
-            // Animation
-            .animation(.easeInOut, value: groupedTags)
-            .overlay(
-                Text("\(tags.count)/\(maxLimit)")
-                    .font(.system(size: 13, weight: .semibold))
-                    .foregroundColor(.secondary)
-                    .padding(12),
-                alignment: .bottomTrailing
-            )
-        } // VStack
+        ScrollView(.vertical, showsIndicators: false) {
+            VStack(alignment: .leading, spacing: 10) {
+                ForEach(groupedTags, id: \.self) { rows in
+                    HStack(spacing: 8) {
+                        ForEach(rows, id: \.self) { tag in
+                            TagView(tag: tag, fontSize: fontSize)
+                        } // ForEach
+                    } // HStack
+                } // ForEach
+            } // VStack
+        } // ScrollView
     }
 
     private func createGroupedItems(_ tags: Set<PrayerTag>) -> [[PrayerTag]] {
@@ -92,8 +75,8 @@ struct TagListView: View {
     }
 }
 
-struct TagListView_Previews: PreviewProvider {
+struct TagRowView_Previews: PreviewProvider {
     static var previews: some View {
-        TagListView(tags: Set<PrayerTag>(), fontSize: 12)
+        TagRowView(tags: Set<PrayerTag>(), fontSize: 12)
     }
 }
