@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19571" systemVersion="21C5039b" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19571" systemVersion="21D5025f" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="PrayerRequest" representedClassName="PrayerRequest" syncable="YES" codeGenerationType="class">
         <attribute name="answered" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="dateRequested" attributeType="Date" usesScalarValueType="NO"/>

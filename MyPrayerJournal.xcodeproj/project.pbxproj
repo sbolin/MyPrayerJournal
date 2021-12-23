@@ -11,6 +11,13 @@
 		150A1B4A27443D7800F549E9 /* RequestListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 150A1B4927443D7800F549E9 /* RequestListCell.swift */; };
 		150E8967272F0A64000CBF23 /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 150E8966272F0A64000CBF23 /* TagView.swift */; };
 		150E8969272FFA48000CBF23 /* AddTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 150E8968272FFA48000CBF23 /* AddTagView.swift */; };
+		1524F4612774EB9B00000BD3 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1524F4602774EB9B00000BD3 /* WidgetKit.framework */; platformFilter = maccatalyst; };
+		1524F4632774EB9B00000BD3 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1524F4622774EB9B00000BD3 /* SwiftUI.framework */; platformFilter = maccatalyst; };
+		1524F4662774EB9B00000BD3 /* MyPrayerJournalWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1524F4652774EB9B00000BD3 /* MyPrayerJournalWidget.swift */; };
+		1524F4682774EB9E00000BD3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1524F4672774EB9E00000BD3 /* Assets.xcassets */; };
+		1524F46C2774EB9E00000BD3 /* MyPrayerJournalWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 1524F45E2774EB9B00000BD3 /* MyPrayerJournalWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		1524F4732774EC2900000BD3 /* CoreDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15809B3C26E630D60022F2B4 /* CoreDataController.swift */; };
+		1524F4752774EC5200000BD3 /* MyPrayers.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 15809B3726E62C790022F2B4 /* MyPrayers.xcdatamodeld */; };
 		1532031F2729C27900C10FBC /* SortSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1532031E2729C27900C10FBC /* SortSelectionView.swift */; };
 		1534131C275B649900977AA3 /* TagRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1534131B275B649900977AA3 /* TagRowView.swift */; };
 		155F9DCA275781A4006CF59F /* PrayerTag+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155F9DC8275781A4006CF59F /* PrayerTag+CoreDataClass.swift */; };
@@ -32,7 +39,38 @@
 		15F2FBDC271FED3200CDA942 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F2FBDB271FED3200CDA942 /* HeaderView.swift */; };
 		15F2FBDE271FED8D00CDA942 /* FooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F2FBDD271FED8D00CDA942 /* FooterView.swift */; };
 		15F2FBE0271FF02400CDA942 /* ListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F2FBDF271FF02400CDA942 /* ListRow.swift */; };
+		15FA96522774F19A0059E4CA /* PrayerRequest+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D2F94C26F48CFE003FD90F /* PrayerRequest+Ext.swift */; };
+		15FA96532774F1D40059E4CA /* PrayerTag+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155F9DC9275781A4006CF59F /* PrayerTag+CoreDataProperties.swift */; };
+		15FA96542774F1D40059E4CA /* PrayerVerse+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155F9DCE27579139006CF59F /* PrayerVerse+CoreDataClass.swift */; };
+		15FA96552774F1D40059E4CA /* PrayerTag+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155F9DC8275781A4006CF59F /* PrayerTag+CoreDataClass.swift */; };
+		15FA96562774F1D40059E4CA /* PrayerVerse+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155F9DCF27579139006CF59F /* PrayerVerse+CoreDataProperties.swift */; };
+		15FA96572774F1DE0059E4CA /* ColorValueTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 156ED3F9274E7291001C4EC3 /* ColorValueTransformer.swift */; };
+		15FA96582774F1E50059E4CA /* RequestSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 156FC60E272892B700E1A673 /* RequestSort.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		1524F46A2774EB9E00000BD3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 15809AF326E627330022F2B4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1524F45D2774EB9B00000BD3;
+			remoteInfo = MyPrayerJournalWidgetExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		1524F46D2774EB9E00000BD3 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				1524F46C2774EB9E00000BD3 /* MyPrayerJournalWidgetExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		150A1B472744397300F549E9 /* PrayerJournalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayerJournalView.swift; sourceTree = "<group>"; };
@@ -40,6 +78,14 @@
 		150E8966272F0A64000CBF23 /* TagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
 		150E8968272FFA48000CBF23 /* AddTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTagView.swift; sourceTree = "<group>"; };
 		152280AE2727BE0600141D81 /* ToDo.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = ToDo.md; sourceTree = "<group>"; };
+		1524F45E2774EB9B00000BD3 /* MyPrayerJournalWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = MyPrayerJournalWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		1524F4602774EB9B00000BD3 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		1524F4622774EB9B00000BD3 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		1524F4652774EB9B00000BD3 /* MyPrayerJournalWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPrayerJournalWidget.swift; sourceTree = "<group>"; };
+		1524F4672774EB9E00000BD3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		1524F4692774EB9E00000BD3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1524F4712774EBC200000BD3 /* MyPrayerJournal (iOS).entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "MyPrayerJournal (iOS).entitlements"; sourceTree = "<group>"; };
+		1524F4722774EBF100000BD3 /* MyPrayerJournalWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MyPrayerJournalWidgetExtension.entitlements; sourceTree = "<group>"; };
 		1532031E2729C27900C10FBC /* SortSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortSelectionView.swift; sourceTree = "<group>"; };
 		1534131B275B649900977AA3 /* TagRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagRowView.swift; sourceTree = "<group>"; };
 		155F9DC8275781A4006CF59F /* PrayerTag+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PrayerTag+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -67,6 +113,15 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		1524F45B2774EB9B00000BD3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1524F4632774EB9B00000BD3 /* SwiftUI.framework in Frameworks */,
+				1524F4612774EB9B00000BD3 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		15809AFC26E627370022F2B4 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -89,6 +144,25 @@
 			path = TagView;
 			sourceTree = "<group>";
 		};
+		1524F45F2774EB9B00000BD3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1524F4602774EB9B00000BD3 /* WidgetKit.framework */,
+				1524F4622774EB9B00000BD3 /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		1524F4642774EB9B00000BD3 /* MyPrayerJournalWidget */ = {
+			isa = PBXGroup;
+			children = (
+				1524F4652774EB9B00000BD3 /* MyPrayerJournalWidget.swift */,
+				1524F4672774EB9E00000BD3 /* Assets.xcassets */,
+				1524F4692774EB9E00000BD3 /* Info.plist */,
+			);
+			path = MyPrayerJournalWidget;
+			sourceTree = "<group>";
+		};
 		15735A55270FFAB600DFA3E6 /* AddPrayerView */ = {
 			isa = PBXGroup;
 			children = (
@@ -101,12 +175,17 @@
 		15809AF226E627330022F2B4 = {
 			isa = PBXGroup;
 			children = (
+				1524F4722774EBF100000BD3 /* MyPrayerJournalWidgetExtension.entitlements */,
+				1524F4712774EBC200000BD3 /* MyPrayerJournal (iOS).entitlements */,
 				152280AE2727BE0600141D81 /* ToDo.md */,
 				15809AF826E627330022F2B4 /* MyPrayerJournalApp.swift */,
 				15809B3326E628180022F2B4 /* View+ViewModel */,
 				15809B3226E6280E0022F2B4 /* CoreData+Model */,
+				15BD2D52277342180021A4C9 /* Extension */,
 				15809AFA26E627370022F2B4 /* Assets.xcassets */,
+				1524F4642774EB9B00000BD3 /* MyPrayerJournalWidget */,
 				15809B0D26E627370022F2B4 /* Tests iOS */,
+				1524F45F2774EB9B00000BD3 /* Frameworks */,
 				15809B0026E627370022F2B4 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -115,6 +194,7 @@
 			isa = PBXGroup;
 			children = (
 				15809AFF26E627370022F2B4 /* MyPrayerJournal.app */,
+				1524F45E2774EB9B00000BD3 /* MyPrayerJournalWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -153,7 +233,7 @@
 				15735A55270FFAB600DFA3E6 /* AddPrayerView */,
 				15AE8438271446A10022DEDB /* RequestCellView */,
 				150E8963272EFDD6000CBF23 /* TagView */,
-				15F2FBDA271FED1000CDA942 /* Generic Views */,
+				15F2FBDA271FED1000CDA942 /* Generic Views - Not Used */,
 			);
 			path = "View+ViewModel";
 			sourceTree = "<group>";
@@ -166,19 +246,43 @@
 			path = RequestCellView;
 			sourceTree = "<group>";
 		};
-		15F2FBDA271FED1000CDA942 /* Generic Views */ = {
+		15BD2D52277342180021A4C9 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		15F2FBDA271FED1000CDA942 /* Generic Views - Not Used */ = {
 			isa = PBXGroup;
 			children = (
 				15F2FBDB271FED3200CDA942 /* HeaderView.swift */,
 				15F2FBDD271FED8D00CDA942 /* FooterView.swift */,
 				15F2FBDF271FF02400CDA942 /* ListRow.swift */,
 			);
-			path = "Generic Views";
+			path = "Generic Views - Not Used";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		1524F45D2774EB9B00000BD3 /* MyPrayerJournalWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1524F4702774EB9E00000BD3 /* Build configuration list for PBXNativeTarget "MyPrayerJournalWidgetExtension" */;
+			buildPhases = (
+				1524F45A2774EB9B00000BD3 /* Sources */,
+				1524F45B2774EB9B00000BD3 /* Frameworks */,
+				1524F45C2774EB9B00000BD3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MyPrayerJournalWidgetExtension;
+			productName = MyPrayerJournalWidgetExtension;
+			productReference = 1524F45E2774EB9B00000BD3 /* MyPrayerJournalWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		15809AFE26E627370022F2B4 /* MyPrayerJournal (iOS) */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 15809B2626E627380022F2B4 /* Build configuration list for PBXNativeTarget "MyPrayerJournal (iOS)" */;
@@ -186,10 +290,12 @@
 				15809AFB26E627370022F2B4 /* Sources */,
 				15809AFC26E627370022F2B4 /* Frameworks */,
 				15809AFD26E627370022F2B4 /* Resources */,
+				1524F46D2774EB9E00000BD3 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				1524F46B2774EB9E00000BD3 /* PBXTargetDependency */,
 			);
 			name = "MyPrayerJournal (iOS)";
 			productName = "MyPrayerList (iOS)";
@@ -203,9 +309,12 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1300;
+				LastSwiftUpdateCheck = 1320;
 				LastUpgradeCheck = 1300;
 				TargetAttributes = {
+					1524F45D2774EB9B00000BD3 = {
+						CreatedOnToolsVersion = 13.2;
+					};
 					15809AFE26E627370022F2B4 = {
 						CreatedOnToolsVersion = 13.0;
 					};
@@ -225,11 +334,20 @@
 			projectRoot = "";
 			targets = (
 				15809AFE26E627370022F2B4 /* MyPrayerJournal (iOS) */,
+				1524F45D2774EB9B00000BD3 /* MyPrayerJournalWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		1524F45C2774EB9B00000BD3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1524F4682774EB9E00000BD3 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		15809AFD26E627370022F2B4 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -241,6 +359,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		1524F45A2774EB9B00000BD3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				15FA96542774F1D40059E4CA /* PrayerVerse+CoreDataClass.swift in Sources */,
+				15FA96572774F1DE0059E4CA /* ColorValueTransformer.swift in Sources */,
+				1524F4732774EC2900000BD3 /* CoreDataController.swift in Sources */,
+				15FA96582774F1E50059E4CA /* RequestSort.swift in Sources */,
+				15FA96562774F1D40059E4CA /* PrayerVerse+CoreDataProperties.swift in Sources */,
+				1524F4752774EC5200000BD3 /* MyPrayers.xcdatamodeld in Sources */,
+				15FA96532774F1D40059E4CA /* PrayerTag+CoreDataProperties.swift in Sources */,
+				15FA96552774F1D40059E4CA /* PrayerTag+CoreDataClass.swift in Sources */,
+				15FA96522774F19A0059E4CA /* PrayerRequest+Ext.swift in Sources */,
+				1524F4662774EB9B00000BD3 /* MyPrayerJournalWidget.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		15809AFB26E627370022F2B4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -274,7 +409,76 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		1524F46B2774EB9E00000BD3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1524F45D2774EB9B00000BD3 /* MyPrayerJournalWidgetExtension */;
+			targetProxy = 1524F46A2774EB9E00000BD3 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		1524F46E2774EB9E00000BD3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = MyPrayerJournalWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = QTCBMWZUKD;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MyPrayerJournalWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = MyPrayerJournalWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = io.tukgaesoft.MyPrayerJournal.MyPrayerJournalWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		1524F46F2774EB9E00000BD3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = MyPrayerJournalWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = QTCBMWZUKD;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MyPrayerJournalWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = MyPrayerJournalWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = io.tukgaesoft.MyPrayerJournal.MyPrayerJournalWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 		15809B2426E627380022F2B4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -389,8 +593,10 @@
 		15809B2726E627380022F2B4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "MyPrayerJournal (iOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1.01;
 				DEVELOPMENT_TEAM = QTCBMWZUKD;
@@ -420,8 +626,10 @@
 		15809B2826E627380022F2B4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "MyPrayerJournal (iOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1.01;
 				DEVELOPMENT_TEAM = QTCBMWZUKD;
@@ -452,6 +660,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		1524F4702774EB9E00000BD3 /* Build configuration list for PBXNativeTarget "MyPrayerJournalWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1524F46E2774EB9E00000BD3 /* Debug */,
+				1524F46F2774EB9E00000BD3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		15809AF626E627330022F2B4 /* Build configuration list for PBXProject "MyPrayerJournal" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

@@ -12,7 +12,8 @@ struct PrayerJournalView: View {
     let coreDataManager: CoreDataController = .shared
 
     @FetchRequest<PrayerRequest>(
-        sortDescriptors: [SortDescriptor(\PrayerRequest.statusID, order: .forward), SortDescriptor(\PrayerRequest.dateRequested, order: .forward)],
+        sortDescriptors: [
+            SortDescriptor(\PrayerRequest.statusID, order: .forward), SortDescriptor(\PrayerRequest.dateRequested, order: .forward)],
         animation: .default)
     private var requests: FetchedResults<PrayerRequest>
 
@@ -88,7 +89,7 @@ struct PrayerJournalView: View {
                         } footer: {
                             HStack {
                                 Spacer()
-                                Text("\(activeRequests.count) requests remain")
+                                Text("\(activeRequests.count) Requests Remain")
                                     .font(.footnote)
                                     .foregroundColor(.secondary)
                             }
@@ -111,7 +112,7 @@ struct PrayerJournalView: View {
                         } footer: {
                             HStack {
                                 Spacer()
-                                Text("\(answeredRequests.count) anwsered requests")
+                                Text("\(answeredRequests.count) Anwsered Requests")
                                     .font(.footnote)
                                     .foregroundColor(.secondary)
                             }
@@ -127,6 +128,7 @@ struct PrayerJournalView: View {
                     .listRowSeparatorTint(.white.opacity(0))
 
                 } // VStack
+
                 .toolbar {
                     ToolbarItemGroup(placement: .navigationBarLeading) {
                         SortSelectionView(selectedSortItem: $selectedSort, sorts: RequestSort.sorts)
@@ -154,14 +156,16 @@ struct PrayerJournalView: View {
 //                        }
 //                    } // ToolbarItemGroup
                 } // toolbar
+
                 NavigationLink(destination: AddRequestView()) {
                     Image(systemName: "plus.circle.fill")
                         .resizable()
                         .frame(width: 44, height: 44, alignment: .center)
                         .foregroundColor(.green)
                         .padding(.bottom)
-                }
+                } // NavigationLink
             } // ZStack
+            .navigationBarTitleDisplayMode(.inline)
         } // NavigationView
     } // View
 

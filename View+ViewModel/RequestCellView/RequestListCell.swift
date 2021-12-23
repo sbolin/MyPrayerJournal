@@ -23,17 +23,23 @@ struct RequestListCell: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-            HStack {
-                VStack(alignment: .leading, spacing: 6) {
-                    Text(request.requestString).font(.headline)
-                    Text("Date: \(request.dateRequestedString)")
-                    Text("Topic: \(request.topicString)")
-                    Text("Verse: \(request.verseText ?? "")")
-//                    Text(request.prayerVerse.first?.verseNameString ?? "No Verse")
+            Text(request.requestString).font(.headline)
+            Divider()
+            HStack(spacing: 12) {
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("**Date**: \(request.dateRequestedString)")
+                    if request.topic != nil {
+                        Text("**Topic**: \(request.topicString)")
+                    }
+                    if request.verseText != nil {
+                        Text("**Verse**: \(request.verseText ?? "")")
+                    }
+                    if request.lesson != nil {
+                        Text("**Lesson**: \(request.lesson ?? "")")
+                    }
                 }
-                .font(.callout)
+                .font(.footnote)
                 Spacer()
-
                 Image(systemName: request.answered ? "checkmark.circle.fill": "checkmark.circle")
                     .resizable()
                     .frame(width: iconSize, height: iconSize)
@@ -54,9 +60,7 @@ struct RequestListCell: View {
                     }
             } // HStack
             TagRowView(tags: request.prayerTag, fontSize: 12)
-//                .frame(maxWidth: .infinity, alignment: .leading)
                 .fixedSize()
-                .background(RoundedRectangle(cornerRadius: 6).strokeBorder(Color.secondary, lineWidth: 1))
         } // VStack
         .padding()
         .background(backgroundColor)
@@ -117,7 +121,7 @@ struct RequestListCell_Previews: PreviewProvider {
         let prayerTag = PrayerTag(context: context)
         let prayerVerse = PrayerVerse(context: context)
 
-        request.request = "A request"
+        request.request = "A semi-long request that needs an answer very quickly, if not right now, but which may need patience"
         request.answered = true
         request.dateRequested = Date()
         request.focused = false
