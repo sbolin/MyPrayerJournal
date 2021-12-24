@@ -12,7 +12,7 @@ struct TagColorSelectorView: View {
     let colors: [Color] = [.red, .orange, .yellow, .green, .cyan, .blue, .purple, .indigo]
 
     var body: some View {
-        HStack(spacing: 4) {
+        HStack(spacing: 6) {
             Text("Color")
                 .fixedSize()
                 .foregroundColor(.secondary)
@@ -31,6 +31,6 @@ struct TagColorSelectorView: View {
 
 struct TagColorSelectorView_Previews: PreviewProvider {
     static var previews: some View {
-        TagColorSelectorView(selectedColor: .constant(.cyan))
+        TagColorSelectorView(selectedColor: .constant(.green))
     }
 }

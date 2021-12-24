@@ -14,53 +14,50 @@ struct AddTagView: View {
 
     @State var text: String = "" // Tag name text
     @State var showAlert: Bool = false
-    @State var tagBGColor: Color = .cyan // Tag background color
-    let maxLimit = 10
+    @State var tagBGColor: Color = .green // Tag background color
+    let maxLimit = 6
 
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
-            Text("Current Tags")
-                .font(.callout)
-                .foregroundColor(.secondary)
-            // List of tags
-            TagListView(tags: prayerTags, fontSize: 12)
-                .frame(height: 125)
-//                .fixedSize()
 
-            Text("Add Tags...")
-                .font(.callout)
+            Text("ADD TAGS...")
+                .font(.caption)
                 .foregroundColor(.secondary)
                 .padding(.top)
             // textfield
             TextField("Tag name", text: $text)
                 .textFieldStyle(.roundedBorder)
-//                .font(.title2)
+            //                .font(.title2)
                 .padding(.bottom)
-                .frame(width: 300)
 
             // Get tag color...
             TagColorSelectorView(selectedColor: $tagBGColor)
                 .padding(.bottom)
-                .frame(width: 300)
 
-            Button {
-                // Need to add tags to model
-                let newTag = PrayerTag(context: viewContext)
-                newTag.tagName = text
-                newTag.color = UIColor(tagBGColor)
-                prayerTags.insert(newTag)
-            } label: {
-                Text("Add Tag")
-                    .fontWeight(.semibold)
-                    .frame(width: 80, height: 32)
-            }
-            .buttonStyle(.bordered)
-            .tint(tagBGColor)
+            Text("CURRENT TAGS")
+                .font(.caption)
+                .foregroundColor(.secondary)
+            // List of tags
+            TagListView(tags: prayerTags, fontSize: 12)
+                .frame(height: 100)
+            HStack {
+                Spacer()
+                Button {
+                    let newTag = PrayerTag(context: viewContext)
+                    newTag.tagName = text
+                    newTag.color = UIColor(tagBGColor)
+                    prayerTags.insert(newTag)
+                    text = ""
+                } label: {
+                    Text("Add Tag")
+                }
+                .buttonStyle(.bordered)
+                .tint(tagBGColor)
             .disabled(text == "")
-            .frame(maxWidth: .infinity, alignment: .center)
-            Spacer()
-        }
-        .padding(.horizontal)
+                Spacer()
+            }
+            .padding(.top)
+        } // vstack
     }
 }
 

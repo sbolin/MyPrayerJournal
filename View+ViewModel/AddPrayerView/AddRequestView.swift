@@ -48,20 +48,19 @@ struct AddRequestView: View {
                             .multilineTextAlignment(.leading)
                             .allowsTightening(false)
                             .textInputAutocapitalization(.sentences)
-                            .frame(minHeight: 80)
+                            .frame(minHeight: 72)
                     }
                     if requestError {
                         Text("Request is required").foregroundColor(.red)
                     }
-//                    TextField("Prayer Topic", text: $topic, prompt: Text("Prayer Topic"))
-                    TextField("Prayer Lesson", text: $lesson, prompt: Text("Lesson"))
+                    TextField("Topic", text: $topic, prompt: Text("Prayer Topic"))
+                    TextField("Lesson", text: $lesson, prompt: Text("Lesson"))
                     TextField("Verse, if any", text: $verseText, prompt: Text("Verse, if any"))
                     DatePicker("Requested on", selection: $dateRequested, displayedComponents: .date)
                 }
-//                Image(systemName: request.focused ? "target": "scope")
                 Section("Status") {
                     HStack {
-                        Text("Focused")
+                        Text("Focus")
                         Spacer()
                         Toggle(isOn: $focused) {
                             Image(systemName: focused ? "target": "scope")
