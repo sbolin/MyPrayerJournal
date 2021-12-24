@@ -16,7 +16,7 @@ struct MyPrayerJournalApp: App {
         WindowGroup {
             PrayerJournalView()
 //            ContentView()
-                .environment(\.managedObjectContext, CoreDataController.shared.container.viewContext)
+                .environment(\.managedObjectContext, CoreDataController.shared.context)
                 .onAppear {
                     UserDefaults.standard.setValue(false, forKey: "_UIConstraintBasedLayoutLogUnsatisfiable")
                 }

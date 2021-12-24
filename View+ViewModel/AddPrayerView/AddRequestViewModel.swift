@@ -7,8 +7,10 @@
 
 import CoreData
 import SwiftUI
+import WidgetKit
 
 struct AddRequestViewModel {
+    let coreDataManager: CoreDataController = .shared
 
     func fetchPrayer(for objectID: NSManagedObjectID, context: NSManagedObjectContext) -> PrayerRequest? {
         guard let request = context.object(with: objectID) as? PrayerRequest else { return nil }
@@ -19,13 +21,16 @@ struct AddRequestViewModel {
         let request: PrayerRequest
         if let objectID = requestID, let fetchedRequest = fetchPrayer(for: objectID, context: context) {
             request = fetchedRequest
+            print("fetched existing request to update")
         } else {
             request = PrayerRequest(context: context)
+            print("created new request to save")
         }
         request.request = requestValues.request
         request.answered = requestValues.answered
         request.dateRequested = requestValues.dateRequested
         request.focused = requestValues.focused
+        request.id = requestValues.id
         request.lesson = requestValues.lesson
         request.statusID = requestValues.statusID
         request.topic = requestValues.topic
@@ -42,10 +47,15 @@ struct AddRequestViewModel {
             request.addToPrayerVerses(verse)
         }
 
-        do {
-            try context.save()
-        } catch {
-            print("Save error: \(error)")
+//        coreDataManager.save()
+
+        if context.hasChanges {
+            do {
+                try context.save()
+                WidgetCenter.shared.reloadAllTimelines()
+            } catch {
+                print("Error saving prayer request: \(error.localizedDescription)")
+            }
         }
     }
 }

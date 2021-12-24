@@ -5,53 +5,61 @@
 //  Created by Scott Bolin on 6-Sep-21.
 //
 
-
-import CoreData
 import SwiftUI
+import CoreData
+import WidgetKit
 
 class CoreDataController {
     // Singleton for whole app to use
     static let shared = CoreDataController()
 
-//    static let preview: CoreDataController = {
-//        let controller = CoreDataController(inMemory: true)
-//        PrayerRequest.makePreview()
-//        return controller
-//    }()
-
     private let inMemory: Bool
     private init(inMemory: Bool = false) {
         self.inMemory = inMemory
-
         ValueTransformer.setValueTransformer(ColorValueTransformer(), forName: NSValueTransformerName("ColorValueTransformer"))
     }
 
     lazy var container: NSPersistentContainer = {
+        let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.io.tukgaesoft.MyPrayerJournal")!.appendingPathComponent("MyPrayers.sqlite")
+
         let container = NSPersistentContainer(name: "MyPrayers")
+        container.persistentStoreDescriptions = [NSPersistentStoreDescription(url: containerURL)]
 
-        guard let description = container.persistentStoreDescriptions.first else {
-            fatalError("Failed to retrieve a persistent store description")
-        }
-
-        if inMemory {
-            description.url = URL(fileURLWithPath: "/dev/null")
-        }
+//        guard let description = container.persistentStoreDescriptions.first else {
+//            fatalError("Failed to retrieve a persistent store description")
+//        }
+//
+//        if inMemory {
+//            description.url = URL(fileURLWithPath: "/dev/null")
+//        }
 
         container.loadPersistentStores { storeDescription, error in
             if let error = error as NSError? {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
         }
-
+        container.viewContext.automaticallyMergesChangesFromParent = true
+        container.viewContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy
         return container
     }()
 
+    var context: NSManagedObjectContext {
+        return container.viewContext
+    }
+
+    var workingContext: NSManagedObjectContext {
+        let context = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+        context.parent = context
+        return context
+    }
+
     // utility functions
     func save() {
-        let context = container.viewContext
+        print(#function)
         if context.hasChanges {
             do {
                 try context.save()
+                WidgetCenter.shared.reloadAllTimelines()
             } catch {
                 // throw error
                 print("Could not save, \(error.localizedDescription)")
@@ -59,27 +67,28 @@ class CoreDataController {
         }
     }
 
-    func saveContext(context: NSManagedObjectContext) {
-        if context.hasChanges {
-            do {
-                try context.save()
-            } catch {
-                // throw error
-                print("Could not save, \(error.localizedDescription)")
-            }
-        }
-    }
+//    func saveContext(context: NSManagedObjectContext) {
+//        if context.hasChanges {
+//            do {
+//                try context.save()
+//                WidgetCenter.shared.reloadAllTimelines()
+//            } catch {
+//                // throw error
+//                print("Could not save, \(error.localizedDescription)")
+//            }
+//        }
+//    }
 
     func updatePrayerCompletion(request: PrayerRequest, isCompleted: Bool, context: NSManagedObjectContext) {
         print(#function)
         request.answered = !isCompleted
-//        request.answered.toggle()
-        do {
-            try context.save()
-        } catch {
-            // throw error
-            print("Could not save, \(error.localizedDescription)")
-        }
+        save()
+//        do {
+//            try context.save()
+//        } catch {
+//            // throw error
+//            print("Could not save, \(error.localizedDescription)")
+//        }
     }
 
     func deleteRequest(request: PrayerRequest) {
@@ -91,7 +100,6 @@ class CoreDataController {
         indexSet.map { section[$0] }.forEach(viewContext.delete)
         save()
     }
-
 }
 
 

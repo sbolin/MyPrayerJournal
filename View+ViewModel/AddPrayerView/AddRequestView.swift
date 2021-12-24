@@ -16,6 +16,7 @@ struct AddRequestView: View {
     @State private var answered: Bool = false
     @State private var dateRequested: Date = Date() //
     @State private var focused: Bool = false //
+    @State private var id: UUID = UUID()
     @State private var lesson: String = "" //
     @State private var statusID: Int16 = 1
     @State private var topic: String = "" //
@@ -125,6 +126,7 @@ struct AddRequestView: View {
             answered = prayer.answered
             dateRequested = prayer.dateRequested ?? Date()
             focused = prayer.focused
+            id = prayer.id ?? UUID()
             lesson = prayer.lesson ?? ""
             statusID = prayer.statusID
             topic = prayer.topic ?? ""
@@ -144,6 +146,7 @@ struct AddRequestView: View {
             answered: answered,
             dateRequested: dateRequested,
             focused: focused,
+            id: id,
             lesson: lesson,
             statusID: statusID,
             topic: topic,

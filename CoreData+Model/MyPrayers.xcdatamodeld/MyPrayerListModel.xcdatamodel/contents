@@ -4,6 +4,7 @@
         <attribute name="answered" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="dateRequested" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="focused" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="lesson" optional="YES" attributeType="String"/>
         <attribute name="request" attributeType="String"/>
         <attribute name="requestTag" optional="YES" attributeType="String"/>
@@ -17,7 +18,7 @@
         <attribute name="color" attributeType="Transformable" valueTransformerName="ColorValueTransformer" customClassName="UIColor"/>
         <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="tagName" optional="YES" attributeType="String"/>
-        <relationship name="prayerRequest" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PrayerRequest" inverseName="prayerTags" inverseEntity="PrayerRequest"/>
+        <relationship name="prayerRequest" optional="YES" maxCount="1" deletionRule="No Action" destinationEntity="PrayerRequest" inverseName="prayerTags" inverseEntity="PrayerRequest"/>
     </entity>
     <entity name="PrayerVerse" representedClassName="PrayerVerse" syncable="YES">
         <attribute name="book" attributeType="String"/>
@@ -27,10 +28,10 @@
         <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="startVerse" attributeType="String"/>
         <attribute name="verseText" attributeType="String"/>
-        <relationship name="prayerRequest" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PrayerRequest" inverseName="prayerVerses" inverseEntity="PrayerRequest"/>
+        <relationship name="prayerRequest" optional="YES" maxCount="1" deletionRule="No Action" destinationEntity="PrayerRequest" inverseName="prayerVerses" inverseEntity="PrayerRequest"/>
     </entity>
     <elements>
-        <element name="PrayerRequest" positionX="-259.1909179687501" positionY="-81.91531372070312" width="128" height="194"/>
+        <element name="PrayerRequest" positionX="-259.1909179687501" positionY="-81.91531372070312" width="128" height="209"/>
         <element name="PrayerTag" positionX="-87.16473388671875" positionY="-36.69412231445312" width="128" height="89"/>
         <element name="PrayerVerse" positionX="-434.83447265625" positionY="-96.6083984375" width="128" height="149"/>
     </elements>

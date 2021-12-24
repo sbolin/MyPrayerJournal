@@ -14,6 +14,7 @@ struct PrayerRequestValues {
     let answered: Bool
     let dateRequested: Date
     let focused: Bool
+    let id: UUID
     let lesson: String
     let statusID: Int16
     let topic: String
