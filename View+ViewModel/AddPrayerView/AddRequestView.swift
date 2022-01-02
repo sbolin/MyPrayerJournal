@@ -120,8 +120,9 @@ struct AddRequestView: View {
         .navigationTitle("\(requestId == nil ? "Add Request" : "Edit Request")")
         .navigationBarTitleDisplayMode(.inline)
         .onAppear {
-            guard let requestId = requestId, let prayer = viewModel.fetchPrayer(for: requestId, context: viewContext) else { return }
-            request = prayer.request ?? ""
+            guard let requestId = requestId else { return }
+            guard let prayer = viewModel.fetchPrayer(for: requestId, context: viewContext) else { return }
+            request = prayer.requestString
             answered = prayer.answered
             dateRequested = prayer.dateRequested ?? Date()
             focused = prayer.focused
@@ -129,7 +130,6 @@ struct AddRequestView: View {
             lesson = prayer.lesson ?? ""
             statusID = prayer.statusID
             topic = prayer.topic ?? ""
-            requestTag = prayer.requestTag ?? ""
             verseText = prayer.verseText ?? ""
             prayerTags = prayer.prayerTag
             prayerVerses = prayer.prayerVerse
@@ -150,7 +150,6 @@ struct AddRequestView: View {
             statusID: statusID,
             topic: topic,
             verseText: verseText,
-            requestTag: requestTag,
             prayerTags: prayerTags,
             prayerVerses: prayerVerses)
         viewModel.savePrayer(requestID: requestId, with: values, in: viewContext)

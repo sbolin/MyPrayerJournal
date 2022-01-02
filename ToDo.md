@@ -1,12 +1,16 @@
 #  MyPrayerJournal
 
 ## Things to do:
+- No way to delete a request???
 - Refactor CoreDataController
-- Tags functionality - show up initially, but don't save
-- Verses functionality - Just plain text, add lookup?
 - Sorting
 - Expand on widgets - larger sizes show more requests
 
+## One day things to do:
+- Verses functionality - Just plain text, add lookup?
+- More search options (currently searches request, topic, and tags - add lesson and verse?)
+
+~~- Tags functionality - show up initially, but don't save~~
 ~~- Topic is missing!~~
 ~~- Widget!~~
 ~~- Get rid of views that aren't needed: RequestDetailView, FocusPrayerView~~

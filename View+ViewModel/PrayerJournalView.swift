@@ -13,7 +13,10 @@ struct PrayerJournalView: View {
 
     @FetchRequest<PrayerRequest>(
         sortDescriptors: [
-            SortDescriptor(\PrayerRequest.statusID, order: .forward), SortDescriptor(\PrayerRequest.dateRequested, order: .forward)],
+            SortDescriptor(\PrayerRequest.statusID, order: .forward),
+            SortDescriptor(\PrayerRequest.dateRequested, order: .forward),
+            SortDescriptor(\PrayerRequest.request, order: .forward)
+        ],
         animation: .default)
     private var requests: FetchedResults<PrayerRequest>
 
@@ -57,9 +60,16 @@ struct PrayerJournalView: View {
                                     AddRequestView(requestId: request.objectID)
                                 } label: {
                                     RequestListCell(request: request)
+                                        .swipeActions {
+                                            Button(role: .destructive) {
+                                                deleteRequest(request: request)
+                                            } label: {
+                                                Image(systemName: "trash")
+                                            }
+                                        }
                                 } // NavigationLink
                             } // ForEach
-                            .onDelete(perform: deleteRequest)
+                              //                            .onDelete(perform: deleteRequest)
                         } header: {
                             Label("Focus", systemImage: "target")
                                 .foregroundColor(.pink)
@@ -80,9 +90,16 @@ struct PrayerJournalView: View {
                                     AddRequestView(requestId: request.objectID)
                                 } label: {
                                     RequestListCell(request: request)
+                                        .swipeActions {
+                                            Button(role: .destructive) {
+                                                deleteRequest(request: request)
+                                            } label: {
+                                                Image(systemName: "trash")
+                                            }
+                                        }
                                 } // NavigationLink
                             } // ForEach
-                            .onDelete(perform: deleteRequest)
+                              //                            .onDelete(perform: deleteRequest)
                         } header: {
                             Label("Requests", systemImage: "checkmark.circle")
                                 .foregroundColor(.blue)
@@ -103,9 +120,16 @@ struct PrayerJournalView: View {
                                     AddRequestView(requestId: request.objectID)
                                 } label: {
                                     RequestListCell(request: request)
+                                        .swipeActions {
+                                            Button(role: .destructive) {
+                                                deleteRequest(request: request)
+                                            } label: {
+                                                Image(systemName: "trash")
+                                            }
+                                        }
                                 } // NavigationLink
                             } // ForEach
-                            .onDelete(perform: deleteRequest)
+                              //                            .onDelete(perform: deleteRequest)
                         } header: {
                             Label("Answered", systemImage: "checkmark.circle.fill")
                                 .foregroundColor(.green)
@@ -146,15 +170,6 @@ struct PrayerJournalView: View {
                                 .foregroundColor(.indigo)
                         }
                     } // ToolbarItemGroup
-                      // kind of a hacky way to get a NavigationLink in the toolbar
-//                    ToolbarItemGroup(placement: .navigationBarTrailing) {
-//                        HStack {
-//                            Text("")
-//                            NavigationLink(destination: AddRequestView()) {
-//                                Image(systemName: "plus.circle.fill")
-//                            }
-//                        }
-//                    } // ToolbarItemGroup
                 } // toolbar
 
                 NavigationLink(destination: AddRequestView()) {
@@ -169,14 +184,20 @@ struct PrayerJournalView: View {
         } // NavigationView
     } // View
 
-    private func deleteRequest(at offsets: IndexSet) {
+    private func deleteRequest(request: PrayerRequest) {
         withAnimation {
-            offsets.forEach { offset in
-                let request = requests[offset]
-                coreDataManager.deleteRequest(request: request)
-            }
+            coreDataManager.deleteRequest(request: request, context: viewContext)
         }
     } // deleteRequest
+
+//    private func deleteRequest(at offsets: IndexSet) {
+//        withAnimation {
+//            offsets.forEach { offset in
+//                let request = requests[offset]
+//                coreDataManager.deleteRequest(request: request)
+//            }
+//        }
+//    } // deleteRequest
 } // ContentView
 
 struct PrayerJournalView_Previews: PreviewProvider {

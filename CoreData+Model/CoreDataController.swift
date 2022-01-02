@@ -55,7 +55,6 @@ class CoreDataController {
 
     // utility functions
     func save() {
-        print(#function)
         if context.hasChanges {
             do {
                 try context.save()
@@ -67,20 +66,7 @@ class CoreDataController {
         }
     }
 
-//    func saveContext(context: NSManagedObjectContext) {
-//        if context.hasChanges {
-//            do {
-//                try context.save()
-//                WidgetCenter.shared.reloadAllTimelines()
-//            } catch {
-//                // throw error
-//                print("Could not save, \(error.localizedDescription)")
-//            }
-//        }
-//    }
-
     func updatePrayerCompletion(request: PrayerRequest, isCompleted: Bool, context: NSManagedObjectContext) {
-        print(#function)
         request.answered = !isCompleted
         save()
 //        do {
@@ -91,8 +77,8 @@ class CoreDataController {
 //        }
     }
 
-    func deleteRequest(request: PrayerRequest) {
-        CoreDataController.shared.container.viewContext.delete(request)
+    func deleteRequest(request: PrayerRequest, context: NSManagedObjectContext) {
+        context.delete(request)
         save()
     }
 

@@ -136,8 +136,8 @@
 			isa = PBXGroup;
 			children = (
 				150E8968272FFA48000CBF23 /* AddTagView.swift */,
-				15CE424B2759431A00244093 /* TagListView.swift */,
 				1534131B275B649900977AA3 /* TagRowView.swift */,
+				15CE424B2759431A00244093 /* TagListView.swift */,
 				150E8966272F0A64000CBF23 /* TagView.swift */,
 				155F9DCC27578517006CF59F /* TagColorSelectorView.swift */,
 			);
@@ -425,7 +425,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = MyPrayerJournalWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 1.01;
 				DEVELOPMENT_TEAM = QTCBMWZUKD;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MyPrayerJournalWidget/Info.plist;
@@ -455,7 +455,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = MyPrayerJournalWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 1.01;
 				DEVELOPMENT_TEAM = QTCBMWZUKD;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MyPrayerJournalWidget/Info.plist;

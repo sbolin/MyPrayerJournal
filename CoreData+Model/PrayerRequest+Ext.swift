@@ -66,10 +66,6 @@ extension PrayerRequest {
         return verseText ?? ""
     }
 
-    @objc var requestTagString: String {
-        return requestTag ?? ""
-    }
-
     // set date format for sections...
     var dateFormatter: DateFormatter {
         let formatter = DateFormatter()

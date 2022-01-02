@@ -35,28 +35,27 @@ struct AddRequestViewModel {
         request.statusID = requestValues.statusID
         request.topic = requestValues.topic
         request.verseText = requestValues.verseText
-        request.requestTag = requestValues.requestTag
 
         let tags = requestValues.prayerTags
+        print("saving \(tags.count) prayer tags")
         tags.forEach { tag in
+            tag.id = UUID()
+            tag.prayerRequest = request
             request.addToPrayerTags(tag)
         }
 
-        let verses = requestValues.prayerVerses
-        verses.forEach { verse in
-            request.addToPrayerVerses(verse)
-        }
+// TODO: Need to develop verse functionality further before implementing.
+//        let verses = requestValues.prayerVerses
+//        print("saving \(verses.count) prayer verses")
+//        verses.forEach { verse in
+//            print("saving verse: \(verse.verseText ?? "No verse!")")
+//            request.addToPrayerVerses(verse)
+//            print("number of verses in request(Set): \(request.prayerVerse.count)")
+//            print("number of verses in request(NSSet: \(request.prayerVerses?.count ?? 0)")
+//
+//        }
 
-//        coreDataManager.save()
-
-        if context.hasChanges {
-            do {
-                try context.save()
-                WidgetCenter.shared.reloadAllTimelines()
-            } catch {
-                print("Error saving prayer request: \(error.localizedDescription)")
-            }
-        }
+        coreDataManager.save()
     }
 }
 
