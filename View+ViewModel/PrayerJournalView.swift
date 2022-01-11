@@ -41,8 +41,8 @@ struct PrayerJournalView: View {
             searchText
         } set: { newValue in
             let compoundPredicate = NSPredicate(format: "%K CONTAINS[cd] %@ OR %K CONTAINS[cd] %@ OR %K CONTAINS[cd] %@", #keyPath(PrayerRequest.request), newValue,
-                                                #keyPath(PrayerRequest.topic), newValue,
-                                                #keyPath(PrayerRequest.prayerTags.tagName), newValue)
+                              #keyPath(PrayerRequest.topic), newValue,
+                              #keyPath(PrayerRequest.prayerTags.tagName), newValue)
             searchText = newValue
             requests.nsPredicate = newValue.isEmpty ? nil : compoundPredicate
         }
@@ -60,14 +60,20 @@ struct PrayerJournalView: View {
                                     AddRequestView(requestId: request.objectID)
                                 } label: {
                                     RequestListCell(request: request)
-                                        .swipeActions {
-                                            Button(role: .destructive) {
-                                                deleteRequest(request: request)
-                                            } label: {
-                                                Image(systemName: "trash")
-                                            }
-                                        }
                                 } // NavigationLink
+                                .swipeActions {
+                                    Button(role: .destructive) {
+                                        deleteRequest(request: request)
+                                    } label: {
+                                        Image(systemName: "trash")
+                                    }
+                                    Button {
+                                        completeRequest(request: request)
+                                    } label: {
+                                        Image(systemName: "checkmark.circle")
+                                            .foregroundColor(.green)
+                                    }
+                                }
                             } // ForEach
                               //                            .onDelete(perform: deleteRequest)
                         } header: {
@@ -90,14 +96,20 @@ struct PrayerJournalView: View {
                                     AddRequestView(requestId: request.objectID)
                                 } label: {
                                     RequestListCell(request: request)
-                                        .swipeActions {
-                                            Button(role: .destructive) {
-                                                deleteRequest(request: request)
-                                            } label: {
-                                                Image(systemName: "trash")
-                                            }
-                                        }
                                 } // NavigationLink
+                                .swipeActions {
+                                    Button(role: .destructive) {
+                                        deleteRequest(request: request)
+                                    } label: {
+                                        Image(systemName: "trash")
+                                    }
+                                    Button {
+                                        completeRequest(request: request)
+                                    } label: {
+                                        Image(systemName: "checkmark.circle")
+                                            .foregroundColor(.green)
+                                    }
+                                }
                             } // ForEach
                               //                            .onDelete(perform: deleteRequest)
                         } header: {
@@ -120,16 +132,21 @@ struct PrayerJournalView: View {
                                     AddRequestView(requestId: request.objectID)
                                 } label: {
                                     RequestListCell(request: request)
-                                        .swipeActions {
-                                            Button(role: .destructive) {
-                                                deleteRequest(request: request)
-                                            } label: {
-                                                Image(systemName: "trash")
-                                            }
-                                        }
                                 } // NavigationLink
+                                .swipeActions {
+                                    Button(role: .destructive) {
+                                        deleteRequest(request: request)
+                                    } label: {
+                                        Image(systemName: "trash")
+                                    }
+                                    Button {
+                                        completeRequest(request: request)
+                                    } label: {
+                                        Image(systemName: "checkmark.circle")
+                                            .foregroundColor(.green)
+                                    }
+                                }
                             } // ForEach
-                              //                            .onDelete(perform: deleteRequest)
                         } header: {
                             Label("Answered", systemImage: "checkmark.circle.fill")
                                 .foregroundColor(.green)
@@ -145,14 +162,9 @@ struct PrayerJournalView: View {
                         .accentColor(.green)
                     } // List
                     .searchable(text: query)
-                    ///                .listStyle(.grouped)
-                    .listSectionSeparator(.hidden)
-                    .listSectionSeparatorTint(.white.opacity(0))
-                    .listRowSeparator(.hidden)
-                    .listRowSeparatorTint(.white.opacity(0))
-
+//                  .listStyle(.grouped)
+//                    .listSectionSeparator(.hidden)
                 } // VStack
-
                 .toolbar {
                     ToolbarItemGroup(placement: .navigationBarLeading) {
                         SortSelectionView(selectedSortItem: $selectedSort, sorts: RequestSort.sorts)
@@ -177,11 +189,12 @@ struct PrayerJournalView: View {
                         .resizable()
                         .frame(width: 44, height: 44, alignment: .center)
                         .foregroundColor(.green)
-                        .padding(.bottom)
+                        .padding(.bottom, 4)
                 } // NavigationLink
             } // ZStack
             .navigationBarTitleDisplayMode(.inline)
         } // NavigationView
+        .environment(\.defaultMinListRowHeight, 40)
     } // View
 
     private func deleteRequest(request: PrayerRequest) {
@@ -190,14 +203,12 @@ struct PrayerJournalView: View {
         }
     } // deleteRequest
 
-//    private func deleteRequest(at offsets: IndexSet) {
-//        withAnimation {
-//            offsets.forEach { offset in
-//                let request = requests[offset]
-//                coreDataManager.deleteRequest(request: request)
-//            }
-//        }
-//    } // deleteRequest
+    private func completeRequest(request: PrayerRequest) {
+        withAnimation {
+            let status = !request.answered
+            coreDataManager.updatePrayerCompletion(request: request, isCompleted: status, context: viewContext)
+        }
+    } // deleteRequest
 } // ContentView
 
 struct PrayerJournalView_Previews: PreviewProvider {

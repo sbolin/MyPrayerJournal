@@ -1,7 +1,6 @@
 #  MyPrayerJournal
 
 ## Things to do:
-- No way to delete a request???
 - Refactor CoreDataController
 - Sorting
 - Expand on widgets - larger sizes show more requests

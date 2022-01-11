@@ -58,7 +58,7 @@ class CoreDataController {
         if context.hasChanges {
             do {
                 try context.save()
-                WidgetCenter.shared.reloadAllTimelines()
+                updateWidget()
             } catch {
                 // throw error
                 print("Could not save, \(error.localizedDescription)")
@@ -69,22 +69,23 @@ class CoreDataController {
     func updatePrayerCompletion(request: PrayerRequest, isCompleted: Bool, context: NSManagedObjectContext) {
         request.answered = !isCompleted
         save()
-//        do {
-//            try context.save()
-//        } catch {
-//            // throw error
-//            print("Could not save, \(error.localizedDescription)")
-//        }
+        updateWidget()
     }
 
     func deleteRequest(request: PrayerRequest, context: NSManagedObjectContext) {
         context.delete(request)
         save()
+        updateWidget()
     }
 
     func deleteItem(for indexSet: IndexSet, section: SectionedFetchResults<String, PrayerRequest>.Element, viewContext: NSManagedObjectContext) {
         indexSet.map { section[$0] }.forEach(viewContext.delete)
         save()
+        updateWidget()
+    }
+
+    func updateWidget() {
+        WidgetCenter.shared.reloadAllTimelines()
     }
 }
 
