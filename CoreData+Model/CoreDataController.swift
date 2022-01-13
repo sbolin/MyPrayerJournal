@@ -78,6 +78,11 @@ class CoreDataController {
         updateWidget()
     }
 
+    func deleteTag(tag: PrayerTag, context: NSManagedObjectContext) {
+        context.delete(tag)
+        save()
+    }
+
     func deleteItem(for indexSet: IndexSet, section: SectionedFetchResults<String, PrayerRequest>.Element, viewContext: NSManagedObjectContext) {
         indexSet.map { section[$0] }.forEach(viewContext.delete)
         save()

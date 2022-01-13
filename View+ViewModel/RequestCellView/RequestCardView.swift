@@ -1,23 +1,23 @@
 //
-//  RequestListCell.swift
+//  RequestCardView.swift
 //  MyPrayerJournal (iOS)
 //
-//  Created by Scott Bolin on 17-Nov-21.
+//  Created by Scott Bolin on 11-Jan-22.
 //
 
 import SwiftUI
 
-struct RequestListCell: View {
+struct RequestCardView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @ObservedObject var request: PrayerRequest
     let iconSize: Double = 22
 
-    var backgroundColor: Color {
+    var backgroundColor: LinearGradient {
         switch request.statusID {
-        case 0: return .red.opacity(0.1)
-        case 1: return .blue.opacity(0.1)
-        case 2: return .green.opacity(0.1)
-        default: return .clear
+        case 0: return LinearGradient(gradient: Gradient(colors: [Color.white, Color.red.opacity(0.1)]), startPoint: .bottom, endPoint: .top)
+        case 1: return LinearGradient(gradient: Gradient(colors: [Color.white, Color.blue.opacity(0.1)]), startPoint: .bottom, endPoint: .top)
+        case 2: return LinearGradient(gradient: Gradient(colors: [Color.white, Color.green.opacity(0.1)]), startPoint: .bottom, endPoint: .top)
+        default: return LinearGradient(gradient: Gradient(colors: [Color.clear, Color.clear]), startPoint: .bottom, endPoint: .top)
         }
     }
 
@@ -64,7 +64,7 @@ struct RequestListCell: View {
         } // VStack
         .padding()
         .background(backgroundColor)
-        .clipShape(RoundedRectangle(cornerRadius: 8, style: .circular))
+        .clipShape(RoundedRectangle(cornerRadius: 16, style: .circular))
     }
 
     /// Helper function to unwrap optional binding
@@ -110,9 +110,9 @@ struct RequestListCell: View {
     }
 }
 
-struct RequestListCell_Previews: PreviewProvider {
+struct RequestCardView_Previews: PreviewProvider {
     static var previews: some View {
-        RequestListCell(request: getRequest())
+        RequestCardView(request: getRequest())
     }
 
     static func getRequest() -> PrayerRequest {
@@ -122,11 +122,11 @@ struct RequestListCell_Previews: PreviewProvider {
         let prayerVerse = PrayerVerse(context: context)
 
         request.request = "A semi-long request that needs an answer very quickly, if not right now, but which may need patience"
-        request.answered = true
+        request.answered = false
         request.dateRequested = Date()
         request.focused = false
         request.lesson = "A lesson"
-        request.statusID = 1
+        request.statusID = 2
         request.topic = "A topic"
         request.verseText = "For God so loved the world that he gave his only Son, that whoever believes in him should not perish but have eternal life."
         prayerTag.tagName = "A Tag"
@@ -139,11 +139,4 @@ struct RequestListCell_Previews: PreviewProvider {
         prayerVerse.prayerRequest = request
         return request
     }
-}
-
-func ??<T>(lhs: Binding<Optional<T>>, rhs: T) -> Binding<T> {
-    Binding(
-        get: { lhs.wrappedValue ?? rhs },
-        set: { lhs.wrappedValue = $0 }
-    )
 }

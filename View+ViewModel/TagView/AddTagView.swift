@@ -27,7 +27,6 @@ struct AddTagView: View {
             // textfield
             TextField("Tag name", text: $text)
                 .textFieldStyle(.roundedBorder)
-            //                .font(.title2)
                 .padding(.bottom)
 
             // Get tag color...
@@ -38,8 +37,8 @@ struct AddTagView: View {
                 .font(.caption)
                 .foregroundColor(.secondary)
             // List of tags
-            TagListView(tags: prayerTags, fontSize: 12)
-                .frame(height: 100)
+            TagListView(tags: prayerTags, fontSize: 11)
+                .frame(height: 75)
             HStack {
                 Spacer()
                 Button {

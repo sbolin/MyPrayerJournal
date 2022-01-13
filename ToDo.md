@@ -1,8 +1,10 @@
 #  MyPrayerJournal
 
 ## Things to do:
+- Tags are ok, but deleting them is odd - menu shows up outside of tag, not attached to tag.
 - Refactor CoreDataController
-- Sorting
+- Sorting (sort of works?)
+- Reordering (need to work with Sorting)
 - Expand on widgets - larger sizes show more requests
 
 ## One day things to do:

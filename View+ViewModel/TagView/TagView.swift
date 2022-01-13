@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct TagView: View {
+    @Environment(\.managedObjectContext) private var viewContext
+    let coreDataManager: CoreDataController = .shared
     var tag: PrayerTag
     var fontSize: CGFloat
 
@@ -26,8 +28,8 @@ struct TagView: View {
             .contentShape(Capsule())
         // Delete...
             .contextMenu {
-                Button("Delete") {
-// delete tag from core data
+                Button("Delete Tag") {
+                    coreDataManager.deleteTag(tag: tag, context: viewContext)
                 }
             }
             .matchedGeometryEffect(id: tag, in: animation)
@@ -36,6 +38,6 @@ struct TagView: View {
 
 struct TagView_Previews: PreviewProvider {
     static var previews: some View {
-        TagView(tag: PrayerTag(), fontSize: 12)
+        TagView(tag: PrayerTag(), fontSize: 11)
     }
 }

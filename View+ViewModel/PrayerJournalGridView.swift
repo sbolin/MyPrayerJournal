@@ -1,13 +1,13 @@
 //
-//  ContentView.swift
+//  PrayerJournalGridView.swift
 //  MyPrayerJournal (iOS)
 //
-//  Created by Scott Bolin on 17-Nov-21.
+//  Created by Scott Bolin on 12-Jan-22.
 //
 
 import SwiftUI
 
-struct PrayerJournalView: View {
+struct PrayerJournalGridView: View {
     @Environment(\.managedObjectContext) private var viewContext
     let coreDataManager: CoreDataController = .shared
 
@@ -36,13 +36,15 @@ struct PrayerJournalView: View {
     @State var selectedSort = RequestSort.default
     @State private var searchText = ""
 
+    private var columns: [GridItem] = [GridItem(.adaptive(minimum: 200, maximum: 300))]
+
     var query: Binding<String> {
         Binding {
             searchText
         } set: { newValue in
             let compoundPredicate = NSPredicate(format: "%K CONTAINS[cd] %@ OR %K CONTAINS[cd] %@ OR %K CONTAINS[cd] %@", #keyPath(PrayerRequest.request), newValue,
-                              #keyPath(PrayerRequest.topic), newValue,
-                              #keyPath(PrayerRequest.prayerTags.tagName), newValue)
+                                                #keyPath(PrayerRequest.topic), newValue,
+                                                #keyPath(PrayerRequest.prayerTags.tagName), newValue)
             searchText = newValue
             requests.nsPredicate = newValue.isEmpty ? nil : compoundPredicate
         }
@@ -51,38 +53,32 @@ struct PrayerJournalView: View {
     var body: some View {
         NavigationView {
             ZStack(alignment: .bottom) {
-                VStack {
-                    List {
-                        // Focus requests
+                ScrollView {
+                    LazyVGrid(columns: columns, alignment: .leading, spacing: 8, pinnedViews: [.sectionHeaders, .sectionFooters]) {
+                        // Focus Requests
                         Section {
                             ForEach(focusRequests) { request in
-                                ZStack(alignment: .leading) {
-                                    NavigationLink(destination: AddRequestView(requestId: request.objectID)) {
-                                        EmptyView()
-                                    }
-                                    .opacity(0)
+                                NavigationLink {
+                                    AddRequestView(requestId: request.objectID)
+                                } label: {
                                     RequestListCell(request: request)
-                                }
-//                                NavigationLink {
-//                                    AddRequestView(requestId: request.objectID)
-//                                } label: {
-//                                    RequestListCell(request: request)
-//                                } // NavigationLink
-                                .swipeActions {
+                                } // NavigationLink
+                                .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                                     Button(role: .destructive) {
                                         deleteRequest(request: request)
                                     } label: {
                                         Image(systemName: "trash")
                                     }
+                                } // swipe
+                                .swipeActions(edge: .leading, allowsFullSwipe: false) {
                                     Button {
                                         completeRequest(request: request)
                                     } label: {
                                         Image(systemName: "checkmark.circle")
                                             .foregroundColor(.green)
                                     }
-                                }
+                                } // swipe
                             } // ForEach
-                              //                            .onDelete(perform: deleteRequest)
                         } header: {
                             Label("Focus", systemImage: "target")
                                 .foregroundColor(.pink)
@@ -92,27 +88,16 @@ struct PrayerJournalView: View {
                                 Text("\(focusRequests.count) Focus Requests")
                                     .font(.footnote)
                                     .foregroundColor(.secondary)
-                            }
-                        }
-                        .listRowSeparator(.hidden)
-                        .accentColor(.pink)
-                        // Active requests
+                            } // HStack
+                        } // footer/header/Section
+                          // Active Requests
                         Section {
                             ForEach(activeRequests) { request in
-                                ZStack(alignment: .leading) {
-                                    NavigationLink(destination: AddRequestView(requestId: request.objectID)) {
-                                        EmptyView()
-                                    }
-                                    .opacity(0)
+                                NavigationLink {
+                                    AddRequestView(requestId: request.objectID)
+                                } label: {
                                     RequestListCell(request: request)
-                                }
-
-//                                NavigationLink {
-//                                    AddRequestView(requestId: request.objectID)
-//                                } label: {
-//                                    RequestListCell(request: request)
-//                                } // NavigationLink
-
+                                } // NavigationLink
                                 .swipeActions {
                                     Button(role: .destructive) {
                                         deleteRequest(request: request)
@@ -124,10 +109,9 @@ struct PrayerJournalView: View {
                                     } label: {
                                         Image(systemName: "checkmark.circle")
                                             .foregroundColor(.green)
-                                    }
-                                }
+                                    } // Button/labbel
+                                } // swipeActions
                             } // ForEach
-                              //                            .onDelete(perform: deleteRequest)
                         } header: {
                             Label("Requests", systemImage: "checkmark.circle")
                                 .foregroundColor(.blue)
@@ -137,25 +121,16 @@ struct PrayerJournalView: View {
                                 Text("\(activeRequests.count) Requests Remain")
                                     .font(.footnote)
                                     .foregroundColor(.secondary)
-                            }
-                        }
-                        .listRowSeparator(.hidden)
-                        .accentColor(.blue)
-                        // Answered requests
+                            } // HStack
+                        } // Section/header/footer
+                          // Answered requests
                         Section {
                             ForEach(answeredRequests) { request in
-                                ZStack(alignment: .leading) {
-                                    NavigationLink(destination: AddRequestView(requestId: request.objectID)) {
-                                        EmptyView()
-                                    }
-                                    .opacity(0)
+                                NavigationLink {
+                                    AddRequestView(requestId: request.objectID)
+                                } label: {
                                     RequestListCell(request: request)
-                                }
-//                                NavigationLink {
-//                                    AddRequestView(requestId: request.objectID)
-//                                } label: {
-//                                    RequestListCell(request: request)
-//                                } // NavigationLink
+                                } // NavigationLink
                                 .swipeActions {
                                     Button(role: .destructive) {
                                         deleteRequest(request: request)
@@ -167,8 +142,8 @@ struct PrayerJournalView: View {
                                     } label: {
                                         Image(systemName: "checkmark.circle")
                                             .foregroundColor(.green)
-                                    }
-                                }
+                                    } // button/label
+                                } // swipe actions
                             } // ForEach
                         } header: {
                             Label("Answered", systemImage: "checkmark.circle.fill")
@@ -179,15 +154,13 @@ struct PrayerJournalView: View {
                                 Text("\(answeredRequests.count) Anwsered Requests")
                                     .font(.footnote)
                                     .foregroundColor(.secondary)
-                            }
-                        }
-                        .listRowSeparator(.hidden)
-                        .accentColor(.green)
-                    } // List
-                    .searchable(text: query)
-                    .listStyle(.grouped)
-//                    .listSectionSeparator(.hidden)
-                } // VStack
+                            } // Hstack
+                        } // Section/header/footer
+                    } // LazyVGrid
+                } // ScrollView
+                .padding()
+                .searchable(text: query)
+                .listSectionSeparator(.automatic)
                 .toolbar {
                     ToolbarItemGroup(placement: .navigationBarLeading) {
                         SortSelectionView(selectedSortItem: $selectedSort, sorts: RequestSort.sorts)
@@ -234,8 +207,8 @@ struct PrayerJournalView: View {
     } // deleteRequest
 } // ContentView
 
-struct PrayerJournalView_Previews: PreviewProvider {
+struct PrayerJournalGridView_Previews: PreviewProvider {
     static var previews: some View {
-        PrayerJournalView()
+        PrayerJournalGridView()
     }
 }
