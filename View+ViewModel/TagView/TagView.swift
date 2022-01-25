@@ -17,27 +17,31 @@ struct TagView: View {
     @Namespace var animation
 
     var body: some View {
-        Text(tag.tagNameString)
-            .fixedSize(horizontal: true, vertical: false)
-            .font(.system(size: fontSize))
-            .padding(.horizontal, 14)
-            .padding(.vertical, 8)
-            .background(Capsule().fill(tag.tagColor.opacity(0.75)))
-            .foregroundColor(Color.white) // not sure about this...
-            .lineLimit(1)
-            .contentShape(Capsule())
-        // Delete...
-            .contextMenu {
-                Button("Delete Tag") {
-                    coreDataManager.deleteTag(tag: tag, context: viewContext)
-                }
+        HStack(spacing: 6) {
+            Text(tag.tagNameString)
+                .fixedSize(horizontal: true, vertical: false)
+                .font(.system(size: fontSize))
+                .lineLimit(1)
+            Button {
+                coreDataManager.deleteTag(tag: tag, context: viewContext)
+            } label: {
+                Image(systemName: "x.circle")
+                    .renderingMode(.original)
+                    .font(.system(size: fontSize + 2))
             }
             .matchedGeometryEffect(id: tag, in: animation)
+        }
+        .padding(.leading, 12)
+        .padding(.trailing, 6)
+        .padding(.vertical, 6)
+        .background(Capsule().fill(tag.tagColor.opacity(0.75)))
+        .foregroundColor(Color.white) // not sure about this...
+        .contentShape(Capsule())
     }
 }
 
-struct TagView_Previews: PreviewProvider {
-    static var previews: some View {
-        TagView(tag: PrayerTag(), fontSize: 11)
-    }
-}
+//struct TagView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        TagView(tag: PrayerTag(), fontSize: 11)
+//    }
+//}

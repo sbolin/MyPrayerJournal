@@ -1,7 +1,7 @@
 #  MyPrayerJournal
 
 ## Things to do:
-- Tags are ok, but deleting them is odd - menu shows up outside of tag, not attached to tag.
+- Daily notification of focus item
 - Refactor CoreDataController
 - Sorting (sort of works?)
 - Reordering (need to work with Sorting)
@@ -11,6 +11,7 @@
 - Verses functionality - Just plain text, add lookup?
 - More search options (currently searches request, topic, and tags - add lesson and verse?)
 
+~~- Tags are ok, but deleting them is odd - menu shows up outside of tag, not attached to tag. Just add a "x" and not use the menu~~
 ~~- Tags functionality - show up initially, but don't save~~
 ~~- Topic is missing!~~
 ~~- Widget!~~

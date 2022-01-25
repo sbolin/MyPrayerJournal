@@ -41,8 +41,9 @@ struct PrayerJournalView: View {
             searchText
         } set: { newValue in
             let compoundPredicate = NSPredicate(format: "%K CONTAINS[cd] %@ OR %K CONTAINS[cd] %@ OR %K CONTAINS[cd] %@", #keyPath(PrayerRequest.request), newValue,
-                              #keyPath(PrayerRequest.topic), newValue,
-                              #keyPath(PrayerRequest.prayerTags.tagName), newValue)
+                                       #keyPath(PrayerRequest.topic), newValue,
+                                       #keyPath(PrayerRequest.lesson), newValue,
+                                       #keyPath(PrayerRequest.prayerTags.tagName), newValue)
             searchText = newValue
             requests.nsPredicate = newValue.isEmpty ? nil : compoundPredicate
         }
@@ -201,7 +202,7 @@ struct PrayerJournalView: View {
                         HStack {
                             Image(systemName: "sun.max.fill")
                                 .foregroundColor(.yellow)
-                            Text("Prayer Request").font(.title2).bold()
+                            Text("Prayer Journal").font(.title2).bold()
                                 .foregroundColor(.indigo)
                         }
                     } // ToolbarItemGroup

@@ -84,7 +84,6 @@ struct AddRequestView: View {
                     }
                 }
  //               .tint(.mint)
-
                 Section("Tags") {
                     AddTagView(prayerTags: $prayerTags)
                 }
@@ -115,7 +114,7 @@ struct AddRequestView: View {
                 .accentColor(.green)
                 .disabled(request.isEmpty)
             } // HStack
-            .padding(.horizontal)
+            .padding(.horizontal, 30)
         } // VStack
         .navigationTitle("\(requestId == nil ? "Add Request" : "Edit Request")")
         .navigationBarTitleDisplayMode(.inline)
