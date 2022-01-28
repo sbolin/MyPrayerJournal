@@ -66,12 +66,14 @@ extension PrayerRequest {
         return verseText ?? ""
     }
 
-    // set date format for sections...
+    // set standard date format...
     var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
-        formatter.dateFormat = "d MMM, y" // "MMMM d, yyyy"
+        formatter.dateFormat = "d MMM, y" // "MMMM d, y"
         return formatter
     }
+
+    // set standard time format
 
 // set date to today if no date is set (shouldn't happen)
     var prayerDate: Date {

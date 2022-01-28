@@ -11,15 +11,18 @@ import SwiftUI
 struct AddRequestView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.presentationMode) var presentation
+    @ObservedObject var notificationManager: NotificationManager
 
-    @State private var request: String = "" //
+    @State private var request: String = ""
     @State private var answered: Bool = false
-    @State private var dateRequested: Date = Date() //
-    @State private var focused: Bool = false //
+    @State private var dateRequested: Date = Date()
+    @State private var focused: Bool = false
     @State private var id: UUID = UUID()
-    @State private var lesson: String = "" //
+    @State private var lesson: String = ""
+    @State private var notifiable: Bool = true
+    @State private var notifyTime: Date = Date()
     @State private var statusID: Int16 = 1
-    @State private var topic: String = "" //
+    @State private var topic: String = ""
     @State private var requestTag: String = ""
     @State private var verseText: String = ""
     @State private var prayerTags: Set<PrayerTag> = Set<PrayerTag>()
@@ -69,7 +72,8 @@ struct AddRequestView: View {
                         }
                         .toggleStyle(.button)
                         .tint(.clear)
-                    }
+                    } // HStack
+
                     HStack {
                         Text("Answered")
                         Spacer()
@@ -81,12 +85,33 @@ struct AddRequestView: View {
                         }
                         .toggleStyle(.button)
                         .tint(.clear)
+                    } // HStack
+                    if focused { // focused
+                        HStack {
+                            Text("Notification")
+                            Spacer()
+                            Toggle(isOn: $notifiable) {
+                                Image(systemName: "bell")
+                                    .font(.title2)
+                                    .foregroundColor(.pink)
+                                    .symbolVariant(notifiable ? .fill : .none)
+                            }
+                            .toggleStyle(.button)
+                            .tint(.clear)
+                        }
+                        if notifiable {
+                            HStack {
+                                Text("Notification Time")
+                                Spacer()
+                                DatePicker("", selection: $notifyTime, displayedComponents: [.hourAndMinute])
+                                    .datePickerStyle(.compact)
+                            } // HStack
+                        }
                     }
-                }
- //               .tint(.mint)
+                } // Section
                 Section("Tags") {
                     AddTagView(prayerTags: $prayerTags)
-                }
+                } // Section
             } // Form
             Spacer()
             HStack {
@@ -127,13 +152,15 @@ struct AddRequestView: View {
             focused = prayer.focused
             id = prayer.id ?? UUID()
             lesson = prayer.lesson ?? ""
+            notifiable = prayer.notifiable
+            notifyTime = prayer.notifyTime ?? Date()
             statusID = prayer.statusID
             topic = prayer.topic ?? ""
             verseText = prayer.verseText ?? ""
             prayerTags = prayer.prayerTag
             prayerVerses = prayer.prayerVerse
         }
-    }
+    } // body
 
     func addRequest() {
         statusID = 1
@@ -146,19 +173,37 @@ struct AddRequestView: View {
             focused: focused,
             id: id,
             lesson: lesson,
+            notifiable: notifiable,
+            notifyTime: notifyTime,
             statusID: statusID,
             topic: topic,
             verseText: verseText,
             prayerTags: prayerTags,
             prayerVerses: prayerVerses)
         viewModel.savePrayer(requestID: requestId, with: values, in: viewContext)
+
+        // generate notification if focused request
+        if focused {
+            let dateComponents = Calendar.current.dateComponents([.hour, .minute], from: notifyTime)
+            guard let hour = dateComponents.hour, let minute = dateComponents.minute else { return }
+            notificationManager.createLocalNotification(title: "Daily Request Reminder",
+                                                        subtitle: topic,
+                                                        body: request,
+                                                        notificationID: id.uuidString,
+                                                        hour: hour,
+                                                        minute: minute) { error in
+                if error != nil {
+                    print(error?.localizedDescription ?? "")
+                }
+            }
+        }
         presentation.wrappedValue.dismiss()
     }
 }
 
 struct RequestForm_Previews: PreviewProvider {
     static var previews: some View {
-        AddRequestView()
+        AddRequestView(notificationManager: NotificationManager())
     }
 }
 

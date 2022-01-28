@@ -35,6 +35,8 @@ struct AddRequestViewModel {
         request.statusID = requestValues.statusID
         request.topic = requestValues.topic
         request.verseText = requestValues.verseText
+        request.notifiable = requestValues.notifiable
+        request.notifyTime = requestValues.notifyTime
 
         let tags = requestValues.prayerTags
         print("saving \(tags.count) prayer tags")
@@ -43,6 +45,8 @@ struct AddRequestViewModel {
             tag.prayerRequest = request
             request.addToPrayerTags(tag)
         }
+
+        coreDataManager.save()
 
 // TODO: Need to develop verse functionality further before implementing.
 //        let verses = requestValues.prayerVerses
@@ -54,8 +58,6 @@ struct AddRequestViewModel {
 //            print("number of verses in request(NSSet: \(request.prayerVerses?.count ?? 0)")
 //
 //        }
-
-        coreDataManager.save()
     }
 }
 

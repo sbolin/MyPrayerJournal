@@ -25,6 +25,7 @@ class CoreDataController {
         let container = NSPersistentContainer(name: "MyPrayers")
         container.persistentStoreDescriptions = [NSPersistentStoreDescription(url: containerURL)]
 
+        // for unit testing, comment on for now until tests are written
 //        guard let description = container.persistentStoreDescriptions.first else {
 //            fatalError("Failed to retrieve a persistent store description")
 //        }
@@ -76,6 +77,7 @@ class CoreDataController {
         context.delete(request)
         save()
         updateWidget()
+
     }
 
     func deleteTag(tag: PrayerTag, context: NSManagedObjectContext) {

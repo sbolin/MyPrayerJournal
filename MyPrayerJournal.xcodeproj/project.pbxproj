@@ -18,6 +18,7 @@
 		1524F46C2774EB9E00000BD3 /* MyPrayerJournalWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 1524F45E2774EB9B00000BD3 /* MyPrayerJournalWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		1524F4732774EC2900000BD3 /* CoreDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15809B3C26E630D60022F2B4 /* CoreDataController.swift */; };
 		1524F4752774EC5200000BD3 /* MyPrayers.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 15809B3726E62C790022F2B4 /* MyPrayers.xcdatamodeld */; };
+		152D0B4A27A347A9005039A5 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152D0B4927A347A9005039A5 /* NotificationManager.swift */; };
 		1532031F2729C27900C10FBC /* SortSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1532031E2729C27900C10FBC /* SortSelectionView.swift */; };
 		1534131C275B649900977AA3 /* TagRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1534131B275B649900977AA3 /* TagRowView.swift */; };
 		155F9DCA275781A4006CF59F /* PrayerTag+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155F9DC8275781A4006CF59F /* PrayerTag+CoreDataClass.swift */; };
@@ -88,6 +89,7 @@
 		1524F4692774EB9E00000BD3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1524F4712774EBC200000BD3 /* MyPrayerJournal (iOS).entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "MyPrayerJournal (iOS).entitlements"; sourceTree = "<group>"; };
 		1524F4722774EBF100000BD3 /* MyPrayerJournalWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MyPrayerJournalWidgetExtension.entitlements; sourceTree = "<group>"; };
+		152D0B4927A347A9005039A5 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		1532031E2729C27900C10FBC /* SortSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortSelectionView.swift; sourceTree = "<group>"; };
 		1534131B275B649900977AA3 /* TagRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagRowView.swift; sourceTree = "<group>"; };
 		155F9DC8275781A4006CF59F /* PrayerTag+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PrayerTag+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -233,12 +235,12 @@
 			isa = PBXGroup;
 			children = (
 				150A1B472744397300F549E9 /* PrayerJournalView.swift */,
-				158BA56E278F49A000096CA5 /* PrayerJournalGridView.swift */,
 				1532031E2729C27900C10FBC /* SortSelectionView.swift */,
+				152D0B4927A347A9005039A5 /* NotificationManager.swift */,
 				15735A55270FFAB600DFA3E6 /* AddPrayerView */,
 				15AE8438271446A10022DEDB /* RequestCellView */,
 				150E8963272EFDD6000CBF23 /* TagView */,
-				15F2FBDA271FED1000CDA942 /* Generic Views - Not Used */,
+				15F2FBDA271FED1000CDA942 /* Not Used */,
 			);
 			path = "View+ViewModel";
 			sourceTree = "<group>";
@@ -247,7 +249,6 @@
 			isa = PBXGroup;
 			children = (
 				150A1B4927443D7800F549E9 /* RequestListCell.swift */,
-				158BA56C278E64E400096CA5 /* RequestCardView.swift */,
 			);
 			path = RequestCellView;
 			sourceTree = "<group>";
@@ -259,14 +260,16 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
-		15F2FBDA271FED1000CDA942 /* Generic Views - Not Used */ = {
+		15F2FBDA271FED1000CDA942 /* Not Used */ = {
 			isa = PBXGroup;
 			children = (
+				158BA56C278E64E400096CA5 /* RequestCardView.swift */,
+				158BA56E278F49A000096CA5 /* PrayerJournalGridView.swift */,
 				15F2FBDB271FED3200CDA942 /* HeaderView.swift */,
 				15F2FBDD271FED8D00CDA942 /* FooterView.swift */,
 				15F2FBDF271FF02400CDA942 /* ListRow.swift */,
 			);
-			path = "Generic Views - Not Used";
+			path = "Not Used";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -398,6 +401,7 @@
 				155F9DCD27578517006CF59F /* TagColorSelectorView.swift in Sources */,
 				155F9DCA275781A4006CF59F /* PrayerTag+CoreDataClass.swift in Sources */,
 				158F263F26EF6A58001FF4EA /* AddRequestView.swift in Sources */,
+				152D0B4A27A347A9005039A5 /* NotificationManager.swift in Sources */,
 				15809B3926E62C7A0022F2B4 /* MyPrayers.xcdatamodeld in Sources */,
 				150A1B482744397300F549E9 /* PrayerJournalView.swift in Sources */,
 				156FC60F272892B800E1A673 /* RequestSort.swift in Sources */,

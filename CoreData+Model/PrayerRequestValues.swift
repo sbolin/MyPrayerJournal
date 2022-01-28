@@ -16,6 +16,8 @@ struct PrayerRequestValues {
     let focused: Bool
     let id: UUID
     let lesson: String
+    let notifiable: Bool
+    let notifyTime: Date
     let statusID: Int16
     let topic: String
     let verseText: String

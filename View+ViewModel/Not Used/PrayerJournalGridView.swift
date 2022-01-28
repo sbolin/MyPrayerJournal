@@ -9,6 +9,8 @@ import SwiftUI
 
 struct PrayerJournalGridView: View {
     @Environment(\.managedObjectContext) private var viewContext
+    @StateObject private var notificationManager = NotificationManager()
+
     let coreDataManager: CoreDataController = .shared
 
     @FetchRequest<PrayerRequest>(
@@ -59,7 +61,7 @@ struct PrayerJournalGridView: View {
                         Section {
                             ForEach(focusRequests) { request in
                                 NavigationLink {
-                                    AddRequestView(requestId: request.objectID)
+                                    AddRequestView(notificationManager: notificationManager, requestId: request.objectID)
                                 } label: {
                                     RequestListCell(request: request)
                                 } // NavigationLink
@@ -94,7 +96,7 @@ struct PrayerJournalGridView: View {
                         Section {
                             ForEach(activeRequests) { request in
                                 NavigationLink {
-                                    AddRequestView(requestId: request.objectID)
+                                    AddRequestView(notificationManager: notificationManager, requestId: request.objectID)
                                 } label: {
                                     RequestListCell(request: request)
                                 } // NavigationLink
@@ -127,7 +129,7 @@ struct PrayerJournalGridView: View {
                         Section {
                             ForEach(answeredRequests) { request in
                                 NavigationLink {
-                                    AddRequestView(requestId: request.objectID)
+                                    AddRequestView(notificationManager: notificationManager, requestId: request.objectID)
                                 } label: {
                                     RequestListCell(request: request)
                                 } // NavigationLink
@@ -180,7 +182,7 @@ struct PrayerJournalGridView: View {
                     } // ToolbarItemGroup
                 } // toolbar
 
-                NavigationLink(destination: AddRequestView()) {
+                NavigationLink(destination: AddRequestView( notificationManager: notificationManager)) {
                     Image(systemName: "plus.circle.fill")
                         .resizable()
                         .frame(width: 44, height: 44, alignment: .center)

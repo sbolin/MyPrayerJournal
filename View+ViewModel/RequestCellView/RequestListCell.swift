@@ -10,13 +10,13 @@ import SwiftUI
 struct RequestListCell: View {
     @Environment(\.managedObjectContext) private var viewContext
     @ObservedObject var request: PrayerRequest
-    let iconSize: Double = 22
+    let iconSize: Double = 28
 
     var backgroundColor: Color {
         switch request.statusID {
-        case 0: return .red.opacity(0.1)
-        case 1: return .blue.opacity(0.1)
-        case 2: return .green.opacity(0.1)
+        case 0: return .red
+        case 1: return .blue
+        case 2: return .green
         default: return .clear
         }
     }
@@ -25,7 +25,7 @@ struct RequestListCell: View {
         VStack(alignment: .leading) {
             Text(request.requestString).font(.headline)
             Divider()
-            HStack(spacing: 8) {
+            HStack(alignment: .top, spacing: 4) {
                 VStack(alignment: .leading, spacing: 8) {
                     Text("**Date**: \(request.dateRequestedString)")
                     if request.topic != nil {
@@ -40,30 +40,44 @@ struct RequestListCell: View {
                 }
                 .font(.footnote)
                 Spacer()
-                Image(systemName: request.answered ? "checkmark.circle.fill": "checkmark.circle")
-                    .resizable()
-                    .frame(width: iconSize, height: iconSize)
-                    .foregroundColor(.green)
-                    .onTapGesture {
-                        withAnimation {
-                            updateRequest()
+                VStack(spacing: 16) {
+                    Image(systemName: request.answered ? "checkmark.circle.fill": "checkmark.circle")
+                        .resizable()
+                        .frame(width: iconSize, height: iconSize)
+                        .foregroundColor(.green)
+                        .onTapGesture {
+                            withAnimation {
+                                updateRequest()
+                            }
                         }
-                    }
-                Image(systemName: request.focused ? "target": "scope")
-                    .resizable()
-                    .frame(width: iconSize, height: iconSize)
-                    .foregroundColor(.red)
-                    .onTapGesture {
-                        withAnimation {
-                            updateFocus()
+                    Image(systemName: request.focused ? "target": "scope")
+                        .resizable()
+                        .frame(width: iconSize, height: iconSize)
+                        .foregroundColor(.red)
+                        .onTapGesture {
+                            withAnimation {
+                                updateFocus()
+                            }
                         }
+                    // note: notifications can't be changed here...sort of weird?
+                    if request.focused {
+                        Image(systemName: "bell")
+                            .resizable()
+                            .frame(width: iconSize, height: iconSize)
+                            .symbolVariant(request.notifiable ? .fill : .slash)
+                            .foregroundColor(request.notifiable ? .red : .red.opacity(0.25))
                     }
+
+                } // VStack
+                .padding(8)
+                .background(backgroundColor.opacity(0.1))
+                .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
             } // HStack
             TagRowView(tags: request.prayerTag, fontSize: 11)
                 .fixedSize()
         } // VStack
         .padding()
-        .background(backgroundColor)
+        .background(backgroundColor.opacity(0.1))
         .clipShape(RoundedRectangle(cornerRadius: 8, style: .circular))
     }
 
@@ -77,8 +91,10 @@ struct RequestListCell: View {
             if !oldValue {
                 request.focused = false
                 request.statusID = 2
+                request.notifiable = false
             } else {
                 request.statusID = 1
+                request.notifiable = false
             }
             do {
                 try viewContext.save()
@@ -93,11 +109,15 @@ struct RequestListCell: View {
         withAnimation {
             let oldValue = request.focused
             request.focused = !oldValue
+            // if focused, notifiable is set to true, answered to false (by definition, focused means unanswered).
+            // if unfocused, set to unanswered and notifiable is false
             if !oldValue {
                 request.statusID = 0
                 request.answered = false
+                request.notifiable = true
             } else {
                 request.statusID = 1
+                request.notifiable = false
             }
             // don't allow previously answered requests be focused
             do {

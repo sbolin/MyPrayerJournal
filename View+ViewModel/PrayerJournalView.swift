@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  PrayerJournalView.swift
 //  MyPrayerJournal (iOS)
 //
 //  Created by Scott Bolin on 17-Nov-21.
@@ -9,6 +9,7 @@ import SwiftUI
 
 struct PrayerJournalView: View {
     @Environment(\.managedObjectContext) private var viewContext
+    @StateObject private var notificationManager = NotificationManager()
     let coreDataManager: CoreDataController = .shared
 
     @FetchRequest<PrayerRequest>(
@@ -58,7 +59,7 @@ struct PrayerJournalView: View {
                         Section {
                             ForEach(focusRequests) { request in
                                 ZStack(alignment: .leading) {
-                                    NavigationLink(destination: AddRequestView(requestId: request.objectID)) {
+                                    NavigationLink(destination: AddRequestView(notificationManager: notificationManager, requestId: request.objectID)) {
                                         EmptyView()
                                     }
                                     .opacity(0)
@@ -83,7 +84,7 @@ struct PrayerJournalView: View {
                                     }
                                 }
                             } // ForEach
-                              //                            .onDelete(perform: deleteRequest)
+//                            .onDelete(perform: deleteRequest)
                         } header: {
                             Label("Focus", systemImage: "target")
                                 .foregroundColor(.pink)
@@ -101,7 +102,7 @@ struct PrayerJournalView: View {
                         Section {
                             ForEach(activeRequests) { request in
                                 ZStack(alignment: .leading) {
-                                    NavigationLink(destination: AddRequestView(requestId: request.objectID)) {
+                                    NavigationLink(destination: AddRequestView(notificationManager: notificationManager, requestId: request.objectID)) {
                                         EmptyView()
                                     }
                                     .opacity(0)
@@ -146,7 +147,7 @@ struct PrayerJournalView: View {
                         Section {
                             ForEach(answeredRequests) { request in
                                 ZStack(alignment: .leading) {
-                                    NavigationLink(destination: AddRequestView(requestId: request.objectID)) {
+                                    NavigationLink(destination: AddRequestView(notificationManager: notificationManager, requestId: request.objectID)) {
                                         EmptyView()
                                     }
                                     .opacity(0)
@@ -187,6 +188,20 @@ struct PrayerJournalView: View {
                     } // List
                     .searchable(text: query)
                     .listStyle(.grouped)
+                    .onAppear(perform: notificationManager.reloadAuthorizationStatus)
+                    .onChange(of: notificationManager.authorizationStatus) { authStatus in
+                        switch authStatus {
+                        case .notDetermined:
+                            notificationManager.requestAuthorization()
+                        case .authorized:
+                            notificationManager.reloadLocalNotifications()
+                        default:
+                            break
+                        }
+                    }
+                    .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
+                        notificationManager.reloadAuthorizationStatus()
+                    }
 //                    .listSectionSeparator(.hidden)
                 } // VStack
                 .toolbar {
@@ -208,7 +223,7 @@ struct PrayerJournalView: View {
                     } // ToolbarItemGroup
                 } // toolbar
 
-                NavigationLink(destination: AddRequestView()) {
+                NavigationLink(destination: AddRequestView(notificationManager: notificationManager)) {
                     Image(systemName: "plus.circle.fill")
                         .resizable()
                         .frame(width: 44, height: 44, alignment: .center)
@@ -224,6 +239,9 @@ struct PrayerJournalView: View {
     private func deleteRequest(request: PrayerRequest) {
         withAnimation {
             coreDataManager.deleteRequest(request: request, context: viewContext)
+            if let identifier = request.id?.uuidString {
+                notificationManager.deleteLocalNotifications(identifiers: [identifier])
+            }
         }
     } // deleteRequest
 
@@ -231,6 +249,10 @@ struct PrayerJournalView: View {
         withAnimation {
             let status = !request.answered
             coreDataManager.updatePrayerCompletion(request: request, isCompleted: status, context: viewContext)
+
+            if let identifier = request.id?.uuidString {
+                notificationManager.deleteLocalNotifications(identifiers: [identifier])
+            }
         }
     } // deleteRequest
 } // ContentView

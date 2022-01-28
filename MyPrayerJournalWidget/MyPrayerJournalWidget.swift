@@ -41,10 +41,11 @@ struct Provider: TimelineProvider {
         let prayerRequest = focusItem.request
         let dateRequested = focusItem.dateRequested
         let topic = focusItem.topic
+        let lesson = focusItem.lesson
         let answered = focusItem.answered
         let statusID = focusItem.statusID
 
-        let entry = SimpleEntry(date: Date(), request: prayerRequest, dateRequested: dateRequested, topic: topic, answered: answered, statusID: statusID)
+        let entry = SimpleEntry(date: Date(), request: prayerRequest, dateRequested: dateRequested, topic: topic, lesson: lesson, answered: answered, statusID: statusID)
         entries.append(entry)
 
         let timeline = Timeline(entries: entries, policy: .never)
@@ -67,6 +68,11 @@ struct SimpleEntry: TimelineEntry {
     var topic: String?
     var topicString: String {
         return topic ?? "No Topic"
+    }
+
+    var lesson: String?
+    var lessonString: String {
+        return lesson ?? ""
     }
 
     var answered: Bool
@@ -110,8 +116,9 @@ struct MyPrayerJournalWidgetEntryView : View {
                     .foregroundColor(.indigo)
                 Text(entry.dateRequestedString)
                 Text(entry.topicString)
-                Text(entry.statusString)
-                Text(entry.answeredString)
+                Text(entry.lessonString)
+//                Text(entry.statusString)
+//                Text(entry.answeredString)
                 Spacer(minLength: 0)
             }
             .font(.caption)
@@ -134,12 +141,15 @@ struct MyPrayerJournalWidget: Widget {
         }
         .configurationDisplayName("MyPrayerJournal")
         .description("MyPrayerJournal widget displays your focused prayer request in a widget.")
+        .supportedFamilies([.systemSmall, .systemMedium])
     }
 }
 
 struct MyPrayerJournalWidget_Previews: PreviewProvider {
     static var previews: some View {
-        MyPrayerJournalWidgetEntryView(entry: SimpleEntry(date: Date(), request: "A prayer request", dateRequested: Date(), topic: "A topic", answered: false, statusID: 0))
+        MyPrayerJournalWidgetEntryView(entry: SimpleEntry(date: Date(), request: "A prayer request", dateRequested: Date(), topic: "Topic", lesson: "Lesson", answered: false, statusID: 0))
             .previewContext(WidgetPreviewContext(family: .systemSmall))
+        MyPrayerJournalWidgetEntryView(entry: SimpleEntry(date: Date(), request: "A prayer request", dateRequested: Date(), topic: "Topic", lesson: "Lesson", answered: false, statusID: 0))
+            .previewContext(WidgetPreviewContext(family: .systemMedium))
     }
 }
