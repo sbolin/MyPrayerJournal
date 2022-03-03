@@ -47,11 +47,17 @@ struct AddRequestView: View {
                                 .padding(.vertical, 8)
                         }
                         TextEditor(text: $request)
+                            .keyboardType(.alphabet)
                             .font(.body)
                             .multilineTextAlignment(.leading)
                             .allowsTightening(false)
                             .textInputAutocapitalization(.sentences)
                             .frame(minHeight: 72)
+                            .onReceive(NotificationCenter.default.publisher(for: UITextView.textDidBeginEditingNotification)) { obj in
+                                if let textField = obj.object as? UITextField {
+                                    textField.selectedTextRange = textField.textRange(from: textField.beginningOfDocument, to: textField.endOfDocument)
+                                }
+                            }
                     }
                     if requestError {
                         Text("Request is required").foregroundColor(.red)

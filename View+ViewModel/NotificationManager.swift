@@ -65,7 +65,9 @@ final class NotificationManager: ObservableObject {
     }
 
     func deleteLocalNotifications(identifiers: [String]) {
-        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: identifiers)
+        // can't just delete pending notifications, delete all
+        UNUserNotificationCenter.current().removeAllDeliveredNotifications()
+        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()        //UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: identifiers)
     }
 
     /// Future use case, where user will be able to mark a request as answered from the notification

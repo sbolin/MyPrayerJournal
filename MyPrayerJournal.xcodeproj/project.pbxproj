@@ -36,9 +36,15 @@
 		158BA56D278E64E400096CA5 /* RequestCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 158BA56C278E64E400096CA5 /* RequestCardView.swift */; };
 		158BA56F278F49A000096CA5 /* PrayerJournalGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 158BA56E278F49A000096CA5 /* PrayerJournalGridView.swift */; };
 		158F263F26EF6A58001FF4EA /* AddRequestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 158F263E26EF6A58001FF4EA /* AddRequestView.swift */; };
+		15930C3727AB13AA0051DF7B /* Font+Rounded.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15930C3627AB13AA0051DF7B /* Font+Rounded.swift */; };
+		15930C3827AB13B00051DF7B /* Font+Rounded.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15930C3627AB13AA0051DF7B /* Font+Rounded.swift */; };
+		15930C3A27AB141A0051DF7B /* HighlightTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15930C3927AB141A0051DF7B /* HighlightTextField.swift */; };
 		15B02333272C77E60093172F /* PrayerRequestValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15B02332272C77E60093172F /* PrayerRequestValues.swift */; };
 		15CE424C2759431A00244093 /* TagListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15CE424B2759431A00244093 /* TagListView.swift */; };
 		15D2F94D26F48CFE003FD90F /* PrayerRequest+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D2F94C26F48CFE003FD90F /* PrayerRequest+Ext.swift */; };
+		15E161C927D1406900B667D8 /* MyPrayerJournalWidgetEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E161C827D1406900B667D8 /* MyPrayerJournalWidgetEntry.swift */; };
+		15E161CB27D140F100B667D8 /* MyPrayerJournalWidgetProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E161CA27D140F100B667D8 /* MyPrayerJournalWidgetProvider.swift */; };
+		15E161CD27D1433300B667D8 /* MyPrayerJournalWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E161CC27D1433300B667D8 /* MyPrayerJournalWidgetView.swift */; };
 		15F2FBDC271FED3200CDA942 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F2FBDB271FED3200CDA942 /* HeaderView.swift */; };
 		15F2FBDE271FED8D00CDA942 /* FooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F2FBDD271FED8D00CDA942 /* FooterView.swift */; };
 		15F2FBE0271FF02400CDA942 /* ListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F2FBDF271FF02400CDA942 /* ListRow.swift */; };
@@ -110,9 +116,14 @@
 		158BA56C278E64E400096CA5 /* RequestCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestCardView.swift; sourceTree = "<group>"; };
 		158BA56E278F49A000096CA5 /* PrayerJournalGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayerJournalGridView.swift; sourceTree = "<group>"; };
 		158F263E26EF6A58001FF4EA /* AddRequestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRequestView.swift; sourceTree = "<group>"; };
+		15930C3627AB13AA0051DF7B /* Font+Rounded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+Rounded.swift"; sourceTree = "<group>"; };
+		15930C3927AB141A0051DF7B /* HighlightTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightTextField.swift; sourceTree = "<group>"; };
 		15B02332272C77E60093172F /* PrayerRequestValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayerRequestValues.swift; sourceTree = "<group>"; };
 		15CE424B2759431A00244093 /* TagListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagListView.swift; sourceTree = "<group>"; };
 		15D2F94C26F48CFE003FD90F /* PrayerRequest+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PrayerRequest+Ext.swift"; sourceTree = "<group>"; };
+		15E161C827D1406900B667D8 /* MyPrayerJournalWidgetEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPrayerJournalWidgetEntry.swift; sourceTree = "<group>"; };
+		15E161CA27D140F100B667D8 /* MyPrayerJournalWidgetProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPrayerJournalWidgetProvider.swift; sourceTree = "<group>"; };
+		15E161CC27D1433300B667D8 /* MyPrayerJournalWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPrayerJournalWidgetView.swift; sourceTree = "<group>"; };
 		15F2FBDB271FED3200CDA942 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		15F2FBDD271FED8D00CDA942 /* FooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterView.swift; sourceTree = "<group>"; };
 		15F2FBDF271FF02400CDA942 /* ListRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListRow.swift; sourceTree = "<group>"; };
@@ -162,6 +173,9 @@
 		1524F4642774EB9B00000BD3 /* MyPrayerJournalWidget */ = {
 			isa = PBXGroup;
 			children = (
+				15E161C827D1406900B667D8 /* MyPrayerJournalWidgetEntry.swift */,
+				15E161CA27D140F100B667D8 /* MyPrayerJournalWidgetProvider.swift */,
+				15E161CC27D1433300B667D8 /* MyPrayerJournalWidgetView.swift */,
 				1524F4652774EB9B00000BD3 /* MyPrayerJournalWidget.swift */,
 				1524F4672774EB9E00000BD3 /* Assets.xcassets */,
 				1524F4692774EB9E00000BD3 /* Info.plist */,
@@ -256,6 +270,8 @@
 		15BD2D52277342180021A4C9 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				15930C3627AB13AA0051DF7B /* Font+Rounded.swift */,
+				15930C3927AB141A0051DF7B /* HighlightTextField.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -372,14 +388,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				15930C3827AB13B00051DF7B /* Font+Rounded.swift in Sources */,
 				15FA96542774F1D40059E4CA /* PrayerVerse+CoreDataClass.swift in Sources */,
+				15E161C927D1406900B667D8 /* MyPrayerJournalWidgetEntry.swift in Sources */,
 				15FA96572774F1DE0059E4CA /* ColorValueTransformer.swift in Sources */,
 				1524F4732774EC2900000BD3 /* CoreDataController.swift in Sources */,
+				15E161CD27D1433300B667D8 /* MyPrayerJournalWidgetView.swift in Sources */,
 				15FA96582774F1E50059E4CA /* RequestSort.swift in Sources */,
 				15FA96562774F1D40059E4CA /* PrayerVerse+CoreDataProperties.swift in Sources */,
 				1524F4752774EC5200000BD3 /* MyPrayers.xcdatamodeld in Sources */,
 				15FA96532774F1D40059E4CA /* PrayerTag+CoreDataProperties.swift in Sources */,
 				15FA96552774F1D40059E4CA /* PrayerTag+CoreDataClass.swift in Sources */,
+				15E161CB27D140F100B667D8 /* MyPrayerJournalWidgetProvider.swift in Sources */,
 				15FA96522774F19A0059E4CA /* PrayerRequest+Ext.swift in Sources */,
 				1524F4662774EB9B00000BD3 /* MyPrayerJournalWidget.swift in Sources */,
 			);
@@ -403,12 +423,14 @@
 				158F263F26EF6A58001FF4EA /* AddRequestView.swift in Sources */,
 				152D0B4A27A347A9005039A5 /* NotificationManager.swift in Sources */,
 				15809B3926E62C7A0022F2B4 /* MyPrayers.xcdatamodeld in Sources */,
+				15930C3A27AB141A0051DF7B /* HighlightTextField.swift in Sources */,
 				150A1B482744397300F549E9 /* PrayerJournalView.swift in Sources */,
 				156FC60F272892B800E1A673 /* RequestSort.swift in Sources */,
 				15F2FBE0271FF02400CDA942 /* ListRow.swift in Sources */,
 				15735A54270FEF7700DFA3E6 /* AddRequestViewModel.swift in Sources */,
 				158BA56F278F49A000096CA5 /* PrayerJournalGridView.swift in Sources */,
 				15809B1E26E627380022F2B4 /* MyPrayerJournalApp.swift in Sources */,
+				15930C3727AB13AA0051DF7B /* Font+Rounded.swift in Sources */,
 				15D2F94D26F48CFE003FD90F /* PrayerRequest+Ext.swift in Sources */,
 				155F9DD127579139006CF59F /* PrayerVerse+CoreDataProperties.swift in Sources */,
 				15809B3D26E630D60022F2B4 /* CoreDataController.swift in Sources */,
