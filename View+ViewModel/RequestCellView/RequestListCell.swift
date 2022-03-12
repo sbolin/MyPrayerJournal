@@ -79,6 +79,7 @@ struct RequestListCell: View {
         .padding()
         .background(backgroundColor.opacity(0.1))
         .clipShape(RoundedRectangle(cornerRadius: 8, style: .circular))
+//        .listRowBackground(Color.clear)
     }
 
     /// Helper function to unwrap optional binding

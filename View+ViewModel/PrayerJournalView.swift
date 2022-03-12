@@ -55,7 +55,7 @@ struct PrayerJournalView: View {
             ZStack(alignment: .bottom) {
                 VStack {
                     List {
-                        // Focus requests
+                        // Focus request (should only be one focus request)
                         Section {
                             ForEach(focusRequests) { request in
                                 ZStack(alignment: .leading) {
@@ -65,11 +65,6 @@ struct PrayerJournalView: View {
                                     .opacity(0)
                                     RequestListCell(request: request)
                                 }
-//                                NavigationLink {
-//                                    AddRequestView(requestId: request.objectID)
-//                                } label: {
-//                                    RequestListCell(request: request)
-//                                } // NavigationLink
                                 .swipeActions {
                                     Button(role: .destructive) {
                                         deleteRequest(request: request)
@@ -84,7 +79,6 @@ struct PrayerJournalView: View {
                                     }
                                 }
                             } // ForEach
-//                            .onDelete(perform: deleteRequest)
                         } header: {
                             Label("Focus", systemImage: "target")
                                 .foregroundColor(.pink)
@@ -96,6 +90,7 @@ struct PrayerJournalView: View {
                                     .foregroundColor(.secondary)
                             }
                         }
+                        .listRowBackground(Color.clear)
                         .listRowSeparator(.hidden)
                         .accentColor(.pink)
                         // Active requests
@@ -108,13 +103,6 @@ struct PrayerJournalView: View {
                                     .opacity(0)
                                     RequestListCell(request: request)
                                 }
-
-//                                NavigationLink {
-//                                    AddRequestView(requestId: request.objectID)
-//                                } label: {
-//                                    RequestListCell(request: request)
-//                                } // NavigationLink
-
                                 .swipeActions {
                                     Button(role: .destructive) {
                                         deleteRequest(request: request)
@@ -141,6 +129,7 @@ struct PrayerJournalView: View {
                                     .foregroundColor(.secondary)
                             }
                         }
+                        .listRowBackground(Color.clear)
                         .listRowSeparator(.hidden)
                         .accentColor(.blue)
                         // Answered requests
@@ -153,11 +142,6 @@ struct PrayerJournalView: View {
                                     .opacity(0)
                                     RequestListCell(request: request)
                                 }
-//                                NavigationLink {
-//                                    AddRequestView(requestId: request.objectID)
-//                                } label: {
-//                                    RequestListCell(request: request)
-//                                } // NavigationLink
                                 .swipeActions {
                                     Button(role: .destructive) {
                                         deleteRequest(request: request)
@@ -183,6 +167,7 @@ struct PrayerJournalView: View {
                                     .foregroundColor(.secondary)
                             }
                         }
+                        .listRowBackground(Color.clear)
                         .listRowSeparator(.hidden)
                         .accentColor(.green)
                     } // List
@@ -238,21 +223,20 @@ struct PrayerJournalView: View {
 
     private func deleteRequest(request: PrayerRequest) {
         withAnimation {
-            coreDataManager.deleteRequest(request: request, context: viewContext)
             if let identifier = request.id?.uuidString {
                 notificationManager.deleteLocalNotifications(identifiers: [identifier])
             }
+            coreDataManager.deleteRequest(request: request, context: viewContext)
         }
     } // deleteRequest
 
     private func completeRequest(request: PrayerRequest) {
         withAnimation {
             let status = !request.answered
-            coreDataManager.updatePrayerCompletion(request: request, isCompleted: status, context: viewContext)
-
             if let identifier = request.id?.uuidString {
                 notificationManager.deleteLocalNotifications(identifiers: [identifier])
             }
+            coreDataManager.updatePrayerCompletion(request: request, isCompleted: status, context: viewContext)
         }
     } // deleteRequest
 } // ContentView

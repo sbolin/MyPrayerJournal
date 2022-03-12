@@ -33,7 +33,7 @@ struct TagListView: View {
                         } // HStack
                     } // ForEach
                 } // VStack
-                .frame(width: screenWidth - 24, alignment: .leading)
+                .frame(width: screenWidth - 40, alignment: .leading)
                 .padding(.vertical)
                 //                .padding(.bottom, 20)
             } // ScrollView
@@ -94,17 +94,5 @@ struct TagListView: View {
 struct TagListView_Previews: PreviewProvider {
     static var previews: some View {
         TagListView(tags: Set<PrayerTag>(), fontSize: 12)
-    }
-
-    static func setTags() -> Set<PrayerTag> {
-        let colors: [Color] = [.red, .orange, .yellow, .green, .cyan, .blue, .purple, .indigo]
-        var tags = Set<PrayerTag>()
-        for item in 0...9 {
-            let tag = PrayerTag()
-            tag.tagName = "Tag \(item + 1)"
-            tag.color = UIColor(colors.randomElement() ?? .blue)
-            tags.insert(tag)
-        }
-        return tags
     }
 }

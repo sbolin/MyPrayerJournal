@@ -15,12 +15,12 @@ struct AddRequestView: View {
 
     @State private var request: String = ""
     @State private var answered: Bool = false
-    @State private var dateRequested: Date = Date()
+    @State private var dateRequested: Date = Date.now
     @State private var focused: Bool = false
     @State private var id: UUID = UUID()
     @State private var lesson: String = ""
-    @State private var notifiable: Bool = true
-    @State private var notifyTime: Date = Date()
+    @State private var notifiable: Bool = false
+    @State private var notifyTime: Date = Date.now
     @State private var statusID: Int16 = 1
     @State private var topic: String = ""
     @State private var requestTag: String = ""
@@ -186,6 +186,7 @@ struct AddRequestView: View {
             verseText: verseText,
             prayerTags: prayerTags,
             prayerVerses: prayerVerses)
+//        notificationManager.deleteLocalNotifications()
         viewModel.savePrayer(requestID: requestId, with: values, in: viewContext)
 
         // generate notification if focused request
@@ -202,6 +203,8 @@ struct AddRequestView: View {
                     print(error?.localizedDescription ?? "")
                 }
             }
+        } else {
+            notificationManager.deleteLocalNotifications(identifiers: [id.uuidString])
         }
         presentation.wrappedValue.dismiss()
     }

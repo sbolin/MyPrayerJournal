@@ -12,6 +12,15 @@ final class NotificationManager: ObservableObject {
     @Published private(set) var notifications: [UNNotificationRequest] = []
     @Published private(set) var authorizationStatus: UNAuthorizationStatus?
 
+    func requestAuthorization() {
+        print(#function)
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { isGranted, error in
+            DispatchQueue.main.async {
+                self.authorizationStatus = isGranted ? .authorized : .denied
+            }
+        }
+    }
+
     func reloadAuthorizationStatus() {
         print(#function)
         UNUserNotificationCenter.current().getNotificationSettings { settings in
@@ -21,14 +30,6 @@ final class NotificationManager: ObservableObject {
         }
     }
 
-    func requestAuthorization() {
-        print(#function)
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { isGranted, error in
-            DispatchQueue.main.async {
-                self.authorizationStatus = isGranted ? .authorized : .denied
-            }
-        }
-    }
 
     func reloadLocalNotifications() {
         print(#function)
@@ -42,9 +43,9 @@ final class NotificationManager: ObservableObject {
     func createLocalNotification(title: String, subtitle: String, body: String, notificationID: String, hour: Int, minute: Int, completion: @escaping (Error?) -> Void) {
         // Current implementation: the focused request will present 1 notification per day at user input time. More notifications can be implemented using this function (as the notificationID will be based on the requestID), but seems excessive for the use case.
 
-        var dateComponents = DateComponents()
-        dateComponents.hour = hour
-        dateComponents.minute = minute
+        let calendar = Calendar.current
+ //       calendar.dateComponents([.year, .month, .day], from: Date())
+        let dateComponents = DateComponents(calendar: calendar, hour: hour, minute: minute)
         //        dateComponents.weekday = 1 // 1 = Sunday
 
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
@@ -65,9 +66,14 @@ final class NotificationManager: ObservableObject {
     }
 
     func deleteLocalNotifications(identifiers: [String]) {
+        UNUserNotificationCenter.current().removeAllDeliveredNotifications()
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: identifiers)
+    }
+
+    func deleteLocalNotifications() {
         // can't just delete pending notifications, delete all
         UNUserNotificationCenter.current().removeAllDeliveredNotifications()
-        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()        //UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: identifiers)
+        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
     }
 
     /// Future use case, where user will be able to mark a request as answered from the notification

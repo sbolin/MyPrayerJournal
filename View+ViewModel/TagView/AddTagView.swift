@@ -20,12 +20,8 @@ struct AddTagView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
 
-            Text("ADD TAGS...")
-                .font(.caption)
-                .foregroundColor(.secondary)
-                .padding(.top)
             // textfield
-            TextField("Tag name", text: $text)
+            TextField("Add Tag name", text: $text)
                 .textFieldStyle(.roundedBorder)
                 .padding(.bottom)
 
@@ -52,11 +48,12 @@ struct AddTagView: View {
                 }
                 .buttonStyle(.bordered)
                 .tint(tagBGColor)
-            .disabled(text == "")
+                .disabled(text == "")
                 Spacer()
-            }
-            .padding(.top)
-        } // vstack
+            } // HStack
+            .padding(.vertical, 4)
+        } // Vstack
+        .padding(.vertical, 4)
     }
 }
 
@@ -66,7 +63,7 @@ struct AddTagView_Previews: PreviewProvider {
         Form {
             Section(header: Text("Tags")) {
                 AddTagView(prayerTags: .constant(Set<PrayerTag>()))
-            }
+           }
         }
     }
 }

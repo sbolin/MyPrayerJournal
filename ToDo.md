@@ -1,6 +1,7 @@
 #  MyPrayerJournal
 
 ## Things to do:
+- Notifications still not working properly
 - Reordering and Sorting
 - Expand on widgets - larger sizes show more requests
 - Refactor CoreDataController
