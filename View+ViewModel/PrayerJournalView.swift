@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct PrayerJournalView: View {
+    @AppStorage("shouldShowOnboarding") var shouldShowOnboarding: Bool = false // should be true in final!
+
     @Environment(\.managedObjectContext) private var viewContext
     @StateObject private var notificationManager = NotificationManager()
     let coreDataManager: CoreDataController = .shared
@@ -41,10 +43,12 @@ struct PrayerJournalView: View {
         Binding {
             searchText
         } set: { newValue in
-            let compoundPredicate = NSPredicate(format: "%K CONTAINS[cd] %@ OR %K CONTAINS[cd] %@ OR %K CONTAINS[cd] %@", #keyPath(PrayerRequest.request), newValue,
-                                       #keyPath(PrayerRequest.topic), newValue,
-                                       #keyPath(PrayerRequest.lesson), newValue,
-                                       #keyPath(PrayerRequest.prayerTags.tagName), newValue)
+            let compoundPredicate = NSPredicate(format: "%K CONTAINS[cd] %@ OR %K CONTAINS[cd] %@ OR %K CONTAINS[cd] %@ OR %K CONTAINS[cd] %@ OR %K CONTAINS[cd] %@",
+                #keyPath(PrayerRequest.request), newValue,
+                #keyPath(PrayerRequest.topic), newValue,
+                #keyPath(PrayerRequest.lesson), newValue,
+                #keyPath(PrayerRequest.verseText), newValue,
+                #keyPath(PrayerRequest.prayerTags.tagName), newValue)
             searchText = newValue
             requests.nsPredicate = newValue.isEmpty ? nil : compoundPredicate
         }
@@ -219,6 +223,11 @@ struct PrayerJournalView: View {
             .navigationBarTitleDisplayMode(.inline)
         } // NavigationView
         .environment(\.defaultMinListRowHeight, 40)
+        .fullScreenCover(isPresented: $shouldShowOnboarding) {
+            OnboardingView(shouldShowOnboarding: $shouldShowOnboarding)
+                .transition(.move(edge: .trailing))
+                .animation(.easeInOut, value: shouldShowOnboarding)
+        }
     } // View
 
     private func deleteRequest(request: PrayerRequest) {
@@ -233,12 +242,14 @@ struct PrayerJournalView: View {
     private func completeRequest(request: PrayerRequest) {
         withAnimation {
             let status = !request.answered
-            if let identifier = request.id?.uuidString {
-                notificationManager.deleteLocalNotifications(identifiers: [identifier])
+            if status {
+                if let identifier = request.id?.uuidString {
+                    notificationManager.deleteLocalNotifications(identifiers: [identifier])
+                }
             }
             coreDataManager.updatePrayerCompletion(request: request, isCompleted: status, context: viewContext)
         }
-    } // deleteRequest
+    } // completeRequest
 } // ContentView
 
 struct PrayerJournalView_Previews: PreviewProvider {

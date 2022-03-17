@@ -19,50 +19,73 @@ struct RequestSort: Hashable, Identifiable {
             name: "Default",
             descriptors: [
                 SortDescriptor(\PrayerRequest.statusID, order: .reverse),
-                SortDescriptor(\PrayerRequest.request, order: .forward),
-                SortDescriptor(\PrayerRequest.dateRequested, order: .reverse)],
+                SortDescriptor(\PrayerRequest.dateRequested, order: .reverse),
+                SortDescriptor(\PrayerRequest.request, order: .forward)],
             section: \PrayerRequest.statusString),
+
+//        RequestSort(
+//            id: 1,
+//            name: "By Status",
+//            descriptors: [
+//                SortDescriptor(\PrayerRequest.statusID, order: .forward),
+//                SortDescriptor(\PrayerRequest.dateRequested, order: .forward),
+//            SortDescriptor(\PrayerRequest.request, order: .forward)],
+//            section: \PrayerRequest.statusString),
 
         RequestSort(
             id: 1,
-            name: "By Status",
+            name: "By Date | Increasing",
             descriptors: [
-                SortDescriptor(\PrayerRequest.statusID, order: .forward),
                 SortDescriptor(\PrayerRequest.dateRequested, order: .forward),
-            SortDescriptor(\PrayerRequest.request, order: .forward)],
-            section: \PrayerRequest.statusString),
+                SortDescriptor(\PrayerRequest.request, order: .forward)],
+            section: \PrayerRequest.groupByDay),
 
         RequestSort(
             id: 2,
-            name: "By Day",
+            name: "By Date | Decreasing",
             descriptors: [
-                SortDescriptor(\PrayerRequest.dateRequested, order: .forward),
+                SortDescriptor(\PrayerRequest.dateRequested, order: .reverse),
                 SortDescriptor(\PrayerRequest.request, order: .forward)],
-            section: \PrayerRequest.groupByDay), // dateRequestedString
+            section: \PrayerRequest.groupByDay),
 
         RequestSort(
             id: 3,
-            name: "By Week",
+            name: "By Request | Increasing",
             descriptors: [
-                SortDescriptor(\PrayerRequest.dateRequested, order: .forward),
-                SortDescriptor(\PrayerRequest.request, order: .forward)],
-            section: \PrayerRequest.groupByWeek),
+                SortDescriptor(\PrayerRequest.request, order: .forward),
+                SortDescriptor(\PrayerRequest.dateRequested, order: .forward)],
+            section: \PrayerRequest.groupByDay),
 
         RequestSort(
             id: 4,
-            name: "By Month",
+            name: "By Request | Decreasing",
             descriptors: [
-                SortDescriptor(\PrayerRequest.dateRequested, order: .forward),
-                SortDescriptor(\PrayerRequest.request, order: .forward)],
-            section: \PrayerRequest.groupByMonth),
+                SortDescriptor(\PrayerRequest.request, order: .reverse),
+                SortDescriptor(\PrayerRequest.dateRequested, order: .reverse)],
+            section: \PrayerRequest.groupByDay),
 
-        RequestSort(
-            id: 5,
-            name: "By Request | Month",
-            descriptors: [
-                SortDescriptor(\PrayerRequest.request, order: .forward)],
-            section: \PrayerRequest.groupByMonth),
-
+//        RequestSort(
+//            id: 3,
+//            name: "By Week",
+//            descriptors: [
+//                SortDescriptor(\PrayerRequest.dateRequested, order: .forward),
+//                SortDescriptor(\PrayerRequest.request, order: .forward)],
+//            section: \PrayerRequest.groupByWeek),
+//
+//        RequestSort(
+//            id: 4,
+//            name: "By Month",
+//            descriptors: [
+//                SortDescriptor(\PrayerRequest.dateRequested, order: .forward),
+//                SortDescriptor(\PrayerRequest.request, order: .forward)],
+//            section: \PrayerRequest.groupByMonth),
+//
+//        RequestSort(
+//            id: 5,
+//            name: "By Request | Month",
+//            descriptors: [
+//                SortDescriptor(\PrayerRequest.request, order: .forward)],
+//            section: \PrayerRequest.groupByMonth)
     ]
     static var `default`: RequestSort { sorts[0] }
 }

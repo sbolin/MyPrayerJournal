@@ -68,6 +68,9 @@ class CoreDataController {
     }
 
     func updatePrayerCompletion(request: PrayerRequest, isCompleted: Bool, context: NSManagedObjectContext) {
+        if isCompleted {
+
+        }
         request.answered = !isCompleted
         save()
         updateWidget()

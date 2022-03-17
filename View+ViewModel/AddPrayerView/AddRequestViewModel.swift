@@ -9,7 +9,7 @@ import CoreData
 import SwiftUI
 import WidgetKit
 
-struct AddRequestViewModel {
+class AddRequestViewModel: ObservableObject {
     let coreDataManager: CoreDataController = .shared
 
     func fetchPrayer(for objectID: NSManagedObjectID, context: NSManagedObjectContext) -> PrayerRequest? {

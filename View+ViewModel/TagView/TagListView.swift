@@ -33,9 +33,9 @@ struct TagListView: View {
                         } // HStack
                     } // ForEach
                 } // VStack
-                .frame(width: screenWidth - 40, alignment: .leading)
-                .padding(.vertical)
-                //                .padding(.bottom, 20)
+                .frame(width: screenWidth - 42, alignment: .leading)
+                .padding(.vertical, 6)
+//                .padding(.bottom, 20)
             } // ScrollView
             .frame(maxWidth: .infinity)
             .background(RoundedRectangle(cornerRadius: 6).strokeBorder(Color.secondary, lineWidth: 1))

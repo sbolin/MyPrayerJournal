@@ -12,6 +12,7 @@ struct AddRequestView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.presentationMode) var presentation
     @ObservedObject var notificationManager: NotificationManager
+    @ObservedObject private var viewModel = AddRequestViewModel()
 
     @State private var request: String = ""
     @State private var answered: Bool = false
@@ -31,7 +32,6 @@ struct AddRequestView: View {
     @State private var requestError = false
 
     var requestId: NSManagedObjectID?
-    let viewModel = AddRequestViewModel()
 
     var body: some View {
         VStack {
@@ -113,7 +113,7 @@ struct AddRequestView: View {
                                     .datePickerStyle(.compact)
                             } // HStack
                         }
-                    }
+                    } // focused
                 } // Section
                 Section("Tags") {
                     AddTagView(prayerTags: $prayerTags)
